@@ -1,7 +1,13 @@
 package org.example;
+import de.vandermeer.asciitable.AsciiTable;
+import de.vandermeer.asciitable.CWC_LongestWord;
+import de.vandermeer.asciithemes.a7.A7_Grids;
+
 import java.sql.*;
 import java.io.*;
 import java.util.*;
+import de.vandermeer.asciitable.*;
+import de.vandermeer.asciithemes.a7.*;
 public class student {
 
     public static String studentLogin(Connection connection) throws SQLException {
@@ -86,7 +92,75 @@ public class student {
 
     }
 
-    public static void enrollHaha(Connection connection){
+    public static void enrollHaha(Connection connection, Scanner scanner, String studentid) throws SQLException {
+        int choice = -1;
 
+        do{
+            System.out.println("Select 1. To view the Offered Courses 2. To credit a course 3. To go back dashboard");
+            choice = scanner.nextInt();
+            if(choice ==1) {
+                String query = "SELECT * from coursesoffered where periodoffered = ?";
+                PreparedStatement pstmt = connection.prepareStatement(query);
+                pstmt.setString(1,Period.get_period(connection).getString("year")+Period.get_period(connection).getString("term"));
+                ResultSet rs = pstmt.executeQuery();
+
+                AsciiTable at = new AsciiTable();
+                at.getContext().setGrid(A7_Grids.minusBarPlusEquals());
+
+                at.addRule();
+                at.addRow("Course ID", "Instructor ID", "CGPA cutoff");
+                at.addRule();
+
+                while (rs.next()) {
+                    at.addRow(rs.getString("courseid"),
+                            rs.getString("instructorid"),
+                            rs.getInt("minCGPA"));
+                    at.addRule();
+                }
+
+                at.setPaddingLeftRight(1);
+                at.getRenderer().setCWC(new CWC_LongestWord());
+                System.out.println(at.render());
+
+
+            }
+            else if(choice ==2) {
+
+                String cCode;
+                while(1==1){
+                    System.out.println("Enter the course code or enter q to return to dashboard: ");
+                    cCode = scanner.next();
+                    if(cCode.equals("q")){break;}
+
+                    PreparedStatement pstmt = connection.prepareStatement("Select * from coursesoffered where courseid =? and periodOffered=?");
+                    pstmt.setString(1,cCode);
+                    pstmt.setString(2,Period.get_period(connection).getString("year")+Period.get_period(connection).getString("term"));
+                    ResultSet rs = pstmt.executeQuery();
+                    if(!rs.next()){
+                        System.out.println("Not valid for this semester! Try again.");
+                        continue;
+                    }
+                    else{
+                        pstmt = connection.prepareStatement("Insert into coursesapproval (courseid,instructorid,studentid) values (?,?,?)");
+                        pstmt.setString(1,cCode);
+                        pstmt.setString(2,rs.getString("instructorid"));
+                        pstmt.setString(3,studentid);
+                        pstmt.execute();
+                        System.out.println("Request for credit has been sent.");
+                    }
+
+                    pstmt.close();
+                    break;
+
+                }
+                if(cCode.equals("q")){break;}
+
+            }
+            else if(choice == 3){
+                break;
+            }
+
+            else {System.out.println("Invalid Input: ");}
+        }while(choice !=3);
     }
 }

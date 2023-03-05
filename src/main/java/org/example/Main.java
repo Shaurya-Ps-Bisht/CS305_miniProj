@@ -5,6 +5,12 @@ import org.example.dbconnect.dbFunctions;
 import java.io.IOException;
 import java.sql.*;
 import java.util.*;
+//todo
+// Implement check so that courses not repeated unless failed in some previous sem
+// Course and department compatibility while floating
+//  check for core course not being actually floated by any instructor
+//  min cgpa implement
+//  TIME EVENT RESTRICTION FOR STUDENT FUCNTIONS
 
 public class Main {
 
@@ -19,6 +25,7 @@ public class Main {
             Scanner scanner = new Scanner(System.in);
 //            academicOffice.changeCatalog(connection);
 //            academicOffice.fill_both(connection,scanner);
+//            Instructor.offerCourse(connection,"69",scanner);
 
             do{
                 System.out.println("Enter 1 to login as a student|| 2 to login as an instructor || 3 to login as Academic Office || 4 to see current even and move to the next event || 5 to say goodbye ");
@@ -39,7 +46,7 @@ public class Main {
                             student.changeInfo(connection, studentID, scanner);
                         }
                         else if(choiceStud==3){                                    //Enroll for a course
-
+                            student.enrollHaha(connection,scanner,studentID);
                         }
                         else if(choiceStud ==4){                                   //To go back to role select
                             studentID = "q";
@@ -54,7 +61,7 @@ public class Main {
                     int choiceInst=-1;
                     while(instID != "q"){
                         System.out.println("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
-                        System.out.println("1. To see grades of a student. 2. Update personal info. 3. Offer a course 4. Upload grades for a course 5. To go back to role select");
+                        System.out.println("1. To see grades of a student. 2. Update personal info. 3. Offer a course 4. Upload grades for a course 5. Approve credit requests 6. To go back to role select");
                         choiceInst = scanner.nextInt();
                         if (choiceInst == 1) {                                     //To see grades of a student
 
@@ -64,11 +71,21 @@ public class Main {
                         }
                         else if(choiceInst==3){                                    //Offer a course
 
+                            if(Period.get_period(connection).getString("sub_period").equals(subPeriods[1]))
+                            {
+                                Instructor.offerCourse(connection,instID,scanner);
+                            }
+                            else{
+                                System.out.println("Course floating period is over, can not float courses until next semester :O");
+                            }
                         }
                         else if(choiceInst ==4){                                   //Upload grades for a course
                             instID = "q";
                         }
-                        else if(choiceInst ==5){                                   //To go back to role select
+                        else if(choiceInst ==5){                                   //Approve req
+                            Instructor.approveRequests(connection,scanner,instID);
+                        }
+                        else if(choiceInst ==6){                                   //To go back to role select
                             instID = "q";
                         }
                         else{
@@ -83,11 +100,11 @@ public class Main {
                     int choiceAacad = -1;
                     while(acadlogtoken.equals("nice")) {
                         System.out.println("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
-                        System.out.println("1. To register new students. 2. Register instructors 3 .Update course catalog. 4. View grades of a student 5. Generate Transcript 6. To go back to role select");
+                        System.out.println("1. To register new students. 2. Register instructors 3. Update course catalog 4. View grades of a student 5. Generate Transcript 6. To go back to role select");
                         choiceAacad = scanner.nextInt();
                         if (choiceAacad == 1) {                                     //register new students
 
-                            if(Period.get_period(connection).getString("sub_period").equals(subPeriods[0]))
+                            if(Period.get_period(connection).getString("sub_period").equals(subPeriods[0]) && Period.get_period(connection).getString("term").equals("W"))
                             {
                                 academicOffice.addNewStudents(connection,scanner);
                             }
@@ -96,7 +113,7 @@ public class Main {
                             }
                         }
                         else if (choiceAacad == 2) {
-                            if(Period.get_period(connection).getString("sub_period").equals(subPeriods[0]))
+                            if(Period.get_period(connection).getString("sub_period").equals(subPeriods[0]) && Period.get_period(connection).getString("term").equals("W"))
                             {
                                 academicOffice.addInstructors(connection);
                             }
@@ -111,7 +128,7 @@ public class Main {
                                 academicOffice.changeCatalog(connection);
                             }
                             else{
-                                System.out.println("Catalog update period is over, can not update course catalog for year "+ Period.get_period(connection).getString("year")+" anymore");
+                                System.out.println("Catalog update period is over, can not update course catalog at the moment.");
                             }//Update course catalog
 
                         }
@@ -133,7 +150,7 @@ public class Main {
                 else if (role == 4) {
                     ResultSet rs = Period.get_period(connection);
                     System.out.println("oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
-                    System.out.println("YEAR: "+ rs.getString("year")+" TERM "+ rs.getString("term")+ " EVENT: "+ rs.getString("sub_period"));
+                    System.out.println("YEAR:"+ rs.getString("year")+" TERM:"+ rs.getString("term")+ " EVENT:"+ rs.getString("sub_period"));
                     Period.set_period(connection, rs, scanner, subPeriods);
                 }
 //====================================================================================================================================================================================================================================================
@@ -153,6 +170,10 @@ public class Main {
             stmt.close();
         }catch (SQLException e) {
             System.out.println(e.getMessage());
+        } catch (CsvValidationException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
 

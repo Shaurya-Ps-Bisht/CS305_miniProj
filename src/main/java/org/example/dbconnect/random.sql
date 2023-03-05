@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS coursesOffered (
   periodOffered VARCHAR NOT NULL,
   FOREIGN KEY (courseID) REFERENCES courseCatalog(courseID),
   FOREIGN KEY (instructorID) REFERENCES instructors(instructorID),
-  PRIMARY KEY(courseID, instructorID,periodOffered)
+  PRIMARY KEY(courseID,periodOffered)
 
 );
 

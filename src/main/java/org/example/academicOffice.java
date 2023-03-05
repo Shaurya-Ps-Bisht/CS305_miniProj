@@ -25,7 +25,6 @@ public class academicOffice {
             else{
                 System.out.println("Invalid password. Enter the password to login or press q to go back to select role screen: ");
             }
-            // Checking if the result set has any r
         }while(1==1);
         return "q";
     }
@@ -74,13 +73,13 @@ public class academicOffice {
                 if(i==0){i++;continue;}
                 String[] values = line.split(",");
                 String instructorId = values[0].replaceAll("\"","");
-                String instructortName = values[1].replaceAll("\"","");
+                String instructorName = values[1].replaceAll("\"","");
                 String contactInfo = values[2].replaceAll("\"","");
                 String password = values[3].replaceAll("\"","");
-                String sql = "INSERT INTO students (instructorId, instructortName, contactno, password) VALUES (?, ?, ?, ?) on conflict (instructorId) do nothing;";
+                String sql = "INSERT INTO instructors (instructorId, instructorName, contactno, password) VALUES (?, ?, ?, ?) on conflict (instructorId) do nothing;";
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
                     statement.setString(1, instructorId);
-                    statement.setString(2, instructortName);
+                    statement.setString(2, instructorName);
                     statement.setString(3, contactInfo);
                     statement.setString(4, password);
                     statement.executeUpdate();
@@ -151,8 +150,9 @@ public class academicOffice {
     }
 
     public static void fill_both(Connection connection, Scanner scanner) throws CsvValidationException, IOException, SQLException {
-        System.out.println("Enter the name of the input file for curriculum info: ");
+        System.out.println("Enter the name of the input file for curriculum info or q to leave: ");
         String fileName = scanner.next();
+        if(fileName.equals("q")){return;}
         double PC;
 
         CSVReader reader = new CSVReader(new FileReader("./src/main/java/org/example/dataFiles/currInfo/"+ fileName));
