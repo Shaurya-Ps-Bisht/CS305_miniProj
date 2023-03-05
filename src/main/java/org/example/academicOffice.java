@@ -67,20 +67,20 @@ public class academicOffice {
         System.out.println("Enter the name of the input file to register instructors: ");
         String fileName = scanner.next();
 
-        try(BufferedReader reader = new BufferedReader(new FileReader("./src/main/java/org/example/dataFiles/Student_reg_data/" + fileName))){
+        try(BufferedReader reader = new BufferedReader(new FileReader("./src/main/java/org/example/dataFiles/Inst_reg_data/" + fileName))){
             String line;
             int i =0;
             while((line = reader.readLine()) != null){
                 if(i==0){i++;continue;}
                 String[] values = line.split(",");
-                String studentId = values[0].replaceAll("\"","");
-                String studentName = values[1].replaceAll("\"","");
+                String instructorId = values[0].replaceAll("\"","");
+                String instructortName = values[1].replaceAll("\"","");
                 String contactInfo = values[2].replaceAll("\"","");
                 String password = values[3].replaceAll("\"","");
-                String sql = "INSERT INTO students (studentid, studentname, contactno, password) VALUES (?, ?, ?, ?) on conflict (studentid) do nothing;";
+                String sql = "INSERT INTO students (instructorId, instructortName, contactno, password) VALUES (?, ?, ?, ?) on conflict (instructorId) do nothing;";
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                    statement.setString(1, studentId);
-                    statement.setString(2, studentName);
+                    statement.setString(1, instructorId);
+                    statement.setString(2, instructortName);
                     statement.setString(3, contactInfo);
                     statement.setString(4, password);
                     statement.executeUpdate();
