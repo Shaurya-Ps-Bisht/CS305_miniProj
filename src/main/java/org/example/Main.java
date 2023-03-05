@@ -17,8 +17,8 @@ public class Main {
             int role=-1;
             boolean satisfied = false;
             Scanner scanner = new Scanner(System.in);
-            academicOffice.changeCatalog(connection);
-            academicOffice.fill_both(connection,scanner);
+//            academicOffice.changeCatalog(connection);
+//            academicOffice.fill_both(connection,scanner);
 
             do{
                 System.out.println("Enter 1 to login as a student|| 2 to login as an instructor || 3 to login as Academic Office || 4 to see current even and move to the next event || 5 to say goodbye ");
@@ -153,10 +153,6 @@ public class Main {
             stmt.close();
         }catch (SQLException e) {
             System.out.println(e.getMessage());
-        } catch (CsvValidationException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
 
 
