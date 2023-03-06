@@ -159,7 +159,7 @@ public class academicOffice {
         String[] nextLine;
         int i=0;
         while ((nextLine = reader.readNext()) != null) {
-            // Get data from CSV row
+
             if(i==0){i++; continue;}
             String branch = nextLine[0];
             String sem1 = nextLine[1];

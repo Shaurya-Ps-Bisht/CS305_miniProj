@@ -11,6 +11,8 @@ import java.util.*;
 //  check for core course not being actually floated by any instructor
 //  min cgpa implement
 //  TIME EVENT RESTRICTION FOR STUDENT FUCNTIONS
+//  d
+//   NNNNNNNNNNNNNeed check for cgpa even if in current sem but past grade submission
 
 public class Main {
 
@@ -40,7 +42,7 @@ public class Main {
                         System.out.println("1. To see courses and grades. 2. Update personal info. 3. Enroll for a course 4. To go back to role select");
                         choiceStud = scanner.nextInt();
                         if (choiceStud == 1) {                                     //To see courses and grades
-
+                            student.viewGrades(connection,scanner,studentID);
                         }
                         else if(choiceStud==2){                                    //Update personal info
                             student.changeInfo(connection, studentID, scanner);
@@ -80,7 +82,7 @@ public class Main {
                             }
                         }
                         else if(choiceInst ==4){                                   //Upload grades for a course
-                            instID = "q";
+                            Instructor.uploadGrades(scanner,connection,instID);
                         }
                         else if(choiceInst ==5){                                   //Approve req
                             Instructor.approveRequests(connection,scanner,instID);

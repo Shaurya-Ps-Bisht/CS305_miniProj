@@ -74,6 +74,12 @@ public class Period {
                     pstmt.setString(5, "W");
                     pstmt.setString(6, subPeriods[5]);
                 }
+                PreparedStatement pstmt2 = connection.prepareStatement("DELETE FROM exampletable");//Course approval pending requests were cleared for previous semester
+                int rowsDeleted = pstmt2.executeUpdate();
+                if (rowsDeleted > 0) {
+                    System.out.println("Course approval pending requests were cleared for previous semester");
+                }
+
             }
             else{
                 int indexxx = ArrayUtils.indexOf(subPeriods,sub_period);
