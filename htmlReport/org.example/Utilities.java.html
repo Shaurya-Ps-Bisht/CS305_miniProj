@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Utilities.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">UtilitiesTest.semDiff Coverage Results, UtilitiesTest.semDiff Coverage Results</a> &gt; <a href="index.source.html" class="el_package">org.example</a> &gt; <span class="el_source">Utilities.java</span></div><h1>Utilities.java</h1><pre class="source lang-java linenums">package org.example;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+
+<span class="nc" id="L6">public class Utilities {</span>
+    public static int semesterDifference(String semester1, String semester2) {
+<span class="nc" id="L8">        int year1 = Integer.parseInt(semester1.substring(0, 4));</span>
+<span class="nc" id="L9">        int year2 = Integer.parseInt(semester2.substring(0, 4));</span>
+<span class="nc bnc" id="L10" title="All 2 branches missed.">        int semesterNum1 = semester1.charAt(4) == 'W' ? 0 : 1;</span>
+<span class="nc bnc" id="L11" title="All 2 branches missed.">        int semesterNum2 = semester2.charAt(4) == 'W' ? 0 : 1;</span>
+<span class="nc" id="L12">        int numSemesters = (year2 - year1) * 2 + semesterNum2 - semesterNum1;</span>
+
+<span class="nc" id="L14">        return numSemesters;</span>
+    }
+
+    public static String yearTermFinder(Connection connection) throws SQLException {
+<span class="nc" id="L18">        return Period.get_period(connection).getString(&quot;year&quot;)+Period.get_period(connection).getString(&quot;term&quot;);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

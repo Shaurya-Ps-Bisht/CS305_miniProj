@@ -17,13 +17,10 @@ public class Period {
         ResultSet rs = stmt.executeQuery(query);
 
         int yearInt=0;
-        if (rs.next()) {
-            return rs;
-
-        } else {
+        if (!rs.next()) {
             System.out.println("oh nooooooo");
-            return rs;
         }
+        return rs;
     }
 
     public static void set_period(Connection connection, ResultSet rs, Scanner scanner, String[] subPeriods) throws SQLException, CsvValidationException, IOException {

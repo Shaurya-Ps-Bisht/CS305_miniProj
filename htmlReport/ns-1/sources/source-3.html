@@ -1,0 +1,260 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Period</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">org.example</a>
+</div>
+
+<h1>Coverage Summary for Class: Period (org.example)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Period</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/56)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/93)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package org.example;
+&nbsp;
+&nbsp;import com.opencsv.exceptions.CsvValidationException;
+&nbsp;import org.apache.commons.lang3.ArrayUtils;
+&nbsp;
+&nbsp;import java.io.IOException;
+&nbsp;import java.sql.Connection;
+&nbsp;import java.sql.*;
+&nbsp;import java.sql.ResultSet;
+&nbsp;import java.sql.Statement;
+&nbsp;import java.util.Scanner;
+&nbsp;
+<b class="nc">&nbsp;public class Period {</b>
+&nbsp;    public static ResultSet get_period(Connection connection) throws SQLException {
+<b class="nc">&nbsp;        Statement stmt = connection.createStatement();</b>
+<b class="nc">&nbsp;        String query = &quot;SELECT * FROM currentperiod&quot;;</b>
+<b class="nc">&nbsp;        ResultSet rs = stmt.executeQuery(query);</b>
+&nbsp;
+<b class="nc">&nbsp;        int yearInt=0;</b>
+<b class="nc">&nbsp;        if (rs.next()) {</b>
+<b class="nc">&nbsp;            return rs;</b>
+&nbsp;
+&nbsp;        } else {
+<b class="nc">&nbsp;            System.out.println(&quot;oh nooooooo&quot;);</b>
+<b class="nc">&nbsp;            return rs;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void set_period(Connection connection, ResultSet rs, Scanner scanner, String[] subPeriods) throws SQLException, CsvValidationException, IOException {
+&nbsp;
+<b class="nc">&nbsp;        System.out.println(&quot;1 for YES and forward event ||  OTHER for NO and go back to dashboard&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo&quot;);</b>
+<b class="nc">&nbsp;        String eventChoice = &quot;&quot;;</b>
+<b class="nc">&nbsp;        String year= rs.getString(&quot;year&quot;), term= rs.getString(&quot;term&quot;), sub_period = rs.getString(&quot;sub_period&quot;);</b>
+<b class="nc">&nbsp;        int yearInt = Integer.parseInt(year);</b>
+<b class="nc">&nbsp;        eventChoice = scanner.next();</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        if(eventChoice.equals(&quot;1&quot;)){</b>
+&nbsp;
+<b class="nc">&nbsp;            PreparedStatement pstmt= connection.prepareStatement(&quot;select * from curriculuminfo where year=?&quot;);</b>
+<b class="nc">&nbsp;            pstmt.setInt(1,yearInt);</b>
+<b class="nc">&nbsp;            rs = pstmt.executeQuery();</b>
+&nbsp;
+<b class="nc">&nbsp;            while(term.equals(&quot;W&quot;) &amp;&amp; sub_period.equals(subPeriods[1]) &amp;&amp; !rs.next()) {</b>
+<b class="nc">&nbsp;                System.out.println(&quot;Curriculum for the year has not been chosen, can not proceed to next event.&quot;);</b>
+<b class="nc">&nbsp;                System.out.println(&quot;Choose curriculum? (Y/n)&quot;);</b>
+<b class="nc">&nbsp;                String choice = scanner.next();</b>
+&nbsp;
+<b class="nc">&nbsp;                if(choice.equals(&quot;y&quot;)||choice.equals(&quot;Y&quot;)){academicOffice.fill_both(connection,scanner);}</b>
+&nbsp;                else{
+<b class="nc">&nbsp;                    System.out.println(&quot;Event not updated&quot;);</b>
+<b class="nc">&nbsp;                    return;</b>
+&nbsp;                }
+<b class="nc">&nbsp;            }</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;            String sql = &quot;UPDATE currentPeriod SET year = ?, term = ?, sub_period = ? WHERE year = ? AND term = ? AND sub_period = ?&quot;;</b>
+<b class="nc">&nbsp;            pstmt = connection.prepareStatement(sql);</b>
+<b class="nc">&nbsp;            if(sub_period.equals(subPeriods[5])){</b>
+<b class="nc">&nbsp;                if(term.equals(&quot;S&quot;)){</b>
+<b class="nc">&nbsp;                    pstmt.setInt(1, (yearInt+1));</b>
+<b class="nc">&nbsp;                    pstmt.setString(2, &quot;W&quot;);</b>
+<b class="nc">&nbsp;                    pstmt.setString(3, subPeriods[0]);</b>
+<b class="nc">&nbsp;                    pstmt.setInt(4, yearInt);</b>
+<b class="nc">&nbsp;                    pstmt.setString(5, &quot;S&quot;);</b>
+<b class="nc">&nbsp;                    pstmt.setString(6, subPeriods[5]);</b>
+&nbsp;                }
+&nbsp;                else{
+<b class="nc">&nbsp;                    pstmt.setInt(1, (yearInt));</b>
+<b class="nc">&nbsp;                    pstmt.setString(2, &quot;S&quot;);</b>
+<b class="nc">&nbsp;                    pstmt.setString(3, subPeriods[0]);</b>
+<b class="nc">&nbsp;                    pstmt.setInt(4, yearInt);</b>
+<b class="nc">&nbsp;                    pstmt.setString(5, &quot;W&quot;);</b>
+<b class="nc">&nbsp;                    pstmt.setString(6, subPeriods[5]);</b>
+&nbsp;                }
+<b class="nc">&nbsp;                PreparedStatement pstmt2 = connection.prepareStatement(&quot;DELETE FROM exampletable&quot;);//Course approval pending requests were cleared for previous semester</b>
+<b class="nc">&nbsp;                int rowsDeleted = pstmt2.executeUpdate();</b>
+<b class="nc">&nbsp;                if (rowsDeleted &gt; 0) {</b>
+<b class="nc">&nbsp;                    System.out.println(&quot;Course approval pending requests were cleared for previous semester&quot;);</b>
+&nbsp;                }
+&nbsp;
+<b class="nc">&nbsp;            }</b>
+&nbsp;            else{
+<b class="nc">&nbsp;                int indexxx = ArrayUtils.indexOf(subPeriods,sub_period);</b>
+<b class="nc">&nbsp;                pstmt.setInt(1, (yearInt));</b>
+<b class="nc">&nbsp;                pstmt.setString(2, term);</b>
+<b class="nc">&nbsp;                pstmt.setString(3, subPeriods[indexxx+1]);</b>
+<b class="nc">&nbsp;                pstmt.setInt(4, yearInt);</b>
+<b class="nc">&nbsp;                pstmt.setString(5, term);</b>
+<b class="nc">&nbsp;                pstmt.setString(6, subPeriods[indexxx]);</b>
+&nbsp;            }
+<b class="nc">&nbsp;            pstmt.execute();</b>
+<b class="nc">&nbsp;            pstmt.close();</b>
+&nbsp;
+&nbsp;        }
+<b class="nc">&nbsp;        if(Period.get_period(connection).getString(&quot;sub_period&quot;).equals(&quot;autoEnroll_chooseElec&quot;)){</b>
+<b class="nc">&nbsp;            Period.autoFillCourses(connection,year,term);</b>
+&nbsp;        }
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    public static void autoFillCourses(Connection connection, String year, String term) throws SQLException {
+<b class="nc">&nbsp;        PreparedStatement pstmt = connection.prepareStatement(&quot;select * from autoenrollment where periodtoenroll=?&quot;);</b>
+<b class="nc">&nbsp;        String pte =year+term;</b>
+<b class="nc">&nbsp;        pstmt.setString(1,pte);</b>
+&nbsp;
+<b class="nc">&nbsp;         ResultSet rs = pstmt.executeQuery();</b>
+&nbsp;
+<b class="nc">&nbsp;         while(rs.next()){</b>
+<b class="nc">&nbsp;             String course = rs.getString(&quot;courseid&quot;);</b>
+<b class="nc">&nbsp;             String yearBranch = rs.getString(&quot;branchandyear&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;             pstmt = connection.prepareStatement(&quot;SELECT studentid FROM students WHERE SUBSTRING(studentid, 1, 4) = ? AND SUBSTRING(studentid, 5, 3) = ?&quot;);</b>
+<b class="nc">&nbsp;             pstmt.setString(1,yearBranch.substring(0,4));</b>
+<b class="nc">&nbsp;             pstmt.setString(2,yearBranch.substring(4,7));</b>
+&nbsp;
+<b class="nc">&nbsp;             ResultSet rsInner = pstmt.executeQuery();</b>
+<b class="nc">&nbsp;             while(rsInner.next()){</b>
+<b class="nc">&nbsp;                 String studid = rsInner.getString(&quot;studentid&quot;);</b>
+<b class="nc">&nbsp;                 String courseType = &quot;&quot;;</b>
+&nbsp;
+<b class="nc">&nbsp;                 String sql = String.format(&quot;select %s from courseCatalog where TRIM(courseid) = TRIM(?)&quot;, yearBranch.substring(4,7));</b>
+<b class="nc">&nbsp;                 PreparedStatement pstmt2 = connection.prepareStatement(sql);</b>
+<b class="nc">&nbsp;                 pstmt2.setString(1,course);</b>
+<b class="nc">&nbsp;                 ResultSet type = pstmt2.executeQuery();</b>
+<b class="nc">&nbsp;                 if(type.next()){courseType = type.getString(yearBranch.substring(4,7));}</b>
+&nbsp;
+<b class="nc">&nbsp;                 PreparedStatement pstmt3 = connection.prepareStatement(&quot;Insert into coursestaken (courseid , studentid , periodtaken , grade ,type) values(?,?,?,?,?)&quot;);</b>
+<b class="nc">&nbsp;                 pstmt3.setString(1,course);</b>
+<b class="nc">&nbsp;                 pstmt3.setString(2,studid);</b>
+<b class="nc">&nbsp;                 pstmt3.setString(3,pte);</b>
+<b class="nc">&nbsp;                 pstmt3.setNull(4,Types.VARCHAR);</b>
+<b class="nc">&nbsp;                 pstmt3.setString(5,courseType);</b>
+<b class="nc">&nbsp;                 pstmt3.execute();</b>
+<b class="nc">&nbsp;                 pstmt3.close();</b>
+<b class="nc">&nbsp;                 pstmt2.close();</b>
+&nbsp;
+<b class="nc">&nbsp;             }</b>
+<b class="nc">&nbsp;             pstmt.close();</b>
+&nbsp;
+<b class="nc">&nbsp;         }</b>
+<b class="nc">&nbsp;        System.out.println(&quot;Courses auto-filled&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;    }</b>
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-03-07 22:23</div>
+</div>
+</body>
+</html>

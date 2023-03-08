@@ -8,6 +8,10 @@ import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
 
 public class academicOffice {
+//    private String studentID;
+//    public student(String studentID) {
+//        this.studentID = studentID;
+//    }
 
 
     public static String acadLogin(){
@@ -251,5 +255,10 @@ public class academicOffice {
 
     public static void generateTranscript(){
 
+    }
+    public void viewGrades(Connection connection,Scanner scanner) throws SQLException {
+        System.out.println("Enter the ID of the student whose grades you want to view:");
+        String studentid = scanner.next();
+        student.viewGrades(connection,scanner, studentid);
     }
 }

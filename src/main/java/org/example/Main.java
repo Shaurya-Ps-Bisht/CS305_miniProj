@@ -30,68 +30,117 @@ public class Main {
 //            Instructor.offerCourse(connection,"69",scanner);
 
             do{
-                System.out.println("Enter 1 to login as a student|| 2 to login as an instructor || 3 to login as Academic Office || 4 to see current even and move to the next event || 5 to say goodbye ");
+                System.out.println("=================================================================================================================================================");
+                System.out.println("Enter 1. Student Login|| 2. Instructor Login || 3. Academic Office Login || 4. See current event and move to the next event || 5. to say goodbye ");
                 role = scanner.nextInt();
 //====================================================================================================================================================================================================================================================
                 if (role == 1) {
-                    //student studentNice = new student();
-                    String studentID = student.studentLogin(connection);                    //login method
-                    int choiceStud=-1;
-                    while(studentID != "q"){
-                        System.out.println("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
-                        System.out.println("1. To see courses and grades. 2. Update personal info. 3. Enroll for a course 4. To go back to role select");
-                        choiceStud = scanner.nextInt();
-                        if (choiceStud == 1) {                                     //To see courses and grades
-                            student.viewGrades(connection,scanner,studentID);
+                    String studentID;
+                    String password;
+                    boolean loginSucc = false;
+                    student s = null;
+
+                    System.out.println("Welcome Student! Enter your student ID or press q to go back to select role screen: ");
+                    studentID = scanner.next();
+                    while(!loginSucc) {
+                        if (studentID.equals("q")) {
+                            break;
                         }
-                        else if(choiceStud==2){                                    //Update personal info
-                            student.changeInfo(connection, studentID, scanner);
-                        }
-                        else if(choiceStud==3){                                    //Enroll for a course
-                            student.enrollHaha(connection,scanner,studentID);
-                        }
-                        else if(choiceStud ==4){                                   //To go back to role select
-                            studentID = "q";
+                        System.out.print("Your Password: ");
+                        password = scanner.next();
+                        s = new student(studentID,password);
+                        studentID = s.login(connection);
+                        if(studentID!=null){
+                            loginSucc = true;
                         }
                         else{
-                            System.out.println("Invalid Input");
+                            System.out.println("Invalid email or password! Enter your id again or enter q to go back to role screen");
+                            studentID = scanner.next();
+                            if (studentID.equals("q")) {
+                                break;
+                            }
+                            else{
+                                studentID = null;
+                            }
+                        }
+                    }
+                    if(!loginSucc){continue;}
+                    String choice = "";
+                    while(!choice.equals("4")){
+                        System.out.println("=======================================================================================");
+                        System.out.println("1. To see courses and grades. 2. Update personal info. 3. Enroll for a course 4. Logout");
+                        choice = scanner.next();
+                        switch (choice) {
+                            case "1" ->                                      //To see courses and grades
+                                    student.viewGrades(connection, scanner, studentID);
+                            case "2" ->                                     //Update personal info
+                                    s.changeInfo(connection, scanner);
+                            case "3" ->                                     //Enroll for a course
+                                    s.enrollHaha(connection, scanner);
+                            case "4" ->                                    //To go back to role select
+                                    choice = "4";
+                            default -> System.out.println("Invalid Input");
                         }
                     }
 //====================================================================================================================================================================================================================================================
                 } else if (role == 2) {
-                    String instID = Instructor.instructorLogin(connection);
-                    int choiceInst=-1;
-                    while(instID != "q"){
-                        System.out.println("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
-                        System.out.println("1. To see grades of a student. 2. Update personal info. 3. Offer a course 4. Upload grades for a course 5. Approve credit requests 6. To go back to role select");
-                        choiceInst = scanner.nextInt();
-                        if (choiceInst == 1) {                                     //To see grades of a student
+                    String instID;
+                    String password;
+                    boolean loginSucc = false;
+                    Instructor instructor = null;
 
+                    System.out.println("Welcome Instructor! Enter your Instructor ID or press q to go back to select role screen: ");
+                    instID = scanner.next();
+                    while(!loginSucc) {
+                        if (instID.equals("q")) {
+                            break;
                         }
-                        else if(choiceInst==2){                                    //Update personal info
-                            Instructor.changeinfo(connection, instID, scanner);
-                        }
-                        else if(choiceInst==3){                                    //Offer a course
-
-                            if(Period.get_period(connection).getString("sub_period").equals(subPeriods[1]))
-                            {
-                                Instructor.offerCourse(connection,instID,scanner);
-                            }
-                            else{
-                                System.out.println("Course floating period is over, can not float courses until next semester :O");
-                            }
-                        }
-                        else if(choiceInst ==4){                                   //Upload grades for a course
-                            Instructor.uploadGrades(scanner,connection,instID);
-                        }
-                        else if(choiceInst ==5){                                   //Approve req
-                            Instructor.approveRequests(connection,scanner,instID);
-                        }
-                        else if(choiceInst ==6){                                   //To go back to role select
-                            instID = "q";
+                        System.out.print("Your Password: ");
+                        password = scanner.next();
+                        instructor= new Instructor(instID,password);
+                        instID = instructor.login(connection);
+                        if(instID!=null){
+                            loginSucc = true;
                         }
                         else{
-                            System.out.println("Invalid Input");
+                            System.out.println("Invalid email or password! Enter your id again or enter q to go back to role screen");
+                            instID = scanner.next();
+                            if (instID.equals("q")) {
+                                break;
+                            }
+                            else{
+                                instructor = null;
+                            }
+                        }
+                    }
+                    if(!loginSucc){continue;}
+                    String choice = "";
+
+                    while(!choice.equals("6")){
+                        System.out.println("============================================================================================================================================");
+                        System.out.println("1. To see grades of a student. 2. Update personal info. 3. Offer a course 4. Upload grades for a course 5. Approve credit requests 6. Logout");
+                        choice = scanner.next();
+                        switch (choice) {
+                            case "1" ->                                                     //To see grades of a student
+                                    instructor.viewGrades(connection, scanner);
+                            case "2" ->                                                     //Update personal info
+                                    instructor.changeinfo(connection, scanner);
+                            case "3" -> {                                                   //Offer a course
+
+                                if (Period.get_period(connection).getString("sub_period").equals(subPeriods[1])) {
+                                    Instructor.offerCourse(connection, instID, scanner);
+                                } else {
+                                    System.out.println("Course floating period is over, can not float courses until next semester :O");
+                                }
+                            }
+                            case "4" ->                                                     //Upload grades for a course
+                                    instructor.uploadGrades(scanner, connection);
+                            case "5" ->                                                     //Approve req
+                                    instructor.approveRequests(connection, scanner);
+                            case "6" ->                                                     //To go back to role select
+                                    choice = "6";
+                            default -> System.out.println("Invalid Input");
+
                         }
                     }
                 }
@@ -135,7 +184,7 @@ public class Main {
 
                         }
                         else if(choiceAacad==4){                                    //View grades of a student
-
+//                            academicOffice.viewGrades(connection,scanner);
                         }
                         else if(choiceAacad==5){                                    //Generate Transcript
 

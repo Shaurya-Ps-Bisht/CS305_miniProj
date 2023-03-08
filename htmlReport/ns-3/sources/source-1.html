@@ -1,0 +1,177 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > registerationgen</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">org.example.randomgenerator</a>
+</div>
+
+<h1>Coverage Summary for Class: registerationgen (org.example.randomgenerator)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">registerationgen</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/31)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package org.example.randomgenerator;
+&nbsp;import com.opencsv.CSVWriter;
+&nbsp;
+&nbsp;import java.io.FileWriter;
+&nbsp;import java.io.IOException;
+&nbsp;import java.util.Random;
+&nbsp;import java.util.Scanner;
+&nbsp;
+<b class="nc">&nbsp;public class registerationgen{</b>
+&nbsp;
+&nbsp;    public static void main(String[] args) {
+<b class="nc">&nbsp;        Scanner scanner = new Scanner(System.in);</b>
+<b class="nc">&nbsp;        System.out.print(&quot;Enter File name for output CSV file along with .csv: &quot;);</b>
+<b class="nc">&nbsp;        String outputFile = scanner.next();</b>
+&nbsp;
+<b class="nc">&nbsp;        try (CSVWriter writer = new CSVWriter(new FileWriter(&quot;./src/main/java/org/example/randomgenerator/&quot; + outputFile))) {</b>
+&nbsp;
+<b class="nc">&nbsp;            writer.writeNext(new String[]{&quot;studentid&quot;, &quot;studentname&quot;, &quot;contactinfo&quot;, &quot;password&quot;});</b>
+<b class="nc">&nbsp;            System.out.print(&quot;Enter the batch of registering students: &quot;);</b>
+<b class="nc">&nbsp;            int year = scanner.nextInt();</b>
+&nbsp;            // Sample first and last names
+<b class="nc">&nbsp;            String[] firstNames = {&quot;Abhay&quot;, &quot;Abhijit&quot;, &quot;Abhinav&quot;, &quot;Abhishek&quot;, &quot;Adarsh&quot;, &quot;Adesh&quot;, &quot;Adhar&quot;, &quot;Adi&quot;, &quot;Aditya&quot;, &quot;Ajay&quot;, &quot;Ajinkya&quot;, &quot;Ajish&quot;, &quot;Ajit&quot;, &quot;Akasha&quot;, &quot;Akhil&quot;, &quot;Akshat&quot;, &quot;Amarjit&quot;, &quot;Amarsinh&quot;, &quot;Ambika&quot;, &quot;Amit&quot;, &quot;Ammar&quot;, &quot;Amrik&quot;, &quot;Amrutlal&quot;, &quot;Anand&quot;, &quot;Ananya&quot;, &quot;Angad&quot;, &quot;Aniket&quot;, &quot;Anil&quot;, &quot;Anirban&quot;, &quot;Aniruddha&quot;, &quot;Ankit&quot;, &quot;Anuj&quot;, &quot;Anup&quot;, &quot;Anupam&quot;, &quot;Anurag&quot;, &quot;Apoorva&quot;, &quot;Arhaan&quot;, &quot;Aritra&quot;, &quot;Arjun&quot;, &quot;Arnab&quot;, &quot;Arun&quot;, &quot;Arvind&quot;, &quot;Arya&quot;, &quot;Aseem&quot;, &quot;Ashu&quot;, &quot;Ashwin&quot;, &quot;Bali&quot;, &quot;Baltej&quot;, &quot;Bellamkonda&quot;, &quot;Bhagwant&quot;, &quot;Bharat&quot;, &quot;Bhavesh&quot;, &quot;Bhupinder&quot;, &quot;Bhushan&quot;, &quot;Bibek&quot;, &quot;Bibin&quot;, &quot;Biju&quot;, &quot;Binu&quot;, &quot;Birendra&quot;, &quot;Bishamber&quot;, &quot;Byramjee&quot;, &quot;Chakrapani&quot;, &quot;Chamaraja&quot;, &quot;Chandrajit&quot;, &quot;Dayanidhi&quot;, &quot;Debabrata&quot;, &quot;Debaprasad&quot;, &quot;Deepak&quot;, &quot;Devang&quot;, &quot;Devendra&quot;, &quot;Devesh&quot;, &quot;Dharanidhar&quot;, &quot;Dheeraj&quot;, &quot;Dhinakaran&quot;, &quot;Dileesh&quot;, &quot;Dinesh&quot;, &quot;Dipankar&quot;, &quot;Dnyandeo&quot;, &quot;Elangovan&quot;, &quot;Eswar&quot;, &quot;Faizal&quot;, &quot;Ganesh&quot;, &quot;Ganga Prasad&quot;, &quot;Ganpatrao&quot;, &quot;Giridhar&quot;, &quot;Girish&quot;, &quot;Gnanasekaran&quot;, &quot;Gopinathan&quot;, &quot;Govindrao&quot;, &quot;Gunda&quot;, &quot;Gurcharan&quot;, &quot;Gurunath&quot;, &quot;Hansraj&quot;, &quot;Hanuman&quot;, &quot;Hara&quot;, &quot;Harilal&quot;, &quot;Harish&quot;, &quot;Harjit&quot;, &quot;Harmeet&quot;, &quot;Harpreet&quot;, &quot;Harsh&quot;, &quot;Harshit&quot;, &quot;Hemant&quot;, &quot;Hilal&quot;, &quot;Hiten&quot;, &quot;Hitendra&quot;, &quot;Hitesh&quot;, &quot;Hriday&quot;, &quot;Ira&quot;, &quot;Irabot&quot;, &quot;Ishana&quot;, &quot;Jadunath&quot;, &quot;Jagan&quot;, &quot;Jahangir&quot;, &quot;Jaipal&quot;, &quot;Jalaj&quot;, &quot;Jawahar&quot;, &quot;Jayachandran&quot;, &quot;Jayant&quot;, &quot;Jitendra&quot;, &quot;Jitu&quot;, &quot;Joglekar&quot;, &quot;K. Mallappa&quot;, &quot;Kalanidhi&quot;, &quot;Kalimuthu&quot;, &quot;Kalpesh&quot;, &quot;Kantilal&quot;, &quot;Karan&quot;, &quot;Karthik&quot;, &quot;Karthikeyan&quot;, &quot;Kaushal&quot;, &quot;Kaustubh&quot;, &quot;Kazi&quot;, &quot;Keshav&quot;, &quot;Khakhar&quot;, &quot;Kirpa&quot;, &quot;Kishor&quot;, &quot;Kishore&quot;, &quot;Kripa&quot;, &quot;Kripesh&quot;, &quot;Krishnadev&quot;, &quot;Krishnappa&quot;, &quot;Krishnayya&quot;, &quot;Kulasekhara&quot;, &quot;Kulbhushan&quot;, &quot;Kumar&quot;, &quot;Lakshan&quot;,</b>
+&nbsp;                    &quot;Aarushi&quot;, &quot;Aditi&quot;, &quot;Aishwarya&quot;, &quot;Akhila&quot;, &quot;Ambika&quot;, &quot;Ami&quot;, &quot;Amita&quot;, &quot;Amrita&quot;, &quot;Ananya&quot;, &quot;Anasuya&quot;, &quot;Anjali&quot;, &quot;Ankita&quot;, &quot;Anoushka&quot;, &quot;Anu&quot;, &quot;Anupama&quot;, &quot;Anuradha&quot;, &quot;Anushree&quot;, &quot;Aparna&quot;, &quot;Apoorva&quot;, &quot;Arpita&quot;, &quot;Arti&quot;, &quot;Arundhati&quot;, &quot;Binita&quot;, &quot;Bipasha&quot;, &quot;Damayanti&quot;, &quot;Deepa&quot;, &quot;Deepali&quot;, &quot;Deepika&quot;, &quot;Deepti&quot;, &quot;Devanshi&quot;, &quot;Dhanishka&quot;, &quot;Diya&quot;, &quot;Eva&quot;, &quot;Gayatri&quot;, &quot;Gita&quot;, &quot;Gitanjali&quot;, &quot;Gul&quot;, &quot;Haimanti&quot;, &quot;Harpreet&quot;, &quot;Harshita&quot;, &quot;Hemalata&quot;, &quot;Hemlata&quot;, &quot;Himashree&quot;, &quot;Hina&quot;, &quot;Hira&quot;, &quot;Indira&quot;, &quot;Indrani&quot;, &quot;Indumati&quot;, &quot;Ishika&quot;, &quot;Jesminder&quot;, &quot;Joshna&quot;, &quot;Juhi&quot;, &quot;Kanchana&quot;, &quot;Kanika&quot;, &quot;Kareena&quot;, &quot;Karthika&quot;, &quot;Kavita&quot;, &quot;Keerthi&quot;, &quot;Kirtan&quot;, &quot;Kshama&quot;, &quot;Kumudini&quot;, &quot;Lakshanya&quot;, &quot;Lakshmi&quot;, &quot;Lata&quot;, &quot;Latha&quot;, &quot;Latika&quot;, &quot;Leela&quot;, &quot;Lena&quot;, &quot;Madhuri&quot;, &quot;Mallika&quot;, &quot;Malti&quot;, &quot;Maneet&quot;, &quot;Manjula&quot;, &quot;Manorama&quot;, &quot;Maya&quot;, &quot;Meghana&quot;, &quot;Meghna&quot;, &quot;Mira&quot;, &quot;Mitra&quot;, &quot;Nadia&quot;, &quot;Nahla&quot;, &quot;Naila&quot;, &quot;Nairanjana&quot;, &quot;Namrata&quot;, &quot;Nandita&quot;, &quot;Neelam&quot;, &quot;Neera&quot;, &quot;Neetu&quot;, &quot;Neha&quot;, &quot;Nidhi&quot;, &quot;Niharika&quot;, &quot;Nikita&quot;, &quot;Nimisha&quot;, &quot;Nisha&quot;, &quot;Nivetha&quot;, &quot;Nupur&quot;, &quot;Padmavati&quot;, &quot;Pallavi&quot;, &quot;Papiya&quot;, &quot;Parvati&quot;, &quot;Poonam&quot;, &quot;Poulomi&quot;, &quot;Pranati&quot;, &quot;Pratibha&quot;, &quot;Pratiksha&quot;, &quot;Preeti&quot;, &quot;Priya&quot;, &quot;Priyanka&quot;, &quot;Puja&quot;, &quot;Rajathi&quot;, &quot;Ramya&quot;, &quot;Rani&quot;, &quot;Rashmi&quot;, &quot;Rati&quot;, &quot;Rehana&quot;, &quot;Rekha&quot;, &quot;Ridhima&quot;, &quot;Ritwika&quot;, &quot;Roopa&quot;, &quot;Rukmani&quot;, &quot;Rukmini&quot;, &quot;Saloni&quot;, &quot;Samira&quot;, &quot;Sanah&quot;, &quot;Sandhya&quot;, &quot;Sania&quot;, &quot;Sanjana&quot;, &quot;Saranya&quot;, &quot;Sarita&quot;, &quot;Satyana&quot;, &quot;Savitri&quot;, &quot;Seema&quot;, &quot;Shahla&quot;, &quot;Sharmila&quot;, &quot;Sheela&quot;, &quot;Sheetal&quot;, &quot;Shilpa&quot;, &quot;Shreya&quot;, &quot;Shweta&quot;, &quot;Simran&quot;, &quot;Sneha&quot;, &quot;Sonali&quot;, &quot;Sreelekha&quot;, &quot;Sudha&quot;, &quot;Suhani&quot;, &quot;Sujata&quot;, &quot;Sulochana&quot;, &quot;Sushma&quot;, &quot;Susmita&quot;, &quot;Swathi&quot;, &quot;Tanisha&quot;, &quot;Tanushree&quot;, &quot;Tanvi&quot;, &quot;Tejal&quot;, &quot;Tejaswi&quot;, &quot;Tulsi&quot;};
+<b class="nc">&nbsp;            String[] lastNames = {&quot;Khan&quot;, &quot;Modi&quot;, &quot;Fernandez&quot;, &quot;Lehri&quot;, &quot;Malhotra&quot;,&quot;Singh&quot;,&quot;Kumar&quot;,&quot;Das&quot;,&quot;Kaur&quot;,&quot;Ram&quot;,&quot;Yadav&quot;,&quot;Kumari&quot;,&quot;Lal&quot;,&quot;Bai&quot;,&quot;Khatun&quot;,&quot;Mandal&quot;,&quot;Ali&quot;,&quot;Sharma&quot;,&quot;Ray&quot;,&quot;Mondal&quot;,&quot;Khan&quot;,&quot;Sah&quot;,&quot;Patel&quot;,&quot;Prasad&quot;,&quot;Patil&quot;,&quot;Ghosh&quot;,&quot;Pal&quot;,&quot;Sahu&quot;,&quot;Gupta&quot;,&quot;Shaikh&quot;,&quot;Bibi&quot;,&quot;Sekh&quot;,&quot;Begam&quot;,&quot;Biswas&quot;,&quot;Sarkar&quot;,&quot;Paramar&quot;,&quot;Khatoon&quot;,&quot;Mahto&quot;,&quot;Ansari&quot;,&quot;Nayak&quot;,&quot;Ma&quot;,&quot;Rathod&quot;,&quot;Jadhav&quot;,&quot;Mahato&quot;,&quot;Rani&quot;,&quot;Barman&quot;,&quot;Behera&quot;,&quot;Mishra&quot;,&quot;Chand&quot;,&quot;Roy&quot;,&quot;Begum&quot;,&quot;Saha&quot;,&quot;Paswan&quot;,&quot;Thakur&quot;,&quot;Thakor&quot;,&quot;Ahamad&quot;,&quot;Chauhan&quot;,&quot;Pawar&quot;,&quot;Majhi&quot;,&quot;Bano&quot;,&quot;Naik&quot;,&quot;Pradhan&quot;,&quot;Alam&quot;,&quot;Shinde&quot;,&quot;Malik&quot;,&quot;Sardar&quot;,&quot;Nath&quot;,&quot;Raut&quot;,&quot;Bauri&quot;,&quot;Shaik&quot;,&quot;Chandra&quot;,&quot;Patra&quot;,&quot;Jha&quot;,&quot;Murmu&quot;,&quot;Solanki&quot;,&quot;Cauhan&quot;,&quot;Shah&quot;,&quot;Prakash&quot;,&quot;Sinh&quot;,&quot;Pandey&quot;,&quot;Patal&quot;,&quot;Munda&quot;,&quot;Dutta&quot;,&quot;Chaudhari&quot;,&quot;Raj&quot;,&quot;Pandit&quot;};</b>
+&nbsp;
+&nbsp;            // User input for output file path
+&nbsp;
+<b class="nc">&nbsp;            String[] branches = {&quot;csb&quot;,&quot;mcb&quot;,&quot;ee&quot;};</b>
+<b class="nc">&nbsp;            for (String branch : branches) {</b>
+&nbsp;
+<b class="nc">&nbsp;                System.out.println(&quot;DOING FOR &quot; + branch);</b>
+<b class="nc">&nbsp;                System.out.print(&quot;Enter start of student ID range: &quot;);</b>
+<b class="nc">&nbsp;                int idStart = scanner.nextInt();</b>
+<b class="nc">&nbsp;                System.out.print(&quot;Enter end of student ID range: &quot;);</b>
+<b class="nc">&nbsp;                int idEnd = scanner.nextInt();</b>
+&nbsp;
+&nbsp;
+&nbsp;                // Writing column headers to CSV
+&nbsp;
+&nbsp;
+&nbsp;                // Generating and writing data rows to CSV
+<b class="nc">&nbsp;                Random random = new Random();</b>
+<b class="nc">&nbsp;                for (int j = idStart; j &lt;= idEnd; j++) {</b>
+<b class="nc">&nbsp;                    String studentID = year + branch + j;</b>
+<b class="nc">&nbsp;                    String firstName = firstNames[random.nextInt(firstNames.length)];</b>
+<b class="nc">&nbsp;                    String lastName = lastNames[random.nextInt(lastNames.length)];</b>
+<b class="nc">&nbsp;                    String studentName = firstName + &quot; &quot; + lastName;</b>
+<b class="nc">&nbsp;                    String contactInfo = String.format(&quot;%010d&quot;, (long) (Math.random() * 9_000_000_000L) + 1_000_000_000L);</b>
+<b class="nc">&nbsp;                    String password = &quot;root&quot;;</b>
+<b class="nc">&nbsp;                    writer.writeNext(new String[]{studentID, studentName, contactInfo, password});</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            System.out.println(&quot;CSV file generated successfully&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;    }catch(IOException e){</b>
+<b class="nc">&nbsp;            System.out.println(&quot;An error occurred while writing to CSV file: &quot; + e.getMessage());</b>
+&nbsp;        } finally{
+<b class="nc">&nbsp;            scanner.close();</b>
+&nbsp;        }
+<b class="nc">&nbsp;    }</b>
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-03-07 22:23</div>
+</div>
+</body>
+</html>

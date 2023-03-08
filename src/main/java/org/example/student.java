@@ -8,47 +8,45 @@ import java.io.*;
 import java.util.*;
 import de.vandermeer.asciitable.*;
 import de.vandermeer.asciithemes.a7.*;
-public class student {
+class student extends Person{
 
-    public static String studentLogin(Connection connection) throws SQLException {
-        Scanner scanner = new Scanner(System.in);
-        int studlog=-1;
-        System.out.println("Welcome Student! Enter your student ID or press q to go back to select role screen: ");
-        do {
-            String mail = scanner.next();
-            if(mail.equals("q")){
-                break;
-            }
-            System.out.print("Your Password: ");
-            String password = scanner.next();
+    private String studentID;
+    private String password;
 
-            String sql = "SELECT * FROM students WHERE studentid = ? AND password = ?";
-            PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setString(1, mail);
-            pstmt.setString(2, password);
-
-
-            ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                String name = rs.getString("studentname");
-                String contactNumber = rs.getString("contactno");
-                System.out.println("Login successful! Welcome " + name + "!");
-                studlog=0;
-                return rs.getString("studentid");
-
-            } else {
-
-                System.out.println("Invalid email or password! Enter your id again or enter q to go back to role screen");
-            }
-            rs.close();
-            pstmt.close();
-        }while(studlog!=0);
-        return "q";
-
+    private void setInstID(String instID){
+        this.studentID = instID;
+    }
+    private void setPassword(String password){
+        this.password=password;
+    }
+    public student(String studentID,String password) {
+        setInstID(studentID);
+        setPassword(password);
     }
 
-    public static void viewGrades(Connection connection, Scanner scanner, String studentid) throws SQLException {
+    @Override
+    public String login(Connection connection) throws SQLException {
+        String toRettt= "";
+        String sql = "SELECT * FROM students WHERE studentid = ? AND password = ?";
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        pstmt.setString(1, this.studentID);
+        pstmt.setString(2, this.password);
+
+        ResultSet rs = pstmt.executeQuery();
+        if (rs.next()) {
+            String name = rs.getString("studentname");
+            String contactNumber = rs.getString("contactno");
+            System.out.println("Login successful! Welcome " + name + "!");
+            toRettt= rs.getString("studentID");
+        } else {
+            toRettt= "q";
+        }
+        rs.close();
+        pstmt.close();
+        return toRettt;
+    }
+
+    public static void viewGrades(Connection connection, Scanner scanner, String studentID) throws SQLException {
         Map<String, Double> gradeToPoint = new HashMap<>();
         gradeToPoint.put("A", 10.0);
         gradeToPoint.put("A-", 9.0);
@@ -68,7 +66,7 @@ public class student {
         at.addRule();
         String query = "SELECT * FROM coursestaken WHERE studentid = ?";
         PreparedStatement pstmt = connection.prepareStatement(query);
-        pstmt.setString(1,studentid);
+        pstmt.setString(1,studentID);
         ResultSet rs = pstmt.executeQuery();
 
 
@@ -91,7 +89,7 @@ public class student {
         pstmt.close();
 
 
-        int semsPassed =Utilities.semesterDifference(studentid.substring(0,4)+"W" ,Utilities.yearTermFinder(connection));
+        int semsPassed =Utilities.semesterDifference(studentID.substring(0,4)+"W" ,Utilities.yearTermFinder(connection));
         double credsEarned=0;
         double cumilativePoints=0;
 
@@ -101,7 +99,7 @@ public class student {
                 double credsReg=0;
                 double pointsSecured=0;
 
-                String baseYear  = studentid.substring(0,4);
+                String baseYear  = studentID.substring(0,4);
                 int intBaseYear = Integer.parseInt(baseYear);
                 int intCurrentYear = intBaseYear+ (semsPassed/2);
                 String currentYearTerm ="";
@@ -114,7 +112,7 @@ public class student {
                 }
 
                 PreparedStatement pstmt3 = connection.prepareStatement("select * from coursestaken where studentid=? and periodtaken=?");
-                pstmt3.setString(1,studentid);
+                pstmt3.setString(1,studentID);
                 pstmt3.setString(2,currentYearTerm);
                 ResultSet rs3 = pstmt3.executeQuery();
 
@@ -141,12 +139,12 @@ public class student {
             System.out.println("CGPA: "+cumilativePoints/credsEarned);
         }
     }
-    public static void sgpaCalc(String studentid, int sempassed, Connection connection) throws SQLException {
+    public void sgpaCalc(String studentid, int sempassed, Connection connection) throws SQLException {
 
 
     }
 
-    public static void changeInfo(Connection connection, String studentid, Scanner scanner) throws SQLException {
+    public void changeInfo(Connection connection, Scanner scanner) throws SQLException {
         int choice = -1;
 
         do{
@@ -160,7 +158,7 @@ public class student {
                 String query = "UPDATE students SET contactno = ? WHERE studentid = ?";
                 PreparedStatement pstmt = connection.prepareStatement(query);
                 pstmt.setString(1, newPassword);
-                pstmt.setString(2, studentid);
+                pstmt.setString(2, studentID);
                 pstmt.executeUpdate();
                 pstmt.close();
 
@@ -172,7 +170,7 @@ public class student {
                 String query = "UPDATE students SET password = ? WHERE studentid = ?";
                 PreparedStatement pstmt = connection.prepareStatement(query);
                 pstmt.setString(1, newPassword);
-                pstmt.setString(2, studentid);
+                pstmt.setString(2, studentID);
                 pstmt.executeUpdate();
                 pstmt.close();
             }
@@ -182,11 +180,9 @@ public class student {
             else {System.out.println("Invalid Input: ");}
         }while(choice !=3);
 
-
-
     }
 
-    public static void enrollHaha(Connection connection, Scanner scanner, String studentid) throws SQLException {
+    public void enrollHaha(Connection connection, Scanner scanner) throws SQLException {
         int choice = -1;
 
         do{
@@ -238,7 +234,7 @@ public class student {
                         pstmt = connection.prepareStatement("Insert into coursesapproval (courseid,instructorid,studentid) values (?,?,?)");
                         pstmt.setString(1,cCode);
                         pstmt.setString(2,rs.getString("instructorid"));
-                        pstmt.setString(3,studentid);
+                        pstmt.setString(3,studentID);
                         pstmt.execute();
                         System.out.println("Request for credit has been sent.");
                     }

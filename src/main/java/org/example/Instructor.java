@@ -4,9 +4,7 @@ import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 import de.vandermeer.asciitable.*;
 import de.vandermeer.asciithemes.a7.*;
-import org.apache.commons.lang3.ObjectUtils;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -16,39 +14,40 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class Instructor {
+class Instructor extends Person{
+    private String instID;
+    private String password;
 
-    public static String instructorLogin(Connection connection) throws SQLException {
-        Scanner scanner = new Scanner(System.in);
-        int studlog=-1;
-        System.out.println("Welcome Instructor! Enter your Instructor ID or press q to go back to select role screen: ");
-        do {
-            String mail = scanner.next();
-            if(mail.equals("q")){
-                break;
-            }
-            System.out.print("Your Password: ");
-            String password = scanner.next();
+    private void setInstID(String instID){
+        this.instID = instID;
+    }
+    private void setPassword(String password){
+        this.password=password;
+    }
+    public Instructor(String instID,String password) {
+        setInstID(instID);
+        setPassword(password);
+    }
+    @Override
+    public String login(Connection connection) throws SQLException {
+        String toRettt= "";
+        String sql = "SELECT * FROM instructors WHERE instructorid = ? AND password = ?";
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        pstmt.setString(1, this.instID);
+        pstmt.setString(2, this.password);
 
-            String sql = "SELECT * FROM instructors WHERE instructorid = ? AND password = ?";
-            PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setString(1, mail);
-            pstmt.setString(2, password);
-
-            ResultSet rs = pstmt.executeQuery();
-            if (rs.next()) {
-                String name = rs.getString("instructorname");
-                String contactNumber = rs.getString("contactno");
-                System.out.println("Login successful! Welcome " + name + "!");
-                studlog=0;
-                return rs.getString("instructorid");
-            } else {
-                System.out.println("Invalid email or password! Enter your id again or enter q to go back to role screen");
-            }
-            rs.close();
-            pstmt.close();
-        }while(studlog!=0);
-        return "q";
+        ResultSet rs = pstmt.executeQuery();
+        if (rs.next()) {
+            String name = rs.getString("instructorname");
+            String contactNumber = rs.getString("contactno");
+            System.out.println("Login successful! Welcome " + name + "!");
+            toRettt= rs.getString("instructorid");
+        } else {
+            toRettt= "q";
+        }
+        rs.close();
+        pstmt.close();
+        return toRettt;
     }
 
     public static void offerCourse(Connection connection, String instID, Scanner scanner) throws SQLException {
@@ -173,7 +172,7 @@ public class Instructor {
             else {System.out.println("Invalid Input: ");}
         }while(choice !=5);
     }
-    public static void changeinfo(Connection connection, String instID, Scanner scanner) throws SQLException {
+    public void changeinfo(Connection connection,Scanner scanner) throws SQLException {
         int choice = -1;
 
         do{
@@ -187,7 +186,7 @@ public class Instructor {
                 String query = "UPDATE instructors SET contactno = ? WHERE instructorid = ?";
                 PreparedStatement pstmt = connection.prepareStatement(query);
                 pstmt.setString(1, newPassword);
-                pstmt.setString(2, instID);
+                pstmt.setString(2, this.instID);
                 pstmt.executeUpdate();
                 pstmt.close();
 
@@ -199,7 +198,7 @@ public class Instructor {
                 String query = "UPDATE instructors SET password = ? WHERE instructorid = ?";
                 PreparedStatement pstmt = connection.prepareStatement(query);
                 pstmt.setString(1, newPassword);
-                pstmt.setString(2, instID);
+                pstmt.setString(2, this.instID);
                 pstmt.executeUpdate();
                 pstmt.close();
             }
@@ -211,7 +210,7 @@ public class Instructor {
 
     }
 
-    public static void approveRequests(Connection connection, Scanner scanner, String instructorid) throws SQLException {
+    public void approveRequests(Connection connection, Scanner scanner) throws SQLException {
         String choice = "";
         while(!choice.equals("4")){
             System.out.println("Select 1. To view requests 2. To approve all pending 3. Approve invidiually 4. Back to Dashboard");
@@ -228,7 +227,7 @@ public class Instructor {
                     at.addRule();
                     String query = "SELECT * FROM coursesapproval WHERE instructorid = ?";
                     pstmt = connection.prepareStatement(query);
-                    pstmt.setString(1, instructorid);
+                    pstmt.setString(1, this.instID);
                     ResultSet rs = pstmt.executeQuery();
 
 
@@ -246,7 +245,7 @@ public class Instructor {
                 case "2":
                     query = "SELECT * FROM coursesapproval WHERE instructorid = ?";
                     pstmt = connection.prepareStatement(query);
-                    pstmt.setString(1, instructorid);
+                    pstmt.setString(1, this.instID);
                     rs = pstmt.executeQuery();
 
                     while(rs.next()){
@@ -283,11 +282,13 @@ public class Instructor {
         }
     }
 
-    public static void viewGrades(){
-
+    public void viewGrades(Connection connection,Scanner scanner) throws SQLException {
+        System.out.println("Enter the ID of the student whose grades you want to view:");
+        String studentid = scanner.next();
+        student.viewGrades(connection,scanner,studentid);
     }
 
-    public static void uploadGrades(Scanner scanner, Connection connection, String instructorid) throws IOException, CsvValidationException, SQLException {
+    public void uploadGrades(Scanner scanner, Connection connection) throws IOException, CsvValidationException, SQLException {
         System.out.println("Enter the file containing grades for this semester or q to leave: ");
         String fileName = scanner.next();
         if (fileName.equals("q")) {
@@ -303,7 +304,7 @@ public class Instructor {
 
             PreparedStatement isOffered = connection.prepareStatement("select * from coursesoffered where courseid=? and instructorid=? and periodoffered=?");
             isOffered.setString(1, courseid.replaceAll("\\s", ""));
-            isOffered.setString(2, instructorid);
+            isOffered.setString(2, this.instID);
             isOffered.setString(3,Utilities.yearTermFinder(connection));
             ResultSet rs = isOffered.executeQuery();
             if(rs.next()){

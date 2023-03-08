@@ -1,0 +1,135 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Utilities</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">org.example</a>
+</div>
+
+<h1>Coverage Summary for Class: Utilities (org.example)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Utilities</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    33.3%
+  </span>
+  <span class="absValue">
+    (1/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    75%
+  </span>
+  <span class="absValue">
+    (6/8)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package org.example;
+&nbsp;
+&nbsp;import java.sql.Connection;
+&nbsp;import java.sql.SQLException;
+&nbsp;
+<b class="nc">&nbsp;public class Utilities {</b>
+&nbsp;    public static int semesterDifference(String semester1, String semester2) {
+<b class="fc">&nbsp;        int year1 = Integer.parseInt(semester1.substring(0, 4));</b>
+<b class="fc">&nbsp;        int year2 = Integer.parseInt(semester2.substring(0, 4));</b>
+<b class="pc">&nbsp;        int semesterNum1 = semester1.charAt(4) == &#39;W&#39; ? 0 : 1;</b>
+<b class="pc">&nbsp;        int semesterNum2 = semester2.charAt(4) == &#39;W&#39; ? 0 : 1;</b>
+<b class="fc">&nbsp;        int numSemesters = (year2 - year1) * 2 + semesterNum2 - semesterNum1;</b>
+&nbsp;
+<b class="fc">&nbsp;        return numSemesters;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static String yearTermFinder(Connection connection) throws SQLException {
+<b class="nc">&nbsp;        return Period.get_period(connection).getString(&quot;year&quot;)+Period.get_period(connection).getString(&quot;term&quot;);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-03-07 22:23</div>
+</div>
+</body>
+</html>

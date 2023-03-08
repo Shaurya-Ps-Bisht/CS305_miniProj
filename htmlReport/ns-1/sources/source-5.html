@@ -1,0 +1,380 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > academicOffice</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">org.example</a>
+</div>
+
+<h1>Coverage Summary for Class: academicOffice (org.example)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">academicOffice</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/140)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/192)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package org.example;
+&nbsp;import java.sql.*;
+&nbsp;import java.io.*;
+&nbsp;import java.util.*;
+&nbsp;
+&nbsp;import com.opencsv.CSVReader;
+&nbsp;import com.opencsv.CSVWriter;
+&nbsp;import com.opencsv.exceptions.CsvValidationException;
+&nbsp;
+<b class="nc">&nbsp;public class academicOffice {</b>
+&nbsp;//    private String studentID;
+&nbsp;//    public student(String studentID) {
+&nbsp;//        this.studentID = studentID;
+&nbsp;//    }
+&nbsp;
+&nbsp;
+&nbsp;    public static String acadLogin(){
+<b class="nc">&nbsp;        Scanner scanner = new Scanner(System.in);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;Welcome Academic Office! Enter the password to login or press q to go back to select role screen: &quot;);</b>
+&nbsp;
+&nbsp;        do {
+<b class="nc">&nbsp;            String password = scanner.next();</b>
+<b class="nc">&nbsp;            if(password.equals(&quot;q&quot;)){</b>
+<b class="nc">&nbsp;                break;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            else if(password.equals(&quot;root&quot;)){</b>
+<b class="nc">&nbsp;                return &quot;nice&quot;;</b>
+&nbsp;            }
+&nbsp;            else{
+<b class="nc">&nbsp;                System.out.println(&quot;Invalid password. Enter the password to login or press q to go back to select role screen: &quot;);</b>
+&nbsp;            }
+<b class="nc">&nbsp;        }while(1==1);</b>
+<b class="nc">&nbsp;        return &quot;q&quot;;</b>
+&nbsp;    }
+&nbsp;    public static void addNewStudents(Connection connection,Scanner scanner){
+<b class="nc">&nbsp;        int success = 0;</b>
+<b class="nc">&nbsp;        System.out.println(&quot;Enter the name of the input file to register students: &quot;);</b>
+<b class="nc">&nbsp;        String fileName = scanner.next();</b>
+&nbsp;
+<b class="nc">&nbsp;        try(BufferedReader reader = new BufferedReader(new FileReader(&quot;./src/main/java/org/example/dataFiles/Student_reg_data/&quot; + fileName))){</b>
+&nbsp;            String line;
+<b class="nc">&nbsp;            int i =0;</b>
+<b class="nc">&nbsp;            while((line = reader.readLine()) != null){</b>
+<b class="nc">&nbsp;                if(i==0){i++;continue;}</b>
+<b class="nc">&nbsp;                String[] values = line.split(&quot;,&quot;);</b>
+<b class="nc">&nbsp;                String studentId = values[0].replaceAll(&quot;\&quot;&quot;,&quot;&quot;);</b>
+<b class="nc">&nbsp;                String studentName = values[1].replaceAll(&quot;\&quot;&quot;,&quot;&quot;);</b>
+<b class="nc">&nbsp;                String contactInfo = values[2].replaceAll(&quot;\&quot;&quot;,&quot;&quot;);</b>
+<b class="nc">&nbsp;                String password = values[3].replaceAll(&quot;\&quot;&quot;,&quot;&quot;);</b>
+<b class="nc">&nbsp;                String sql = &quot;INSERT INTO students (studentid, studentname, contactno, password) VALUES (?, ?, ?, ?) on conflict (studentid) do nothing;&quot;;</b>
+<b class="nc">&nbsp;                try (PreparedStatement statement = connection.prepareStatement(sql)) {</b>
+<b class="nc">&nbsp;                    statement.setString(1, studentId);</b>
+<b class="nc">&nbsp;                    statement.setString(2, studentName);</b>
+<b class="nc">&nbsp;                    statement.setString(3, contactInfo);</b>
+<b class="nc">&nbsp;                    statement.setString(4, password);</b>
+<b class="nc">&nbsp;                    statement.executeUpdate();</b>
+<b class="nc">&nbsp;                } catch (SQLException e) {</b>
+<b class="nc">&nbsp;                    e.printStackTrace();</b>
+<b class="nc">&nbsp;                }</b>
+<b class="nc">&nbsp;            }</b>
+<b class="nc">&nbsp;        }catch(IOException e){</b>
+<b class="nc">&nbsp;            e.printStackTrace();</b>
+<b class="nc">&nbsp;            success=1;</b>
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        if(success==0){System.out.println(&quot;Succesfully added entries from &quot;+ fileName+&quot;\n&quot;);}</b>
+<b class="nc">&nbsp;    }</b>
+&nbsp;    public static void addInstructors(Connection connection){
+<b class="nc">&nbsp;        Scanner scanner = new Scanner(System.in);</b>
+<b class="nc">&nbsp;        int success = 0;</b>
+<b class="nc">&nbsp;        System.out.println(&quot;Enter the name of the input file to register instructors: &quot;);</b>
+<b class="nc">&nbsp;        String fileName = scanner.next();</b>
+&nbsp;
+<b class="nc">&nbsp;        try(BufferedReader reader = new BufferedReader(new FileReader(&quot;./src/main/java/org/example/dataFiles/Inst_reg_data/&quot; + fileName))){</b>
+&nbsp;            String line;
+<b class="nc">&nbsp;            int i =0;</b>
+<b class="nc">&nbsp;            while((line = reader.readLine()) != null){</b>
+<b class="nc">&nbsp;                if(i==0){i++;continue;}</b>
+<b class="nc">&nbsp;                String[] values = line.split(&quot;,&quot;);</b>
+<b class="nc">&nbsp;                String instructorId = values[0].replaceAll(&quot;\&quot;&quot;,&quot;&quot;);</b>
+<b class="nc">&nbsp;                String instructorName = values[1].replaceAll(&quot;\&quot;&quot;,&quot;&quot;);</b>
+<b class="nc">&nbsp;                String contactInfo = values[2].replaceAll(&quot;\&quot;&quot;,&quot;&quot;);</b>
+<b class="nc">&nbsp;                String password = values[3].replaceAll(&quot;\&quot;&quot;,&quot;&quot;);</b>
+<b class="nc">&nbsp;                String sql = &quot;INSERT INTO instructors (instructorId, instructorName, contactno, password) VALUES (?, ?, ?, ?) on conflict (instructorId) do nothing;&quot;;</b>
+<b class="nc">&nbsp;                try (PreparedStatement statement = connection.prepareStatement(sql)) {</b>
+<b class="nc">&nbsp;                    statement.setString(1, instructorId);</b>
+<b class="nc">&nbsp;                    statement.setString(2, instructorName);</b>
+<b class="nc">&nbsp;                    statement.setString(3, contactInfo);</b>
+<b class="nc">&nbsp;                    statement.setString(4, password);</b>
+<b class="nc">&nbsp;                    statement.executeUpdate();</b>
+<b class="nc">&nbsp;                } catch (SQLException e) {</b>
+<b class="nc">&nbsp;                    e.printStackTrace();</b>
+<b class="nc">&nbsp;                }</b>
+<b class="nc">&nbsp;            }</b>
+<b class="nc">&nbsp;        }catch(IOException e){</b>
+<b class="nc">&nbsp;            e.printStackTrace();</b>
+<b class="nc">&nbsp;            success=1;</b>
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        if(success==0){System.out.println(&quot;Succesfully added entries from &quot;+ fileName);}</b>
+<b class="nc">&nbsp;    }</b>
+&nbsp;    public static void changeCatalog(Connection connection){
+<b class="nc">&nbsp;        Scanner scanner = new Scanner(System.in);</b>
+<b class="nc">&nbsp;        int success=0;</b>
+<b class="nc">&nbsp;        System.out.println(&quot;Enter the name of the input file for course catalog: &quot;);</b>
+<b class="nc">&nbsp;        String fileName = scanner.next();</b>
+&nbsp;
+<b class="nc">&nbsp;        try(BufferedReader reader = new BufferedReader(new FileReader(&quot;./src/main/java/org/example/dataFiles/courseCatalog/&quot; + fileName))){</b>
+&nbsp;            String line;
+<b class="nc">&nbsp;            int i =0;</b>
+<b class="nc">&nbsp;            while((line = reader.readLine()) != null){</b>
+<b class="nc">&nbsp;                if(i==0){i++;continue;}</b>
+<b class="nc">&nbsp;                String[] values = line.split(&quot;,&quot;);</b>
+<b class="nc">&nbsp;                String courseid = values[0].replaceAll(&quot;\\s&quot;,&quot;&quot;);</b>
+<b class="nc">&nbsp;                String coursename = values[1];</b>
+<b class="nc">&nbsp;                String ltpsc = (values.length &gt; 2 &amp;&amp; !values[2].isEmpty()) ? values[2] : &quot;&quot;;</b>
+<b class="nc">&nbsp;                ltpsc = ltpsc.replaceAll(&quot;\\s&quot;, &quot;&quot;);</b>
+<b class="nc">&nbsp;                String csb = (values.length &gt; 4 &amp;&amp; !values[4].isEmpty()) ? values[4] : &quot;&quot;;</b>
+<b class="nc">&nbsp;                String mcb = (values.length &gt; 5 &amp;&amp; !values[5].isEmpty()) ? values[5] : &quot;&quot;;</b>
+<b class="nc">&nbsp;                String eeb = (values.length &gt; 6 &amp;&amp; !values[6].isEmpty()) ? values[6] : &quot;&quot; ;</b>
+<b class="nc">&nbsp;                String chb = (values.length &gt; 7 &amp;&amp; !values[7].isEmpty()) ? values[7] : &quot;&quot;;</b>
+<b class="nc">&nbsp;                String mmb = (values.length &gt; 8 &amp;&amp; !values[8].isEmpty()) ? values[8] : &quot;&quot;;</b>
+<b class="nc">&nbsp;                String ceb = (values.length &gt; 9 &amp;&amp; !values[9].isEmpty()) ? values[9] : &quot;&quot;;</b>
+<b class="nc">&nbsp;                String meb = (values.length &gt; 10 &amp;&amp; !values[10].isEmpty()) ? values[10] : &quot;&quot;;</b>
+<b class="nc">&nbsp;                String[] ltpsc_split = ltpsc.split(&quot;(?&lt;=.)(?=-[^-]*$)&quot;);</b>
+<b class="nc">&nbsp;                String ltps = ltpsc_split[0];</b>
+<b class="nc">&nbsp;                String creds = ltpsc_split[1].replaceAll(&quot;-&quot;,&quot;&quot;);</b>
+<b class="nc">&nbsp;                double credint = Double.parseDouble(creds);</b>
+&nbsp;
+<b class="nc">&nbsp;                String sql = &quot;INSERT INTO coursecatalog (courseid ,coursename , ltps , creds ,csb,mcb, eeb,chb,mmb, ceb,meb) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) &quot; + &quot;ON CONFLICT (courseid) DO UPDATE SET coursename = EXCLUDED.coursename, ltps = EXCLUDED.ltps, creds = EXCLUDED.creds, csb = EXCLUDED.csb, eeb = EXCLUDED.eeb, chb = EXCLUDED.chb, mmb = EXCLUDED.mmb, ceb = EXCLUDED.ceb, meb = EXCLUDED.meb, mcb = EXCLUDED.mcb; &quot; ;</b>
+&nbsp;
+<b class="nc">&nbsp;                try (PreparedStatement statement = connection.prepareStatement(sql)) {</b>
+<b class="nc">&nbsp;                    statement.setString(1, courseid);</b>
+<b class="nc">&nbsp;                    statement.setString(2, coursename);</b>
+<b class="nc">&nbsp;                    statement.setString(3, ltps);</b>
+<b class="nc">&nbsp;                    statement.setDouble(4, credint);</b>
+<b class="nc">&nbsp;                    statement.setString(5, csb);</b>
+<b class="nc">&nbsp;                    statement.setString(6, mcb);</b>
+<b class="nc">&nbsp;                    statement.setString(7, eeb);</b>
+<b class="nc">&nbsp;                    statement.setString(8, chb);</b>
+<b class="nc">&nbsp;                    statement.setString(9, mmb);</b>
+<b class="nc">&nbsp;                    statement.setString(10, ceb);</b>
+<b class="nc">&nbsp;                    statement.setString(11, meb);</b>
+<b class="nc">&nbsp;                    statement.executeUpdate();</b>
+<b class="nc">&nbsp;                } catch (SQLException e) {</b>
+<b class="nc">&nbsp;                    e.printStackTrace();</b>
+<b class="nc">&nbsp;                }</b>
+<b class="nc">&nbsp;            }</b>
+<b class="nc">&nbsp;        }catch(IOException e){</b>
+<b class="nc">&nbsp;            e.printStackTrace();</b>
+<b class="nc">&nbsp;            success=1;</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;
+<b class="nc">&nbsp;        if(success==0){System.out.println(&quot;Succesfully Updated catalog with &quot;+ fileName+&quot;\n&quot;);}</b>
+&nbsp;
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    public static void fill_both(Connection connection, Scanner scanner) throws CsvValidationException, IOException, SQLException {
+<b class="nc">&nbsp;        System.out.println(&quot;Enter the name of the input file for curriculum info or q to leave: &quot;);</b>
+<b class="nc">&nbsp;        String fileName = scanner.next();</b>
+<b class="nc">&nbsp;        if(fileName.equals(&quot;q&quot;)){return;}</b>
+&nbsp;        double PC;
+&nbsp;
+<b class="nc">&nbsp;        CSVReader reader = new CSVReader(new FileReader(&quot;./src/main/java/org/example/dataFiles/currInfo/&quot;+ fileName));</b>
+&nbsp;        String[] nextLine;
+<b class="nc">&nbsp;        int i=0;</b>
+<b class="nc">&nbsp;        while ((nextLine = reader.readNext()) != null) {</b>
+&nbsp;
+<b class="nc">&nbsp;            if(i==0){i++; continue;}</b>
+<b class="nc">&nbsp;            String branch = nextLine[0];</b>
+<b class="nc">&nbsp;            String sem1 = nextLine[1];</b>
+<b class="nc">&nbsp;            String sem2 = nextLine[2];</b>
+<b class="nc">&nbsp;            String sem3 = nextLine[3];</b>
+<b class="nc">&nbsp;            String sem4 = nextLine[4];</b>
+<b class="nc">&nbsp;            String sem5 = nextLine[5];</b>
+<b class="nc">&nbsp;            String sem6 = nextLine[6];</b>
+<b class="nc">&nbsp;            String sem7 = nextLine[7];</b>
+<b class="nc">&nbsp;            String sem8 = nextLine[8];</b>
+<b class="nc">&nbsp;            String creditStructure = nextLine[9];</b>
+&nbsp;
+<b class="nc">&nbsp;            String[] creditStructureList  = creditStructure.split(&quot;-&quot;);</b>
+<b class="nc">&nbsp;            double total = Double.parseDouble(creditStructureList[0]);</b>
+<b class="nc">&nbsp;            double pcpe = Double.parseDouble(creditStructureList[1]);</b>
+<b class="nc">&nbsp;            double cp = Double.parseDouble(creditStructureList[2]);</b>
+<b class="nc">&nbsp;            int year = Period.get_period(connection).getInt(&quot;year&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;            System.out.println(total+&quot; &quot;+pcpe+&quot; &quot;+cp);</b>
+&nbsp;
+<b class="nc">&nbsp;            String coursesAllSem = (sem1+&quot;,&quot;+sem2+&quot;,&quot;+sem3+&quot;,&quot;+sem4+&quot;,&quot;+sem5+&quot;,&quot;+sem6+&quot;,&quot;+sem7+&quot;,&quot;+sem8).replaceAll(&quot;\\s&quot;,&quot;&quot;);</b>
+<b class="nc">&nbsp;            String[] allCourses = coursesAllSem.split(&quot;,&quot;);</b>
+<b class="nc">&nbsp;            PC= find_PC_Total(connection,allCourses,nextLine[0]);</b>
+<b class="nc">&nbsp;            System.out.println(PC);</b>
+&nbsp;
+<b class="nc">&nbsp;            fill_curriculuminfo(connection, year, total-pcpe, PC, pcpe-PC, cp, nextLine);</b>
+<b class="nc">&nbsp;            fill_autoEnroll(connection,nextLine,year);</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        reader.close();</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    public static void fill_curriculuminfo(Connection connection, int year, double gr, double pc, double pe, double cp, String[] values) throws SQLException {
+<b class="nc">&nbsp;        String sql = &quot;insert into curriculuminfo(year,branch,gr,pc,pe,cp) values(?,?,?,?,?,?) ON CONFLICT (year,branch) DO UPDATE SET gr = EXCLUDED.gr,pc = EXCLUDED.pc,pe= EXCLUDED.pe,cp = EXCLUDED.cp &quot;;</b>
+<b class="nc">&nbsp;        PreparedStatement pstmt = connection.prepareStatement(sql);</b>
+<b class="nc">&nbsp;        pstmt.setInt(1, (year));</b>
+<b class="nc">&nbsp;        pstmt.setString(2, (values[0]));</b>
+<b class="nc">&nbsp;        pstmt.setDouble(3, (gr));</b>
+<b class="nc">&nbsp;        pstmt.setDouble(4, (pc));</b>
+<b class="nc">&nbsp;        pstmt.setDouble(5, (pe));</b>
+<b class="nc">&nbsp;        pstmt.setDouble(6, (cp));</b>
+<b class="nc">&nbsp;        pstmt.execute();</b>
+<b class="nc">&nbsp;        pstmt.close();</b>
+<b class="nc">&nbsp;    }</b>
+&nbsp;    public static void fill_autoEnroll(Connection connection, String[] values, int year) throws SQLException {
+<b class="nc">&nbsp;        for(int i=1; i&lt;=8; i++){</b>
+<b class="nc">&nbsp;            String[] courses = values[i].replaceAll(&quot;\\s&quot;,&quot;&quot;).split(&quot;,&quot;);</b>
+<b class="nc">&nbsp;            for(String course: courses){</b>
+<b class="nc">&nbsp;                String sql = &quot;INSERT INTO autoenrollment (courseid ,branchandyear , periodtoenroll) values (?,?,?) ON CONFLICT (courseid ,branchandyear , periodtoenroll) DO UPDATE SET courseid = EXCLUDED.courseid,branchandyear = EXCLUDED.branchandyear,periodtoenroll = EXCLUDED.periodtoenroll &quot;;</b>
+<b class="nc">&nbsp;                PreparedStatement pstmt = connection.prepareStatement(sql);</b>
+<b class="nc">&nbsp;                String periodToEnroll = &quot;&quot;;</b>
+<b class="nc">&nbsp;                String yearBranch = year+values[0];</b>
+<b class="nc">&nbsp;                if(i%2==0){</b>
+<b class="nc">&nbsp;                    periodToEnroll = (year + (int)Math.ceil(i / 2.0)-1)+&quot;S&quot;;</b>
+&nbsp;                }
+&nbsp;                else{
+<b class="nc">&nbsp;                    periodToEnroll = (year + (int)Math.ceil(i / 2.0)-1)+&quot;W&quot;;</b>
+&nbsp;                }
+<b class="nc">&nbsp;                pstmt.setString(1,(course));</b>
+<b class="nc">&nbsp;                pstmt.setString(2,(yearBranch));</b>
+<b class="nc">&nbsp;                pstmt.setString(3,(periodToEnroll));</b>
+<b class="nc">&nbsp;                pstmt.execute();</b>
+<b class="nc">&nbsp;                pstmt.close();</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    public static double find_PC_Total(Connection connection, String [] allCourses,String branch) throws SQLException {
+<b class="nc">&nbsp;        double total_creds=0;</b>
+&nbsp;
+<b class="nc">&nbsp;        for(String course:allCourses){</b>
+<b class="nc">&nbsp;            String sql = String.format(&quot;select creds from coursecatalog where TRIM(courseid) = TRIM(?) and %s=&#39;pc&#39;&quot;, branch);</b>
+<b class="nc">&nbsp;            PreparedStatement pstmt = connection.prepareStatement(sql);</b>
+<b class="nc">&nbsp;            pstmt.setString(1, (course));</b>
+<b class="nc">&nbsp;            ResultSet rs = pstmt.executeQuery();</b>
+<b class="nc">&nbsp;            if(rs.next()){</b>
+<b class="nc">&nbsp;                total_creds= total_creds + rs.getDouble(&quot;creds&quot;);</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return total_creds;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;//    SELECT * FROM students
+&nbsp;//    WHERE SUBSTRING(student_id, 1, 4) = &#39;2020&#39; AND
+&nbsp;//    SUBSTRING(student_id, 5, 3) IN (&#39;csb&#39;, &#39;ee&#39;);
+&nbsp;
+&nbsp;    public static void generateTranscript(){
+&nbsp;
+<b class="nc">&nbsp;    }</b>
+&nbsp;    public void viewGrades(Connection connection,Scanner scanner) throws SQLException {
+<b class="nc">&nbsp;        System.out.println(&quot;Enter the ID of the student whose grades you want to view:&quot;);</b>
+<b class="nc">&nbsp;        String studentid = scanner.next();</b>
+<b class="nc">&nbsp;        student s = new student(studentid);</b>
+<b class="nc">&nbsp;        s.viewGrades(connection,scanner);</b>
+<b class="nc">&nbsp;    }</b>
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-03-07 22:23</div>
+</div>
+</body>
+</html>
