@@ -8,259 +8,250 @@ import java.io.*;
 import java.util.*;
 import de.vandermeer.asciitable.*;
 import de.vandermeer.asciithemes.a7.*;
-public class student {
+class student extends Person{
 
     private String studentID;
-<span class="nc" id="L14">    public student(String studentID) {</span>
-<span class="nc" id="L15">        this.studentID = studentID;</span>
-<span class="nc" id="L16">    }</span>
+    private String password;
 
-    public static String studentLogin(Connection connection) throws SQLException {
-<span class="nc" id="L19">        Scanner scanner = new Scanner(System.in);</span>
-<span class="nc" id="L20">        int studlog=-1;</span>
-<span class="nc" id="L21">        System.out.println(&quot;Welcome Student! Enter your student ID or press q to go back to select role screen: &quot;);</span>
-        do {
-<span class="nc" id="L23">            String mail = scanner.next();</span>
-<span class="nc bnc" id="L24" title="All 2 branches missed.">            if(mail.equals(&quot;q&quot;)){</span>
-<span class="nc" id="L25">                break;</span>
-            }
-<span class="nc" id="L27">            System.out.print(&quot;Your Password: &quot;);</span>
-<span class="nc" id="L28">            String password = scanner.next();</span>
+    private void setInstID(String instID){
+<span class="nc" id="L17">        this.studentID = instID;</span>
+<span class="nc" id="L18">    }</span>
+    private void setPassword(String password){
+<span class="nc" id="L20">        this.password=password;</span>
+<span class="nc" id="L21">    }</span>
+<span class="nc" id="L22">    public student(String studentID,String password) {</span>
+<span class="nc" id="L23">        setInstID(studentID);</span>
+<span class="nc" id="L24">        setPassword(password);</span>
+<span class="nc" id="L25">    }</span>
 
-<span class="nc" id="L30">            String sql = &quot;SELECT * FROM students WHERE studentid = ? AND password = ?&quot;;</span>
-<span class="nc" id="L31">            PreparedStatement pstmt = connection.prepareStatement(sql);</span>
-<span class="nc" id="L32">            pstmt.setString(1, mail);</span>
-<span class="nc" id="L33">            pstmt.setString(2, password);</span>
+    @Override
+    public String login(Connection connection) throws SQLException {
+<span class="nc" id="L29">        String toRettt= &quot;&quot;;</span>
+<span class="nc" id="L30">        String sql = &quot;SELECT * FROM students WHERE studentid = ? AND password = ?&quot;;</span>
+<span class="nc" id="L31">        PreparedStatement pstmt = connection.prepareStatement(sql);</span>
+<span class="nc" id="L32">        pstmt.setString(1, this.studentID);</span>
+<span class="nc" id="L33">        pstmt.setString(2, this.password);</span>
 
-
-<span class="nc" id="L36">            ResultSet rs = pstmt.executeQuery();</span>
-
-<span class="nc bnc" id="L38" title="All 2 branches missed.">            if (rs.next()) {</span>
-<span class="nc" id="L39">                String name = rs.getString(&quot;studentname&quot;);</span>
-<span class="nc" id="L40">                String contactNumber = rs.getString(&quot;contactno&quot;);</span>
-<span class="nc" id="L41">                System.out.println(&quot;Login successful! Welcome &quot; + name + &quot;!&quot;);</span>
-<span class="nc" id="L42">                studlog=0;</span>
-<span class="nc" id="L43">                return rs.getString(&quot;studentid&quot;);</span>
-
-            } else {
-
-<span class="nc" id="L47">                System.out.println(&quot;Invalid email or password! Enter your id again or enter q to go back to role screen&quot;);</span>
-            }
-<span class="nc" id="L49">            rs.close();</span>
-<span class="nc" id="L50">            pstmt.close();</span>
-<span class="nc bnc" id="L51" title="All 2 branches missed.">        }while(studlog!=0);</span>
-<span class="nc" id="L52">        return &quot;q&quot;;</span>
-
+<span class="nc" id="L35">        ResultSet rs = pstmt.executeQuery();</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">        if (rs.next()) {</span>
+<span class="nc" id="L37">            String name = rs.getString(&quot;studentname&quot;);</span>
+<span class="nc" id="L38">            String contactNumber = rs.getString(&quot;contactno&quot;);</span>
+<span class="nc" id="L39">            System.out.println(&quot;Login successful! Welcome &quot; + name + &quot;!&quot;);</span>
+<span class="nc" id="L40">            toRettt= rs.getString(&quot;studentID&quot;);</span>
+<span class="nc" id="L41">        } else {</span>
+<span class="nc" id="L42">            toRettt= &quot;q&quot;;</span>
+        }
+<span class="nc" id="L44">        rs.close();</span>
+<span class="nc" id="L45">        pstmt.close();</span>
+<span class="nc" id="L46">        return toRettt;</span>
     }
 
-    public void viewGrades(Connection connection, Scanner scanner) throws SQLException {
-<span class="nc" id="L57">        Map&lt;String, Double&gt; gradeToPoint = new HashMap&lt;&gt;();</span>
-<span class="nc" id="L58">        gradeToPoint.put(&quot;A&quot;, 10.0);</span>
-<span class="nc" id="L59">        gradeToPoint.put(&quot;A-&quot;, 9.0);</span>
-<span class="nc" id="L60">        gradeToPoint.put(&quot;B&quot;, 8.0);</span>
-<span class="nc" id="L61">        gradeToPoint.put(&quot;B-&quot;, 7.0);</span>
-<span class="nc" id="L62">        gradeToPoint.put(&quot;C&quot;, 6.0);</span>
-<span class="nc" id="L63">        gradeToPoint.put(&quot;C-&quot;, 5.0);</span>
-<span class="nc" id="L64">        gradeToPoint.put(&quot;D&quot;, 4.0);</span>
-<span class="nc" id="L65">        gradeToPoint.put(&quot;E&quot;, 2.0);</span>
-<span class="nc" id="L66">        gradeToPoint.put(&quot;F&quot;, 0.0);</span>
+    public static void viewGrades(Connection connection, Scanner scanner, String studentID) throws SQLException {
+<span class="nc" id="L50">        Map&lt;String, Double&gt; gradeToPoint = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L51">        gradeToPoint.put(&quot;A&quot;, 10.0);</span>
+<span class="nc" id="L52">        gradeToPoint.put(&quot;A-&quot;, 9.0);</span>
+<span class="nc" id="L53">        gradeToPoint.put(&quot;B&quot;, 8.0);</span>
+<span class="nc" id="L54">        gradeToPoint.put(&quot;B-&quot;, 7.0);</span>
+<span class="nc" id="L55">        gradeToPoint.put(&quot;C&quot;, 6.0);</span>
+<span class="nc" id="L56">        gradeToPoint.put(&quot;C-&quot;, 5.0);</span>
+<span class="nc" id="L57">        gradeToPoint.put(&quot;D&quot;, 4.0);</span>
+<span class="nc" id="L58">        gradeToPoint.put(&quot;E&quot;, 2.0);</span>
+<span class="nc" id="L59">        gradeToPoint.put(&quot;F&quot;, 0.0);</span>
 
-<span class="nc" id="L68">        AsciiTable at = new AsciiTable();</span>
-<span class="nc" id="L69">        at.getContext().setGrid(A7_Grids.minusBarPlusEquals());</span>
+<span class="nc" id="L61">        AsciiTable at = new AsciiTable();</span>
+<span class="nc" id="L62">        at.getContext().setGrid(A7_Grids.minusBarPlusEquals());</span>
 
-<span class="nc" id="L71">        at.addRule();</span>
-<span class="nc" id="L72">        at.addRow(&quot;Course ID&quot;, &quot;Academic Session&quot;, &quot;Grade&quot;, &quot;Type&quot;);</span>
-<span class="nc" id="L73">        at.addRule();</span>
-<span class="nc" id="L74">        String query = &quot;SELECT * FROM coursestaken WHERE studentid = ?&quot;;</span>
-<span class="nc" id="L75">        PreparedStatement pstmt = connection.prepareStatement(query);</span>
-<span class="nc" id="L76">        pstmt.setString(1,studentID);</span>
-<span class="nc" id="L77">        ResultSet rs = pstmt.executeQuery();</span>
+<span class="nc" id="L64">        at.addRule();</span>
+<span class="nc" id="L65">        at.addRow(&quot;Course ID&quot;, &quot;Academic Session&quot;, &quot;Grade&quot;, &quot;Type&quot;);</span>
+<span class="nc" id="L66">        at.addRule();</span>
+<span class="nc" id="L67">        String query = &quot;SELECT * FROM coursestaken WHERE studentid = ?&quot;;</span>
+<span class="nc" id="L68">        PreparedStatement pstmt = connection.prepareStatement(query);</span>
+<span class="nc" id="L69">        pstmt.setString(1,studentID);</span>
+<span class="nc" id="L70">        ResultSet rs = pstmt.executeQuery();</span>
 
 
-<span class="nc bnc" id="L80" title="All 2 branches missed.">        while (rs.next()) {</span>
-<span class="nc" id="L81">            String grade = rs.getString(&quot;grade&quot;);</span>
-<span class="nc bnc" id="L82" title="All 2 branches missed.">            if (grade == null) {</span>
-<span class="nc" id="L83">                grade = &quot;&quot;;  // replace null with an empty string</span>
+<span class="nc bnc" id="L73" title="All 2 branches missed.">        while (rs.next()) {</span>
+<span class="nc" id="L74">            String grade = rs.getString(&quot;grade&quot;);</span>
+<span class="nc bnc" id="L75" title="All 2 branches missed.">            if (grade == null) {</span>
+<span class="nc" id="L76">                grade = &quot;&quot;;  // replace null with an empty string</span>
             }
 
-<span class="nc" id="L86">            at.addRow(rs.getString(&quot;courseid&quot;),</span>
-<span class="nc" id="L87">                    rs.getString(&quot;periodtaken&quot;),</span>
+<span class="nc" id="L79">            at.addRow(rs.getString(&quot;courseid&quot;),</span>
+<span class="nc" id="L80">                    rs.getString(&quot;periodtaken&quot;),</span>
                     grade,
-<span class="nc" id="L89">                    rs.getString(&quot;type&quot;));</span>
-<span class="nc" id="L90">            at.addRule();</span>
-<span class="nc" id="L91">        }</span>
+<span class="nc" id="L82">                    rs.getString(&quot;type&quot;));</span>
+<span class="nc" id="L83">            at.addRule();</span>
+<span class="nc" id="L84">        }</span>
 
-<span class="nc" id="L93">        at.setPaddingLeftRight(1);</span>
-<span class="nc" id="L94">        at.getRenderer().setCWC(new CWC_LongestWord());</span>
-<span class="nc" id="L95">        System.out.println(at.render());</span>
-<span class="nc" id="L96">        pstmt.close();</span>
+<span class="nc" id="L86">        at.setPaddingLeftRight(1);</span>
+<span class="nc" id="L87">        at.getRenderer().setCWC(new CWC_LongestWord());</span>
+<span class="nc" id="L88">        System.out.println(at.render());</span>
+<span class="nc" id="L89">        pstmt.close();</span>
 
 
-<span class="nc" id="L99">        int semsPassed =Utilities.semesterDifference(studentID.substring(0,4)+&quot;W&quot; ,Utilities.yearTermFinder(connection));</span>
-<span class="nc" id="L100">        double credsEarned=0;</span>
-<span class="nc" id="L101">        double cumilativePoints=0;</span>
+<span class="nc" id="L92">        int semsPassed =Utilities.semesterDifference(studentID.substring(0,4)+&quot;W&quot; ,Utilities.yearTermFinder(connection));</span>
+<span class="nc" id="L93">        double credsEarned=0;</span>
+<span class="nc" id="L94">        double cumilativePoints=0;</span>
 
-<span class="nc bnc" id="L103" title="All 2 branches missed.">        if(semsPassed&gt;0){</span>
-<span class="nc bnc" id="L104" title="All 2 branches missed.">            for(int i =0; i&lt;semsPassed; i++){</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">        if(semsPassed&gt;0){</span>
+<span class="nc bnc" id="L97" title="All 2 branches missed.">            for(int i =0; i&lt;semsPassed; i++){</span>
 
-<span class="nc" id="L106">                double credsReg=0;</span>
-<span class="nc" id="L107">                double pointsSecured=0;</span>
+<span class="nc" id="L99">                double credsReg=0;</span>
+<span class="nc" id="L100">                double pointsSecured=0;</span>
 
-<span class="nc" id="L109">                String baseYear  = studentID.substring(0,4);</span>
-<span class="nc" id="L110">                int intBaseYear = Integer.parseInt(baseYear);</span>
-<span class="nc" id="L111">                int intCurrentYear = intBaseYear+ (semsPassed/2);</span>
-<span class="nc" id="L112">                String currentYearTerm =&quot;&quot;;</span>
+<span class="nc" id="L102">                String baseYear  = studentID.substring(0,4);</span>
+<span class="nc" id="L103">                int intBaseYear = Integer.parseInt(baseYear);</span>
+<span class="nc" id="L104">                int intCurrentYear = intBaseYear+ (semsPassed/2);</span>
+<span class="nc" id="L105">                String currentYearTerm =&quot;&quot;;</span>
 
-<span class="nc bnc" id="L114" title="All 2 branches missed.">                if(i%2==1){</span>
-<span class="nc" id="L115">                    currentYearTerm = intCurrentYear+ &quot;S&quot;;</span>
+<span class="nc bnc" id="L107" title="All 2 branches missed.">                if(i%2==1){</span>
+<span class="nc" id="L108">                    currentYearTerm = intCurrentYear+ &quot;S&quot;;</span>
                 }
                 else{
-<span class="nc" id="L118">                    currentYearTerm = intCurrentYear+ &quot;W&quot;;</span>
+<span class="nc" id="L111">                    currentYearTerm = intCurrentYear+ &quot;W&quot;;</span>
                 }
 
-<span class="nc" id="L121">                PreparedStatement pstmt3 = connection.prepareStatement(&quot;select * from coursestaken where studentid=? and periodtaken=?&quot;);</span>
-<span class="nc" id="L122">                pstmt3.setString(1,studentID);</span>
-<span class="nc" id="L123">                pstmt3.setString(2,currentYearTerm);</span>
-<span class="nc" id="L124">                ResultSet rs3 = pstmt3.executeQuery();</span>
+<span class="nc" id="L114">                PreparedStatement pstmt3 = connection.prepareStatement(&quot;select * from coursestaken where studentid=? and periodtaken=?&quot;);</span>
+<span class="nc" id="L115">                pstmt3.setString(1,studentID);</span>
+<span class="nc" id="L116">                pstmt3.setString(2,currentYearTerm);</span>
+<span class="nc" id="L117">                ResultSet rs3 = pstmt3.executeQuery();</span>
 
 
-<span class="nc bnc" id="L127" title="All 2 branches missed.">                while(rs3.next()){</span>
-<span class="nc" id="L128">                    String courseID = rs3.getString(&quot;courseid&quot;);</span>
-<span class="nc" id="L129">                    String grade = rs3.getString(&quot;grade&quot;);</span>
+<span class="nc bnc" id="L120" title="All 2 branches missed.">                while(rs3.next()){</span>
+<span class="nc" id="L121">                    String courseID = rs3.getString(&quot;courseid&quot;);</span>
+<span class="nc" id="L122">                    String grade = rs3.getString(&quot;grade&quot;);</span>
                     double creds;
-<span class="nc" id="L131">                    PreparedStatement getCred = connection.prepareStatement(&quot;select * from coursecatalog where courseid=?&quot;);</span>
-<span class="nc" id="L132">                    getCred.setString(1,courseID);</span>
-<span class="nc" id="L133">                    ResultSet credRes = getCred.executeQuery();</span>
-<span class="nc bnc" id="L134" title="All 2 branches missed.">                    if(credRes.next()){</span>
-<span class="nc" id="L135">                        creds = credRes.getDouble(&quot;creds&quot;);</span>
-<span class="nc" id="L136">                        credsReg = credsReg + creds;</span>
-<span class="nc" id="L137">                        pointsSecured = pointsSecured + (creds*gradeToPoint.getOrDefault(grade, 0.0));</span>
-<span class="nc bnc" id="L138" title="All 2 branches missed.">                        if(gradeToPoint.getOrDefault(grade, 0.0)&gt;2.0){</span>
-<span class="nc" id="L139">                            credsEarned = credsEarned+ creds;</span>
-<span class="nc" id="L140">                            cumilativePoints = cumilativePoints + (creds*gradeToPoint.getOrDefault(grade, 0.0));</span>
+<span class="nc" id="L124">                    PreparedStatement getCred = connection.prepareStatement(&quot;select * from coursecatalog where courseid=?&quot;);</span>
+<span class="nc" id="L125">                    getCred.setString(1,courseID);</span>
+<span class="nc" id="L126">                    ResultSet credRes = getCred.executeQuery();</span>
+<span class="nc bnc" id="L127" title="All 2 branches missed.">                    if(credRes.next()){</span>
+<span class="nc" id="L128">                        creds = credRes.getDouble(&quot;creds&quot;);</span>
+<span class="nc" id="L129">                        credsReg = credsReg + creds;</span>
+<span class="nc" id="L130">                        pointsSecured = pointsSecured + (creds*gradeToPoint.getOrDefault(grade, 0.0));</span>
+<span class="nc bnc" id="L131" title="All 2 branches missed.">                        if(gradeToPoint.getOrDefault(grade, 0.0)&gt;2.0){</span>
+<span class="nc" id="L132">                            credsEarned = credsEarned+ creds;</span>
+<span class="nc" id="L133">                            cumilativePoints = cumilativePoints + (creds*gradeToPoint.getOrDefault(grade, 0.0));</span>
                         }
                     }
-<span class="nc" id="L143">                }</span>
-<span class="nc" id="L144">                System.out.println(&quot;Semester &quot;+(i+1)+ &quot;: &quot;+ pointsSecured/credsReg);</span>
+<span class="nc" id="L136">                }</span>
+<span class="nc" id="L137">                System.out.println(&quot;Semester &quot;+(i+1)+ &quot;: &quot;+ pointsSecured/credsReg);</span>
             }
-<span class="nc" id="L146">            System.out.println(&quot;CGPA: &quot;+cumilativePoints/credsEarned);</span>
+<span class="nc" id="L139">            System.out.println(&quot;CGPA: &quot;+cumilativePoints/credsEarned);</span>
         }
-<span class="nc" id="L148">    }</span>
+<span class="nc" id="L141">    }</span>
     public void sgpaCalc(String studentid, int sempassed, Connection connection) throws SQLException {
 
 
-<span class="nc" id="L152">    }</span>
+<span class="nc" id="L145">    }</span>
 
     public void changeInfo(Connection connection, Scanner scanner) throws SQLException {
-<span class="nc" id="L155">        int choice = -1;</span>
+<span class="nc" id="L148">        int choice = -1;</span>
 
         do{
-<span class="nc" id="L158">            System.out.println(&quot;Select 1. To change contact number 2. To change password. 3. To go back dashboard&quot;);</span>
-<span class="nc" id="L159">            choice = scanner.nextInt();</span>
-<span class="nc bnc" id="L160" title="All 2 branches missed.">            if(choice ==1) {</span>
+<span class="nc" id="L151">            System.out.println(&quot;Select 1. To change contact number 2. To change password. 3. To go back dashboard&quot;);</span>
+<span class="nc" id="L152">            choice = scanner.nextInt();</span>
+<span class="nc bnc" id="L153" title="All 2 branches missed.">            if(choice ==1) {</span>
                 String newPassword;
-<span class="nc" id="L162">                System.out.println(&quot;Enter the new contact number: &quot;);</span>
-<span class="nc" id="L163">                newPassword = scanner.next();</span>
-<span class="nc" id="L164">                System.out.println(&quot;ok&quot;);</span>
-<span class="nc" id="L165">                String query = &quot;UPDATE students SET contactno = ? WHERE studentid = ?&quot;;</span>
-<span class="nc" id="L166">                PreparedStatement pstmt = connection.prepareStatement(query);</span>
-<span class="nc" id="L167">                pstmt.setString(1, newPassword);</span>
-<span class="nc" id="L168">                pstmt.setString(2, studentID);</span>
-<span class="nc" id="L169">                pstmt.executeUpdate();</span>
-<span class="nc" id="L170">                pstmt.close();</span>
+<span class="nc" id="L155">                System.out.println(&quot;Enter the new contact number: &quot;);</span>
+<span class="nc" id="L156">                newPassword = scanner.next();</span>
+<span class="nc" id="L157">                System.out.println(&quot;ok&quot;);</span>
+<span class="nc" id="L158">                String query = &quot;UPDATE students SET contactno = ? WHERE studentid = ?&quot;;</span>
+<span class="nc" id="L159">                PreparedStatement pstmt = connection.prepareStatement(query);</span>
+<span class="nc" id="L160">                pstmt.setString(1, newPassword);</span>
+<span class="nc" id="L161">                pstmt.setString(2, studentID);</span>
+<span class="nc" id="L162">                pstmt.executeUpdate();</span>
+<span class="nc" id="L163">                pstmt.close();</span>
 
-<span class="nc" id="L172">            }</span>
-<span class="nc bnc" id="L173" title="All 2 branches missed.">            else if(choice ==2) {</span>
+<span class="nc" id="L165">            }</span>
+<span class="nc bnc" id="L166" title="All 2 branches missed.">            else if(choice ==2) {</span>
                 String newPassword;
-<span class="nc" id="L175">                System.out.println(&quot;Choose your new password: &quot;);</span>
-<span class="nc" id="L176">                newPassword = scanner.next();</span>
-<span class="nc" id="L177">                String query = &quot;UPDATE students SET password = ? WHERE studentid = ?&quot;;</span>
-<span class="nc" id="L178">                PreparedStatement pstmt = connection.prepareStatement(query);</span>
-<span class="nc" id="L179">                pstmt.setString(1, newPassword);</span>
-<span class="nc" id="L180">                pstmt.setString(2, studentID);</span>
-<span class="nc" id="L181">                pstmt.executeUpdate();</span>
-<span class="nc" id="L182">                pstmt.close();</span>
-<span class="nc" id="L183">            }</span>
-<span class="nc bnc" id="L184" title="All 2 branches missed.">            else if(choice == 3){</span>
-<span class="nc" id="L185">                break;</span>
+<span class="nc" id="L168">                System.out.println(&quot;Choose your new password: &quot;);</span>
+<span class="nc" id="L169">                newPassword = scanner.next();</span>
+<span class="nc" id="L170">                String query = &quot;UPDATE students SET password = ? WHERE studentid = ?&quot;;</span>
+<span class="nc" id="L171">                PreparedStatement pstmt = connection.prepareStatement(query);</span>
+<span class="nc" id="L172">                pstmt.setString(1, newPassword);</span>
+<span class="nc" id="L173">                pstmt.setString(2, studentID);</span>
+<span class="nc" id="L174">                pstmt.executeUpdate();</span>
+<span class="nc" id="L175">                pstmt.close();</span>
+<span class="nc" id="L176">            }</span>
+<span class="nc bnc" id="L177" title="All 2 branches missed.">            else if(choice == 3){</span>
+<span class="nc" id="L178">                break;</span>
             }
-<span class="nc" id="L187">            else {System.out.println(&quot;Invalid Input: &quot;);}</span>
-<span class="nc bnc" id="L188" title="All 2 branches missed.">        }while(choice !=3);</span>
+<span class="nc" id="L180">            else {System.out.println(&quot;Invalid Input: &quot;);}</span>
+<span class="nc bnc" id="L181" title="All 2 branches missed.">        }while(choice !=3);</span>
 
-
-
-<span class="nc" id="L192">    }</span>
+<span class="nc" id="L183">    }</span>
 
     public void enrollHaha(Connection connection, Scanner scanner) throws SQLException {
-<span class="nc" id="L195">        int choice = -1;</span>
+<span class="nc" id="L186">        int choice = -1;</span>
 
         do{
-<span class="nc" id="L198">            System.out.println(&quot;Select 1. To view the Offered Courses for this semester 2. To credit a course 3. To go back dashboard&quot;);</span>
-<span class="nc" id="L199">            choice = scanner.nextInt();</span>
-<span class="nc bnc" id="L200" title="All 2 branches missed.">            if(choice ==1) {</span>
-<span class="nc" id="L201">                String query = &quot;SELECT * from coursesoffered where periodoffered = ?&quot;;</span>
-<span class="nc" id="L202">                PreparedStatement pstmt = connection.prepareStatement(query);</span>
-<span class="nc" id="L203">                pstmt.setString(1,Utilities.yearTermFinder(connection));</span>
-<span class="nc" id="L204">                ResultSet rs = pstmt.executeQuery();</span>
+<span class="nc" id="L189">            System.out.println(&quot;Select 1. To view the Offered Courses for this semester 2. To credit a course 3. To go back dashboard&quot;);</span>
+<span class="nc" id="L190">            choice = scanner.nextInt();</span>
+<span class="nc bnc" id="L191" title="All 2 branches missed.">            if(choice ==1) {</span>
+<span class="nc" id="L192">                String query = &quot;SELECT * from coursesoffered where periodoffered = ?&quot;;</span>
+<span class="nc" id="L193">                PreparedStatement pstmt = connection.prepareStatement(query);</span>
+<span class="nc" id="L194">                pstmt.setString(1,Utilities.yearTermFinder(connection));</span>
+<span class="nc" id="L195">                ResultSet rs = pstmt.executeQuery();</span>
 
-<span class="nc" id="L206">                AsciiTable at = new AsciiTable();</span>
-<span class="nc" id="L207">                at.getContext().setGrid(A7_Grids.minusBarPlusEquals());</span>
+<span class="nc" id="L197">                AsciiTable at = new AsciiTable();</span>
+<span class="nc" id="L198">                at.getContext().setGrid(A7_Grids.minusBarPlusEquals());</span>
 
-<span class="nc" id="L209">                at.addRule();</span>
-<span class="nc" id="L210">                at.addRow(&quot;Course ID&quot;, &quot;Instructor ID&quot;, &quot;CGPA cutoff&quot;);</span>
-<span class="nc" id="L211">                at.addRule();</span>
+<span class="nc" id="L200">                at.addRule();</span>
+<span class="nc" id="L201">                at.addRow(&quot;Course ID&quot;, &quot;Instructor ID&quot;, &quot;CGPA cutoff&quot;);</span>
+<span class="nc" id="L202">                at.addRule();</span>
 
-<span class="nc bnc" id="L213" title="All 2 branches missed.">                while (rs.next()) {</span>
-<span class="nc" id="L214">                    at.addRow(rs.getString(&quot;courseid&quot;),</span>
-<span class="nc" id="L215">                            rs.getString(&quot;instructorid&quot;),</span>
-<span class="nc" id="L216">                            rs.getInt(&quot;minCGPA&quot;));</span>
-<span class="nc" id="L217">                    at.addRule();</span>
+<span class="nc bnc" id="L204" title="All 2 branches missed.">                while (rs.next()) {</span>
+<span class="nc" id="L205">                    at.addRow(rs.getString(&quot;courseid&quot;),</span>
+<span class="nc" id="L206">                            rs.getString(&quot;instructorid&quot;),</span>
+<span class="nc" id="L207">                            rs.getInt(&quot;minCGPA&quot;));</span>
+<span class="nc" id="L208">                    at.addRule();</span>
                 }
 
-<span class="nc" id="L220">                at.setPaddingLeftRight(1);</span>
-<span class="nc" id="L221">                at.getRenderer().setCWC(new CWC_LongestWord());</span>
-<span class="nc" id="L222">                System.out.println(at.render());</span>
+<span class="nc" id="L211">                at.setPaddingLeftRight(1);</span>
+<span class="nc" id="L212">                at.getRenderer().setCWC(new CWC_LongestWord());</span>
+<span class="nc" id="L213">                System.out.println(at.render());</span>
 
 
-<span class="nc" id="L225">            }</span>
-<span class="nc bnc" id="L226" title="All 2 branches missed.">            else if(choice ==2) {</span>
+<span class="nc" id="L216">            }</span>
+<span class="nc bnc" id="L217" title="All 2 branches missed.">            else if(choice ==2) {</span>
 
                 String cCode;
                 while(1==1){
-<span class="nc" id="L230">                    System.out.println(&quot;Enter the course code or enter q to return to dashboard: &quot;);</span>
-<span class="nc" id="L231">                    cCode = scanner.next();</span>
-<span class="nc bnc" id="L232" title="All 2 branches missed.">                    if(cCode.equals(&quot;q&quot;)){break;}</span>
+<span class="nc" id="L221">                    System.out.println(&quot;Enter the course code or enter q to return to dashboard: &quot;);</span>
+<span class="nc" id="L222">                    cCode = scanner.next();</span>
+<span class="nc bnc" id="L223" title="All 2 branches missed.">                    if(cCode.equals(&quot;q&quot;)){break;}</span>
 
-<span class="nc" id="L234">                    PreparedStatement pstmt = connection.prepareStatement(&quot;Select * from coursesoffered where courseid =? and periodOffered=?&quot;);</span>
-<span class="nc" id="L235">                    pstmt.setString(1,cCode);</span>
-<span class="nc" id="L236">                    pstmt.setString(2,Utilities.yearTermFinder(connection));</span>
-<span class="nc" id="L237">                    ResultSet rs = pstmt.executeQuery();</span>
-<span class="nc bnc" id="L238" title="All 2 branches missed.">                    if(!rs.next()){</span>
-<span class="nc" id="L239">                        System.out.println(&quot;Not valid for this semester! Try again.&quot;);</span>
-<span class="nc" id="L240">                        continue;</span>
+<span class="nc" id="L225">                    PreparedStatement pstmt = connection.prepareStatement(&quot;Select * from coursesoffered where courseid =? and periodOffered=?&quot;);</span>
+<span class="nc" id="L226">                    pstmt.setString(1,cCode);</span>
+<span class="nc" id="L227">                    pstmt.setString(2,Utilities.yearTermFinder(connection));</span>
+<span class="nc" id="L228">                    ResultSet rs = pstmt.executeQuery();</span>
+<span class="nc bnc" id="L229" title="All 2 branches missed.">                    if(!rs.next()){</span>
+<span class="nc" id="L230">                        System.out.println(&quot;Not valid for this semester! Try again.&quot;);</span>
+<span class="nc" id="L231">                        continue;</span>
                     }
                     else{
-<span class="nc" id="L243">                        pstmt = connection.prepareStatement(&quot;Insert into coursesapproval (courseid,instructorid,studentid) values (?,?,?)&quot;);</span>
-<span class="nc" id="L244">                        pstmt.setString(1,cCode);</span>
-<span class="nc" id="L245">                        pstmt.setString(2,rs.getString(&quot;instructorid&quot;));</span>
-<span class="nc" id="L246">                        pstmt.setString(3,studentID);</span>
-<span class="nc" id="L247">                        pstmt.execute();</span>
-<span class="nc" id="L248">                        System.out.println(&quot;Request for credit has been sent.&quot;);</span>
+<span class="nc" id="L234">                        pstmt = connection.prepareStatement(&quot;Insert into coursesapproval (courseid,instructorid,studentid) values (?,?,?)&quot;);</span>
+<span class="nc" id="L235">                        pstmt.setString(1,cCode);</span>
+<span class="nc" id="L236">                        pstmt.setString(2,rs.getString(&quot;instructorid&quot;));</span>
+<span class="nc" id="L237">                        pstmt.setString(3,studentID);</span>
+<span class="nc" id="L238">                        pstmt.execute();</span>
+<span class="nc" id="L239">                        System.out.println(&quot;Request for credit has been sent.&quot;);</span>
                     }
 
-<span class="nc" id="L251">                    pstmt.close();</span>
-<span class="nc" id="L252">                    break;</span>
+<span class="nc" id="L242">                    pstmt.close();</span>
+<span class="nc" id="L243">                    break;</span>
 
                 }
-<span class="nc bnc" id="L255" title="All 2 branches missed.">                if(cCode.equals(&quot;q&quot;)){break;}</span>
+<span class="nc bnc" id="L246" title="All 2 branches missed.">                if(cCode.equals(&quot;q&quot;)){break;}</span>
 
-<span class="nc" id="L257">            }</span>
-<span class="nc bnc" id="L258" title="All 2 branches missed.">            else if(choice == 3){</span>
-<span class="nc" id="L259">                break;</span>
+<span class="nc" id="L248">            }</span>
+<span class="nc bnc" id="L249" title="All 2 branches missed.">            else if(choice == 3){</span>
+<span class="nc" id="L250">                break;</span>
             }
 
-<span class="nc" id="L262">            else {System.out.println(&quot;Invalid Input: &quot;);}</span>
-<span class="nc bnc" id="L263" title="All 2 branches missed.">        }while(choice !=3);</span>
-<span class="nc" id="L264">    }</span>
+<span class="nc" id="L253">            else {System.out.println(&quot;Invalid Input: &quot;);}</span>
+<span class="nc bnc" id="L254" title="All 2 branches missed.">        }while(choice !=3);</span>
+<span class="nc" id="L255">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

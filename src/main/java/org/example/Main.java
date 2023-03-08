@@ -128,7 +128,7 @@ public class Main {
                             case "3" -> {                                                   //Offer a course
 
                                 if (Period.get_period(connection).getString("sub_period").equals(subPeriods[1])) {
-                                    Instructor.offerCourse(connection, instID, scanner);
+                                    instructor.offerCourse(connection, scanner);
                                 } else {
                                     System.out.println("Course floating period is over, can not float courses until next semester :O");
                                 }

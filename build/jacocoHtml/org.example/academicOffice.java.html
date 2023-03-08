@@ -259,8 +259,7 @@ import com.opencsv.exceptions.CsvValidationException;
     public void viewGrades(Connection connection,Scanner scanner) throws SQLException {
 <span class="nc" id="L260">        System.out.println(&quot;Enter the ID of the student whose grades you want to view:&quot;);</span>
 <span class="nc" id="L261">        String studentid = scanner.next();</span>
-<span class="nc" id="L262">        student s = new student(studentid);</span>
-<span class="nc" id="L263">        s.viewGrades(connection,scanner);</span>
-<span class="nc" id="L264">    }</span>
+<span class="nc" id="L262">        student.viewGrades(connection,scanner, studentid);</span>
+<span class="nc" id="L263">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

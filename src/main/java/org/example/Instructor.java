@@ -50,7 +50,7 @@ class Instructor extends Person{
         return toRettt;
     }
 
-    public static void offerCourse(Connection connection, String instID, Scanner scanner) throws SQLException {
+    public void offerCourse(Connection connection, Scanner scanner) throws SQLException {
         int choice = -1;
 
         do{
@@ -120,7 +120,7 @@ class Instructor extends Person{
 
                 PreparedStatement pstmt = connection.prepareStatement("INSERT INTO coursesoffered (courseid, instructorId, mincgpa, periodoffered) VALUES (?, ?, ?, ?)");
                 pstmt.setString(1,cCode);
-                pstmt.setString(2,instID);
+                pstmt.setString(2,this.instID);
                 pstmt.setNull(3, Types.INTEGER );
                 pstmt.setString(4, Utilities.yearTermFinder(connection));
                 pstmt.execute();
@@ -131,7 +131,7 @@ class Instructor extends Person{
                 String query = "SELECT * from coursesoffered where periodoffered = ? and instructorid=?";
                 PreparedStatement pstmt = connection.prepareStatement(query);
                 pstmt.setString(1,Utilities.yearTermFinder(connection));
-                pstmt.setString(2,instID);
+                pstmt.setString(2,this.instID);
                 ResultSet rs = pstmt.executeQuery();
 
                 AsciiTable at = new AsciiTable();
@@ -156,7 +156,7 @@ class Instructor extends Person{
                 String removalCourse = scanner.next();
                 PreparedStatement pstmt = connection.prepareStatement("Delete from coursesoffered where courseid=? and instructorid=? and periodoffered=?");
                 pstmt.setString(1,removalCourse);
-                pstmt.setString(2,instID);
+                pstmt.setString(2,this.instID);
                 pstmt.setString(3,Utilities.yearTermFinder(connection));
 
                 int rowDel = pstmt.executeUpdate();

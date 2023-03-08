@@ -18,7 +18,7 @@ public class Period {
 
         int yearInt=0;
         if (!rs.next()) {
-            System.out.println("oh nooooooo");
+//            System.out.println("oh nooooooo");
         }
         return rs;
     }

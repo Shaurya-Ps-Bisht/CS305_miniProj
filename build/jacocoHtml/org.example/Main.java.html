@@ -30,157 +30,204 @@ import java.util.*;
 //            Instructor.offerCourse(connection,&quot;69&quot;,scanner);
 
             do{
-<span class="nc" id="L33">                System.out.println(&quot;Enter 1 to login as a student|| 2 to login as an instructor || 3 to login as Academic Office || 4 to see current even and move to the next event || 5 to say goodbye &quot;);</span>
-<span class="nc" id="L34">                role = scanner.nextInt();</span>
+<span class="nc" id="L33">                System.out.println(&quot;=================================================================================================================================================&quot;);</span>
+<span class="nc" id="L34">                System.out.println(&quot;Enter 1. Student Login|| 2. Instructor Login || 3. Academic Office Login || 4. See current event and move to the next event || 5. to say goodbye &quot;);</span>
+<span class="nc" id="L35">                role = scanner.nextInt();</span>
 //====================================================================================================================================================================================================================================================
-<span class="nc bnc" id="L36" title="All 2 branches missed.">                if (role == 1) {</span>
-<span class="nc" id="L37">                    String studentID = student.studentLogin(connection);                    //login method</span>
-<span class="nc" id="L38">                    student s = new student(studentID);</span>
+<span class="nc bnc" id="L37" title="All 2 branches missed.">                if (role == 1) {</span>
+                    String studentID;
+                    String password;
+<span class="nc" id="L40">                    boolean loginSucc = false;</span>
+<span class="nc" id="L41">                    student s = null;</span>
 
-<span class="nc" id="L40">                    int choiceStud=-1;</span>
-<span class="nc bnc" id="L41" title="All 2 branches missed.">                    while(!studentID.equals(&quot;q&quot;)){</span>
-<span class="nc" id="L42">                        System.out.println(&quot;wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww&quot;);</span>
-<span class="nc" id="L43">                        System.out.println(&quot;1. To see courses and grades. 2. Update personal info. 3. Enroll for a course 4. To go back to role select&quot;);</span>
-<span class="nc" id="L44">                        choiceStud = scanner.nextInt();</span>
-<span class="nc bnc" id="L45" title="All 2 branches missed.">                        if (choiceStud == 1) {                                     //To see courses and grades</span>
-<span class="nc" id="L46">                            s.viewGrades(connection,scanner);</span>
+<span class="nc" id="L43">                    System.out.println(&quot;Welcome Student! Enter your student ID or press q to go back to select role screen: &quot;);</span>
+<span class="nc" id="L44">                    studentID = scanner.next();</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">                    while(!loginSucc) {</span>
+<span class="nc bnc" id="L46" title="All 2 branches missed.">                        if (studentID.equals(&quot;q&quot;)) {</span>
+<span class="nc" id="L47">                            break;</span>
                         }
-<span class="nc bnc" id="L48" title="All 2 branches missed.">                        else if(choiceStud==2){                                    //Update personal info</span>
-<span class="nc" id="L49">                            s.changeInfo(connection, scanner);</span>
-                        }
-<span class="nc bnc" id="L51" title="All 2 branches missed.">                        else if(choiceStud==3){                                    //Enroll for a course</span>
-<span class="nc" id="L52">                            s.enrollHaha(connection,scanner);</span>
-                        }
-<span class="nc bnc" id="L54" title="All 2 branches missed.">                        else if(choiceStud ==4){                                   //To go back to role select</span>
-<span class="nc" id="L55">                            studentID = &quot;q&quot;;</span>
+<span class="nc" id="L49">                        System.out.print(&quot;Your Password: &quot;);</span>
+<span class="nc" id="L50">                        password = scanner.next();</span>
+<span class="nc" id="L51">                        s = new student(studentID,password);</span>
+<span class="nc" id="L52">                        studentID = s.login(connection);</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">                        if(studentID!=null){</span>
+<span class="nc" id="L54">                            loginSucc = true;</span>
                         }
                         else{
-<span class="nc" id="L58">                            System.out.println(&quot;Invalid Input&quot;);</span>
-                        }
-                    }
-//====================================================================================================================================================================================================================================================
-<span class="nc bnc" id="L62" title="All 2 branches missed.">                } else if (role == 2) {</span>
-<span class="nc" id="L63">                    String instID = Instructor.instructorLogin(connection);</span>
-<span class="nc" id="L64">                    Instructor instructor = new Instructor(instID);</span>
-<span class="nc" id="L65">                    int choiceInst=-1;</span>
-<span class="nc bnc" id="L66" title="All 2 branches missed.">                    while(instID != &quot;q&quot;){</span>
-<span class="nc" id="L67">                        System.out.println(&quot;wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww&quot;);</span>
-<span class="nc" id="L68">                        System.out.println(&quot;1. To see grades of a student. 2. Update personal info. 3. Offer a course 4. Upload grades for a course 5. Approve credit requests 6. To go back to role select&quot;);</span>
-<span class="nc" id="L69">                        choiceInst = scanner.nextInt();</span>
-<span class="nc bnc" id="L70" title="All 2 branches missed.">                        if (choiceInst == 1) {                                     //To see grades of a student</span>
-<span class="nc" id="L71">                            instructor.viewGrades(connection,scanner);</span>
-                        }
-<span class="nc bnc" id="L73" title="All 2 branches missed.">                        else if(choiceInst==2){                                    //Update personal info</span>
-<span class="nc" id="L74">                            Instructor.changeinfo(connection, instID, scanner);</span>
-                        }
-<span class="nc bnc" id="L76" title="All 2 branches missed.">                        else if(choiceInst==3){                                    //Offer a course</span>
-
-<span class="nc bnc" id="L78" title="All 2 branches missed.">                            if(Period.get_period(connection).getString(&quot;sub_period&quot;).equals(subPeriods[1]))</span>
-                            {
-<span class="nc" id="L80">                                Instructor.offerCourse(connection,instID,scanner);</span>
+<span class="nc" id="L57">                            System.out.println(&quot;Invalid email or password! Enter your id again or enter q to go back to role screen&quot;);</span>
+<span class="nc" id="L58">                            studentID = scanner.next();</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">                            if (studentID.equals(&quot;q&quot;)) {</span>
+<span class="nc" id="L60">                                break;</span>
                             }
                             else{
-<span class="nc" id="L83">                                System.out.println(&quot;Course floating period is over, can not float courses until next semester :O&quot;);</span>
+<span class="nc" id="L63">                                studentID = null;</span>
                             }
                         }
-<span class="nc bnc" id="L86" title="All 2 branches missed.">                        else if(choiceInst ==4){                                   //Upload grades for a course</span>
-<span class="nc" id="L87">                            Instructor.uploadGrades(scanner,connection,instID);</span>
+                    }
+<span class="nc bnc" id="L67" title="All 2 branches missed.">                    if(!loginSucc){continue;}</span>
+<span class="nc" id="L68">                    String choice = &quot;&quot;;</span>
+<span class="nc bnc" id="L69" title="All 2 branches missed.">                    while(!choice.equals(&quot;4&quot;)){</span>
+<span class="nc" id="L70">                        System.out.println(&quot;=======================================================================================&quot;);</span>
+<span class="nc" id="L71">                        System.out.println(&quot;1. To see courses and grades. 2. Update personal info. 3. Enroll for a course 4. Logout&quot;);</span>
+<span class="nc" id="L72">                        choice = scanner.next();</span>
+<span class="nc bnc" id="L73" title="All 5 branches missed.">                        switch (choice) {</span>
+                            case &quot;1&quot; -&gt;                                      //To see courses and grades
+<span class="nc" id="L75">                                    student.viewGrades(connection, scanner, studentID);</span>
+                            case &quot;2&quot; -&gt;                                     //Update personal info
+<span class="nc" id="L77">                                    s.changeInfo(connection, scanner);</span>
+                            case &quot;3&quot; -&gt;                                     //Enroll for a course
+<span class="nc" id="L79">                                    s.enrollHaha(connection, scanner);</span>
+                            case &quot;4&quot; -&gt;                                    //To go back to role select
+<span class="nc" id="L81">                                    choice = &quot;4&quot;;</span>
+<span class="nc" id="L82">                            default -&gt; System.out.println(&quot;Invalid Input&quot;);</span>
+<span class="nc" id="L83">                        }</span>
+                    }
+//====================================================================================================================================================================================================================================================
+<span class="nc bnc" id="L86" title="All 2 branches missed.">                } else if (role == 2) {</span>
+                    String instID;
+                    String password;
+<span class="nc" id="L89">                    boolean loginSucc = false;</span>
+<span class="nc" id="L90">                    Instructor instructor = null;</span>
+
+<span class="nc" id="L92">                    System.out.println(&quot;Welcome Instructor! Enter your Instructor ID or press q to go back to select role screen: &quot;);</span>
+<span class="nc" id="L93">                    instID = scanner.next();</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">                    while(!loginSucc) {</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">                        if (instID.equals(&quot;q&quot;)) {</span>
+<span class="nc" id="L96">                            break;</span>
                         }
-<span class="nc bnc" id="L89" title="All 2 branches missed.">                        else if(choiceInst ==5){                                   //Approve req</span>
-<span class="nc" id="L90">                            Instructor.approveRequests(connection,scanner,instID);</span>
-                        }
-<span class="nc bnc" id="L92" title="All 2 branches missed.">                        else if(choiceInst ==6){                                   //To go back to role select</span>
-<span class="nc" id="L93">                            instID = &quot;q&quot;;</span>
+<span class="nc" id="L98">                        System.out.print(&quot;Your Password: &quot;);</span>
+<span class="nc" id="L99">                        password = scanner.next();</span>
+<span class="nc" id="L100">                        instructor= new Instructor(instID,password);</span>
+<span class="nc" id="L101">                        instID = instructor.login(connection);</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">                        if(instID!=null){</span>
+<span class="nc" id="L103">                            loginSucc = true;</span>
                         }
                         else{
-<span class="nc" id="L96">                            System.out.println(&quot;Invalid Input&quot;);</span>
+<span class="nc" id="L106">                            System.out.println(&quot;Invalid email or password! Enter your id again or enter q to go back to role screen&quot;);</span>
+<span class="nc" id="L107">                            instID = scanner.next();</span>
+<span class="nc bnc" id="L108" title="All 2 branches missed.">                            if (instID.equals(&quot;q&quot;)) {</span>
+<span class="nc" id="L109">                                break;</span>
+                            }
+                            else{
+<span class="nc" id="L112">                                instructor = null;</span>
+                            }
                         }
                     }
-<span class="nc" id="L99">                }</span>
+<span class="nc bnc" id="L116" title="All 2 branches missed.">                    if(!loginSucc){continue;}</span>
+<span class="nc" id="L117">                    String choice = &quot;&quot;;</span>
+
+<span class="nc bnc" id="L119" title="All 2 branches missed.">                    while(!choice.equals(&quot;6&quot;)){</span>
+<span class="nc" id="L120">                        System.out.println(&quot;============================================================================================================================================&quot;);</span>
+<span class="nc" id="L121">                        System.out.println(&quot;1. To see grades of a student. 2. Update personal info. 3. Offer a course 4. Upload grades for a course 5. Approve credit requests 6. Logout&quot;);</span>
+<span class="nc" id="L122">                        choice = scanner.next();</span>
+<span class="nc bnc" id="L123" title="All 7 branches missed.">                        switch (choice) {</span>
+                            case &quot;1&quot; -&gt;                                                     //To see grades of a student
+<span class="nc" id="L125">                                    instructor.viewGrades(connection, scanner);</span>
+                            case &quot;2&quot; -&gt;                                                     //Update personal info
+<span class="nc" id="L127">                                    instructor.changeinfo(connection, scanner);</span>
+                            case &quot;3&quot; -&gt; {                                                   //Offer a course
+
+<span class="nc bnc" id="L130" title="All 2 branches missed.">                                if (Period.get_period(connection).getString(&quot;sub_period&quot;).equals(subPeriods[1])) {</span>
+<span class="nc" id="L131">                                    instructor.offerCourse(connection, scanner);</span>
+                                } else {
+<span class="nc" id="L133">                                    System.out.println(&quot;Course floating period is over, can not float courses until next semester :O&quot;);</span>
+                                }
+<span class="nc" id="L135">                            }</span>
+                            case &quot;4&quot; -&gt;                                                     //Upload grades for a course
+<span class="nc" id="L137">                                    instructor.uploadGrades(scanner, connection);</span>
+                            case &quot;5&quot; -&gt;                                                     //Approve req
+<span class="nc" id="L139">                                    instructor.approveRequests(connection, scanner);</span>
+                            case &quot;6&quot; -&gt;                                                     //To go back to role select
+<span class="nc" id="L141">                                    choice = &quot;6&quot;;</span>
+<span class="nc" id="L142">                            default -&gt; System.out.println(&quot;Invalid Input&quot;);</span>
+
+<span class="nc" id="L144">                        }</span>
+                    }
+<span class="nc" id="L146">                }</span>
 //====================================================================================================================================================================================================================================================
-<span class="nc bnc" id="L101" title="All 2 branches missed.">                else if (role == 3) {</span>
+<span class="nc bnc" id="L148" title="All 2 branches missed.">                else if (role == 3) {</span>
 
-<span class="nc" id="L103">                    String acadlogtoken = academicOffice.acadLogin();               //login method</span>
-<span class="nc" id="L104">                    int choiceAacad = -1;</span>
-<span class="nc bnc" id="L105" title="All 2 branches missed.">                    while(acadlogtoken.equals(&quot;nice&quot;)) {</span>
-<span class="nc" id="L106">                        System.out.println(&quot;wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww&quot;);</span>
-<span class="nc" id="L107">                        System.out.println(&quot;1. To register new students. 2. Register instructors 3. Update course catalog 4. View grades of a student 5. Generate Transcript 6. To go back to role select&quot;);</span>
-<span class="nc" id="L108">                        choiceAacad = scanner.nextInt();</span>
-<span class="nc bnc" id="L109" title="All 2 branches missed.">                        if (choiceAacad == 1) {                                     //register new students</span>
+<span class="nc" id="L150">                    String acadlogtoken = academicOffice.acadLogin();               //login method</span>
+<span class="nc" id="L151">                    int choiceAacad = -1;</span>
+<span class="nc bnc" id="L152" title="All 2 branches missed.">                    while(acadlogtoken.equals(&quot;nice&quot;)) {</span>
+<span class="nc" id="L153">                        System.out.println(&quot;wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww&quot;);</span>
+<span class="nc" id="L154">                        System.out.println(&quot;1. To register new students. 2. Register instructors 3. Update course catalog 4. View grades of a student 5. Generate Transcript 6. To go back to role select&quot;);</span>
+<span class="nc" id="L155">                        choiceAacad = scanner.nextInt();</span>
+<span class="nc bnc" id="L156" title="All 2 branches missed.">                        if (choiceAacad == 1) {                                     //register new students</span>
 
-<span class="nc bnc" id="L111" title="All 4 branches missed.">                            if(Period.get_period(connection).getString(&quot;sub_period&quot;).equals(subPeriods[0]) &amp;&amp; Period.get_period(connection).getString(&quot;term&quot;).equals(&quot;W&quot;))</span>
+<span class="nc bnc" id="L158" title="All 4 branches missed.">                            if(Period.get_period(connection).getString(&quot;sub_period&quot;).equals(subPeriods[0]) &amp;&amp; Period.get_period(connection).getString(&quot;term&quot;).equals(&quot;W&quot;))</span>
                             {
-<span class="nc" id="L113">                                academicOffice.addNewStudents(connection,scanner);</span>
+<span class="nc" id="L160">                                academicOffice.addNewStudents(connection,scanner);</span>
                             }
                             else{
-<span class="nc" id="L116">                                System.out.println(&quot;Registration period is over, can not register students for year &quot;+ Period.get_period(connection).getString(&quot;year&quot;)+&quot; anymore&quot;);</span>
+<span class="nc" id="L163">                                System.out.println(&quot;Registration period is over, can not register students for year &quot;+ Period.get_period(connection).getString(&quot;year&quot;)+&quot; anymore&quot;);</span>
                             }
                         }
-<span class="nc bnc" id="L119" title="All 2 branches missed.">                        else if (choiceAacad == 2) {</span>
-<span class="nc bnc" id="L120" title="All 4 branches missed.">                            if(Period.get_period(connection).getString(&quot;sub_period&quot;).equals(subPeriods[0]) &amp;&amp; Period.get_period(connection).getString(&quot;term&quot;).equals(&quot;W&quot;))</span>
+<span class="nc bnc" id="L166" title="All 2 branches missed.">                        else if (choiceAacad == 2) {</span>
+<span class="nc bnc" id="L167" title="All 4 branches missed.">                            if(Period.get_period(connection).getString(&quot;sub_period&quot;).equals(subPeriods[0]) &amp;&amp; Period.get_period(connection).getString(&quot;term&quot;).equals(&quot;W&quot;))</span>
                             {
-<span class="nc" id="L122">                                academicOffice.addInstructors(connection);</span>
+<span class="nc" id="L169">                                academicOffice.addInstructors(connection);</span>
                             }
                             else{
-<span class="nc" id="L125">                                System.out.println(&quot;Registration period is over, can not register instructors for year &quot;+ Period.get_period(connection).getString(&quot;year&quot;)+&quot; anymore&quot;);</span>
+<span class="nc" id="L172">                                System.out.println(&quot;Registration period is over, can not register instructors for year &quot;+ Period.get_period(connection).getString(&quot;year&quot;)+&quot; anymore&quot;);</span>
                             }//register instructors
 
                         }
-<span class="nc bnc" id="L129" title="All 2 branches missed.">                        else if(choiceAacad==3){</span>
-<span class="nc bnc" id="L130" title="All 2 branches missed.">                            if(Period.get_period(connection).getString(&quot;sub_period&quot;).equals(subPeriods[0]))</span>
+<span class="nc bnc" id="L176" title="All 2 branches missed.">                        else if(choiceAacad==3){</span>
+<span class="nc bnc" id="L177" title="All 2 branches missed.">                            if(Period.get_period(connection).getString(&quot;sub_period&quot;).equals(subPeriods[0]))</span>
                             {
-<span class="nc" id="L132">                                academicOffice.changeCatalog(connection);</span>
+<span class="nc" id="L179">                                academicOffice.changeCatalog(connection);</span>
                             }
                             else{
-<span class="nc" id="L135">                                System.out.println(&quot;Catalog update period is over, can not update course catalog at the moment.&quot;);</span>
+<span class="nc" id="L182">                                System.out.println(&quot;Catalog update period is over, can not update course catalog at the moment.&quot;);</span>
                             }//Update course catalog
 
                         }
-<span class="nc bnc" id="L139" title="All 2 branches missed.">                        else if(choiceAacad==4){                                    //View grades of a student</span>
+<span class="nc bnc" id="L186" title="All 2 branches missed.">                        else if(choiceAacad==4){                                    //View grades of a student</span>
 //                            academicOffice.viewGrades(connection,scanner);
                         }
-<span class="nc bnc" id="L142" title="All 2 branches missed.">                        else if(choiceAacad==5){                                    //Generate Transcript</span>
+<span class="nc bnc" id="L189" title="All 2 branches missed.">                        else if(choiceAacad==5){                                    //Generate Transcript</span>
 
                         }
-<span class="nc bnc" id="L145" title="All 2 branches missed.">                        else if(choiceAacad ==6){                                   //To go back to role select</span>
-<span class="nc" id="L146">                            acadlogtoken = &quot;q&quot;;</span>
+<span class="nc bnc" id="L192" title="All 2 branches missed.">                        else if(choiceAacad ==6){                                   //To go back to role select</span>
+<span class="nc" id="L193">                            acadlogtoken = &quot;q&quot;;</span>
                         }
                         else{
-<span class="nc" id="L149">                            System.out.println(&quot;Invalid Input&quot;);</span>
+<span class="nc" id="L196">                            System.out.println(&quot;Invalid Input&quot;);</span>
                         }
                     }
-<span class="nc" id="L152">                }</span>
+<span class="nc" id="L199">                }</span>
 //====================================================================================================================================================================================================================================================
-<span class="nc bnc" id="L154" title="All 2 branches missed.">                else if (role == 4) {</span>
-<span class="nc" id="L155">                    ResultSet rs = Period.get_period(connection);</span>
-<span class="nc" id="L156">                    System.out.println(&quot;oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo&quot;);</span>
-<span class="nc" id="L157">                    System.out.println(&quot;YEAR:&quot;+ rs.getString(&quot;year&quot;)+&quot; TERM:&quot;+ rs.getString(&quot;term&quot;)+ &quot; EVENT:&quot;+ rs.getString(&quot;sub_period&quot;));</span>
-<span class="nc" id="L158">                    Period.set_period(connection, rs, scanner, subPeriods);</span>
-<span class="nc" id="L159">                }</span>
+<span class="nc bnc" id="L201" title="All 2 branches missed.">                else if (role == 4) {</span>
+<span class="nc" id="L202">                    ResultSet rs = Period.get_period(connection);</span>
+<span class="nc" id="L203">                    System.out.println(&quot;oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo&quot;);</span>
+<span class="nc" id="L204">                    System.out.println(&quot;YEAR:&quot;+ rs.getString(&quot;year&quot;)+&quot; TERM:&quot;+ rs.getString(&quot;term&quot;)+ &quot; EVENT:&quot;+ rs.getString(&quot;sub_period&quot;));</span>
+<span class="nc" id="L205">                    Period.set_period(connection, rs, scanner, subPeriods);</span>
+<span class="nc" id="L206">                }</span>
 //====================================================================================================================================================================================================================================================
-<span class="nc bnc" id="L161" title="All 2 branches missed.">                else if (role == 5) {</span>
-<span class="nc" id="L162">                    satisfied=true;</span>
+<span class="nc bnc" id="L208" title="All 2 branches missed.">                else if (role == 5) {</span>
+<span class="nc" id="L209">                    satisfied=true;</span>
                 }
 //====================================================================================================================================================================================================================================================
                 else {
-<span class="nc" id="L166">                    System.out.println(&quot;Invalid input. &quot;);</span>
+<span class="nc" id="L213">                    System.out.println(&quot;Invalid input. &quot;);</span>
                 }
-<span class="nc bnc" id="L168" title="All 2 branches missed.">            }while(!satisfied);</span>
+<span class="nc bnc" id="L215" title="All 2 branches missed.">            }while(!satisfied);</span>
 
-<span class="nc" id="L170">            System.out.println(&quot;\nGoodbye...&quot;);</span>
+<span class="nc" id="L217">            System.out.println(&quot;\nGoodbye...&quot;);</span>
 
-<span class="nc" id="L172">            scanner.close();</span>
-<span class="nc" id="L173">            Statement stmt = connection.createStatement();</span>
-<span class="nc" id="L174">            stmt.close();</span>
-<span class="nc" id="L175">        }catch (SQLException e) {</span>
-<span class="nc" id="L176">            System.out.println(e.getMessage());</span>
-<span class="nc" id="L177">        } catch (CsvValidationException e) {</span>
-<span class="nc" id="L178">            throw new RuntimeException(e);</span>
-<span class="nc" id="L179">        } catch (IOException e) {</span>
-<span class="nc" id="L180">            throw new RuntimeException(e);</span>
-<span class="nc" id="L181">        }</span>
+<span class="nc" id="L219">            scanner.close();</span>
+<span class="nc" id="L220">            Statement stmt = connection.createStatement();</span>
+<span class="nc" id="L221">            stmt.close();</span>
+<span class="nc" id="L222">        }catch (SQLException e) {</span>
+<span class="nc" id="L223">            System.out.println(e.getMessage());</span>
+<span class="nc" id="L224">        } catch (CsvValidationException e) {</span>
+<span class="nc" id="L225">            throw new RuntimeException(e);</span>
+<span class="nc" id="L226">        } catch (IOException e) {</span>
+<span class="nc" id="L227">            throw new RuntimeException(e);</span>
+<span class="nc" id="L228">        }</span>
 
 
-<span class="nc" id="L184">    }</span>
+<span class="nc" id="L231">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
