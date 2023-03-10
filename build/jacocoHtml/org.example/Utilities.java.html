@@ -5,13 +5,13 @@ import java.sql.SQLException;
 
 <span class="nc" id="L6">public class Utilities {</span>
     public static int semesterDifference(String semester1, String semester2) {
-<span class="nc" id="L8">        int year1 = Integer.parseInt(semester1.substring(0, 4));</span>
-<span class="nc" id="L9">        int year2 = Integer.parseInt(semester2.substring(0, 4));</span>
-<span class="nc bnc" id="L10" title="All 2 branches missed.">        int semesterNum1 = semester1.charAt(4) == 'W' ? 0 : 1;</span>
-<span class="nc bnc" id="L11" title="All 2 branches missed.">        int semesterNum2 = semester2.charAt(4) == 'W' ? 0 : 1;</span>
-<span class="nc" id="L12">        int numSemesters = (year2 - year1) * 2 + semesterNum2 - semesterNum1;</span>
+<span class="fc" id="L8">        int year1 = Integer.parseInt(semester1.substring(0, 4));</span>
+<span class="fc" id="L9">        int year2 = Integer.parseInt(semester2.substring(0, 4));</span>
+<span class="fc bfc" id="L10" title="All 2 branches covered.">        int semesterNum1 = semester1.charAt(4) == 'W' ? 0 : 1;</span>
+<span class="fc bfc" id="L11" title="All 2 branches covered.">        int semesterNum2 = semester2.charAt(4) == 'W' ? 0 : 1;</span>
+<span class="fc" id="L12">        int numSemesters = (year2 - year1) * 2 + semesterNum2 - semesterNum1;</span>
 
-<span class="nc" id="L14">        return numSemesters;</span>
+<span class="fc" id="L14">        return numSemesters;</span>
     }
 
     public static String yearTermFinder(Connection connection) throws SQLException {

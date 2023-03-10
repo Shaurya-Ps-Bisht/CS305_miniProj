@@ -1,4 +1,6 @@
 package org.example;
+import com.opencsv.exceptions.CsvValidationException;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -6,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.Scanner;
 
@@ -16,129 +19,125 @@ import static org.mockito.Mockito.*;
 
 
 public class InstructorTest {
+    private static Connection connection;
+    private static Scanner scanner;
+
+    @BeforeEach
+    public void setUp() throws SQLException {
+        String url = "jdbc:postgresql://localhost:5432/aisehi";
+        String user = "postgres";
+        String password = "root";
+        connection = DriverManager.getConnection(url, user, password);
+        if (connection != null) {
+            System.out.println("Connected to the PostgreSQL server successfully.");
+        } else {
+            System.out.println("Failed to make connection!");
+        };
+        connection.setAutoCommit(false);
+    }
+    @AfterEach
+    public void tearDown() throws SQLException {
+        connection.rollback();
+        connection.setAutoCommit(true);
+        connection.close();
+
+    }
+
     @Test
-    public void testLogin() throws SQLException {
-        Connection mockConnection = mock(Connection.class);
-        PreparedStatement mockPreparedStatement = mock(PreparedStatement.class);
-        ResultSet mockResultSet = mock(ResultSet.class);
-
-        when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
-        when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
-        when(mockResultSet.next()).thenReturn(true);
-        when(mockResultSet.getString("instructorname")).thenReturn("Instructor1");
-        when(mockResultSet.getString("contactno")).thenReturn("9999999999");
-        when(mockResultSet.getString("instructorid")).thenReturn("CSE0001");
-
+    public void offercoursetest() throws SQLException {
         Instructor instructor = new Instructor("CSE0001", "root");
-        String result = instructor.login(mockConnection);
+        String input = "2\ncsdsasdasdasdsa\nCS306\n5\n";
+        scanner = new Scanner(input);
+        instructor.offerCourse(connection, scanner);
 
-        verify(mockPreparedStatement).setString(1, "CSE0001");
-        verify(mockPreparedStatement).setString(2, "root");
-        verify(mockResultSet).close();
-        verify(mockPreparedStatement).close();
+        input = "2\nCS306\nq\n";
+        scanner = new Scanner(input);
+        instructor.offerCourse(connection, scanner);
 
-        assertEquals("CSE0001", result);
-    }
-    @Test
-    public void testLoginfail() throws SQLException {
-        Connection mockConnection = mock(Connection.class);
-        PreparedStatement mockPreparedStatement = mock(PreparedStatement.class);
-        ResultSet mockResultSet = mock(ResultSet.class);
+        input = "1\nsad\n5\n";
+        scanner = new Scanner(input);
+        instructor.offerCourse(connection, scanner);
 
-        when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
-        when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
-        when(mockResultSet.next()).thenReturn(false);
-        when(mockResultSet.getString("instructorname")).thenReturn("John Doe");
-        when(mockResultSet.getString("contactno")).thenReturn("555-5555");
-        when(mockResultSet.getString("instructorid")).thenReturn("1234");
+        PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM coursesoffered WHERE courseid = ? AND periodoffered = ? and instructorid=?");
+        pstmt.setString(1, "CS306");
+        pstmt.setString(3, "CSE0001");
+        pstmt.setString(2, Utilities.yearTermFinder(connection));
+        ResultSet rs = pstmt.executeQuery();
+        Assertions.assertTrue(rs.next());
 
-        Instructor instructor = new Instructor("1234", "password");
-        String result = instructor.login(mockConnection);
-
-        verify(mockPreparedStatement).setString(1, "1234");
-        verify(mockPreparedStatement).setString(2, "password");
-        verify(mockResultSet).close();
-        verify(mockPreparedStatement).close();
-
-        assertEquals("q", result);
-    }
-
-    @Test
-    public void testOfferCourse() throws SQLException {
-        Connection mockConnection = mock(Connection.class);
-        Scanner mockScanner = mock(Scanner.class);
-        PreparedStatement mockPreparedStatement = mock(PreparedStatement.class);
-        ResultSet mockResultSet = mock(ResultSet.class);
-        Statement mockStatement = mock(Statement.class);
-
-        when(mockScanner.nextInt()).thenReturn(2);
-        when(mockScanner.next()).thenReturn("trash");
-        String input = mockScanner.next();
-        when(mockScanner.next()).thenReturn("q");
+        input = "3\n5\n";
+        scanner = new Scanner(input);
+        instructor.offerCourse(connection, scanner);
 
 
-        Instructor instructor = new Instructor("1234", "password");
-        instructor.offerCourse(mockConnection, mockScanner);
-//
-        verify(mockScanner, times(1)).nextInt();
-        verify(mockScanner, times(2)).next();
-//
+        input = "4\nCS306\n5\n";
+        scanner = new Scanner(input);
+        instructor.offerCourse(connection, scanner);
+        input = "4\nCS3sssssss06\n5\n";
+        scanner = new Scanner(input);
+        instructor.offerCourse(connection, scanner);
+
+        pstmt = connection.prepareStatement("SELECT * FROM coursesoffered WHERE courseid = ? AND periodoffered = ? and instructorid=?");
+        pstmt.setString(1, "CS306");
+        pstmt.setString(3, "CSE0001");
+        pstmt.setString(2, Utilities.yearTermFinder(connection));
+        rs = pstmt.executeQuery();
+        Assertions.assertFalse(rs.next());
+
+        scanner.close();
     }
 
     @Test
-    public void testOfferCoursePass() throws SQLException {
-        Connection mockConnection = mock(Connection.class);
-        Scanner mockScanner = mock(Scanner.class);
-        PreparedStatement mockPreparedStatement = mock(PreparedStatement.class);
-        ResultSet mockResultSet = mock(ResultSet.class);
-        Statement mockStatement = mock(Statement.class);
+    void Login() throws SQLException {
+        Instructor instructor = new Instructor("CSE0001", "root");
+        String sol = instructor.login(connection);
+        Assertions.assertEquals("CSE0001",sol);
 
-
-        when(mockScanner.nextInt()).thenReturn(2).thenReturn(4).thenReturn(4).thenReturn(5);
-        when(mockScanner.next()).thenReturn("CS304");
-        when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
-        when(mockConnection.createStatement()).thenReturn(mockStatement);
-        when(mockStatement.executeQuery(anyString())).thenReturn(mockResultSet);
-        when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
-        when(mockResultSet.next()).thenReturn(true);
-        when(mockResultSet.getString("periodoffered")).thenReturn("2020S");
-        when(Utilities.yearTermFinder(mockConnection)).thenReturn("2020S");
-        when(mockPreparedStatement.executeUpdate()).thenReturn(0).thenReturn(1);
-
-//        when(mockConnection.prepareStatement("INSERT INTO coursesoffered (courseid, instructorId, mincgpa, periodoffered) VALUES (?, ?, ?, ?)")).thenReturn(mockPreparedStatement);
-
-        Instructor instructor = new Instructor("1234", "password");
-        instructor.offerCourse(mockConnection, mockScanner);
-
-
-        verify(mockScanner, times(4)).nextInt();
-        verify(mockScanner, times(3)).next();
+        Instructor instructorfail = new Instructor("CSE00012", "root");
+        sol = instructorfail.login(connection);
+        Assertions.assertEquals("q",sol);
     }
 
     @Test
-    public void testOfferCourseCatalog() throws SQLException {
-        Connection mockConnection = mock(Connection.class);
-        Scanner mockScanner = mock(Scanner.class);
-        PreparedStatement mockPreparedStatement = mock(PreparedStatement.class);
-        ResultSet mockResultSet = mock(ResultSet.class);
-        Statement mockStatement = mock(Statement.class);
+    void viewGrades() throws SQLException {
+        Instructor instructor = new Instructor("CSE0001", "root");
+        String input = "2020csb1000\n";
+        scanner = new Scanner(input);
+        instructor.viewGrades(connection, scanner);
+        scanner.close();
+    }
 
-        when(mockScanner.nextInt()).thenReturn(1).thenReturn(3).thenReturn(5);
-        when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
-        when(mockConnection.createStatement()).thenReturn(mockStatement);
-        when(mockStatement.executeQuery(anyString())).thenReturn(mockResultSet);
-        when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
-        when(mockResultSet.next()).thenReturn(true).thenReturn(false);
-        when(mockResultSet.getString("periodoffered")).thenReturn("2020S");
-        when(Utilities.yearTermFinder(mockConnection)).thenReturn("2020S");
+    @Test
+    void changeInfo() throws SQLException {
+        Instructor instructor = new Instructor("CSE0001", "root");
+        String input = "1\n2031341024\n2\nnotroot\n3\n";
+        scanner = new Scanner(input);
+        instructor.changeinfo(connection, scanner);
+        scanner.close();
+    }
 
-//        when(mockConnection.prepareStatement("INSERT INTO coursesoffered (courseid, instructorId, mincgpa, periodoffered) VALUES (?, ?, ?, ?)")).thenReturn(mockPreparedStatement);
+    @Test
+    void approveReq() throws SQLException {
+        Instructor instructor = new Instructor("CSE0001", "root");
+        String input = "1\n2\n4\n";
+        scanner = new Scanner(input);
+        instructor.approveRequests(connection, scanner);
+        scanner.close();
+    }
 
-        Instructor instructor = new Instructor("1234", "password");
-        instructor.offerCourse(mockConnection, mockScanner);
-
-
-        verify(mockScanner, times(3)).nextInt();
+    @Test
+    void uploadGrade() throws SQLException, CsvValidationException, IOException {
+        String sql = "UPDATE currentPeriod SET year = ?, term = ?, sub_period = ?";
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        pstmt.setInt(1, (2020));
+        pstmt.setString(2, "S");
+        pstmt.setString(3, "autoEnroll_chooseElec");
+        pstmt.execute();
+        String input = "gradeInfo.csv\n";
+        Instructor instructor = new Instructor("CSE0001", "root");
+        scanner = new Scanner(input);
+        instructor.uploadGrades(scanner,connection);
+        scanner.close();
     }
 
 

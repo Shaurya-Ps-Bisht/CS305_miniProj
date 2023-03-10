@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.example.AcademicOfficeTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2023-03-09T18:18:11" hostname="DESKTOP-MEFN6FK" time="1.244">
+  <properties/>
+  <testcase name="transcript()" classname="org.example.AcademicOfficeTest" time="0.605"/>
+  <testcase name="catalogChangeTest()" classname="org.example.AcademicOfficeTest" time="0.128"/>
+  <testcase name="curriculumAddTest()" classname="org.example.AcademicOfficeTest" time="0.14"/>
+  <testcase name="login()" classname="org.example.AcademicOfficeTest" time="0.055"/>
+  <testcase name="addStudents()" classname="org.example.AcademicOfficeTest" time="0.047"/>
+  <testcase name="addInstructors()" classname="org.example.AcademicOfficeTest" time="0.065"/>
+  <testcase name="viewGrades()" classname="org.example.AcademicOfficeTest" time="0.196"/>
+  <system-out><![CDATA[Connected to the PostgreSQL server successfully.
+Connected to the PostgreSQL server successfully.
+Enter the name of the input file for course catalog: 
+Succesfully Updated catalog with courseCat.csv
+
+Connected to the PostgreSQL server successfully.
+Enter the name of the input file for curriculum info or q to leave: 
+137.5 48.0 9.0
+41.0
+Connected to the PostgreSQL server successfully.
+Welcome Academic Office! Enter the password to login or press q to go back to select role screen: 
+Welcome Academic Office! Enter the password to login or press q to go back to select role screen: 
+Invalid password. Enter the password to login or press q to go back to select role screen: 
+Connected to the PostgreSQL server successfully.
+Enter the name of the input file to register students: 
+Succesfully added entries from 2020batch.csv
+
+Connected to the PostgreSQL server successfully.
+Enter the name of the input file to register instructors: 
+Succesfully added entries from instList.csv
+Connected to the PostgreSQL server successfully.
+Enter the ID of the student whose grades you want to view:
++--------+----------+-------+------+
+| Course | Academic | Grade | Type |
+| ID     | Session  |       |      |
++--------+----------+-------+------+
+| GE102  | 2020W    | A     | gr   |
++--------+----------+-------+------+
+| GE104  | 2020W    | A     | gr   |
++--------+----------+-------+------+
+| HS101  | 2020W    | F     | hc   |
++--------+----------+-------+------+
+| HS103  | 2020W    | A     | hc   |
++--------+----------+-------+------+
+| MA101  | 2020W    | A     | sc   |
++--------+----------+-------+------+
+| PH101  | 2020W    | A     | sc   |
++--------+----------+-------+------+
+| PH102  | 2020W    | A     | sc   |
++--------+----------+-------+------+
+| MA102  | 2020S    |       | sc   |
++--------+----------+-------+------+
+| CY101  | 2020S    |       | sc   |
++--------+----------+-------+------+
+| GE103  | 2020S    |       | gr   |
++--------+----------+-------+------+
+| GE105  | 2020S    |       | gr   |
++--------+----------+-------+------+
+| GE101  | 2020S    |       | gr   |
++--------+----------+-------+------+
+| CS101  | 2020S    |       | pc   |
++--------+----------+-------+------+
+| CS301  | 2020S    |       | pc   |
++--------+----------+-------+------+
+| CP301  | 2020W    | A     | cp   |
++--------+----------+-------+------+
+| CS302  | 2020W    | A     | pc   |
++--------+----------+-------+------+
+| CS332  | 2020W    | A     | pe   |
++--------+----------+-------+------+
+Semester 1: 9.433962264150944
+CGPA: 10.0
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

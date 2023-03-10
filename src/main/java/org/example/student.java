@@ -46,7 +46,7 @@ class student extends Person{
         return toRettt;
     }
 
-    public static void viewGrades(Connection connection, Scanner scanner, String studentID) throws SQLException {
+    public static double viewGrades(Connection connection, String studentID, boolean onlycg) throws SQLException {
         Map<String, Double> gradeToPoint = new HashMap<>();
         gradeToPoint.put("A", 10.0);
         gradeToPoint.put("A-", 9.0);
@@ -58,35 +58,37 @@ class student extends Person{
         gradeToPoint.put("E", 2.0);
         gradeToPoint.put("F", 0.0);
 
-        AsciiTable at = new AsciiTable();
-        at.getContext().setGrid(A7_Grids.minusBarPlusEquals());
+        if(!onlycg) {
+            AsciiTable at = new AsciiTable();
+            at.getContext().setGrid(A7_Grids.minusBarPlusEquals());
 
-        at.addRule();
-        at.addRow("Course ID", "Academic Session", "Grade", "Type");
-        at.addRule();
-        String query = "SELECT * FROM coursestaken WHERE studentid = ?";
-        PreparedStatement pstmt = connection.prepareStatement(query);
-        pstmt.setString(1,studentID);
-        ResultSet rs = pstmt.executeQuery();
+            at.addRule();
+            at.addRow("Course ID", "Academic Session", "Grade", "Type");
+            at.addRule();
+            String query = "SELECT * FROM coursestaken WHERE studentid = ?";
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setString(1, studentID);
+            ResultSet rs = pstmt.executeQuery();
 
 
-        while (rs.next()) {
-            String grade = rs.getString("grade");
-            if (grade == null) {
-                grade = "";  // replace null with an empty string
+            while (rs.next()) {
+                String grade = rs.getString("grade");
+                if (grade == null) {
+                    grade = "";  // replace null with an empty string
+                }
+
+                at.addRow(rs.getString("courseid"),
+                        rs.getString("periodtaken"),
+                        grade,
+                        rs.getString("type"));
+                at.addRule();
             }
 
-            at.addRow(rs.getString("courseid"),
-                    rs.getString("periodtaken"),
-                    grade,
-                    rs.getString("type"));
-            at.addRule();
+            at.setPaddingLeftRight(1);
+            at.getRenderer().setCWC(new CWC_LongestWord());
+            System.out.println(at.render());
+            pstmt.close();
         }
-
-        at.setPaddingLeftRight(1);
-        at.getRenderer().setCWC(new CWC_LongestWord());
-        System.out.println(at.render());
-        pstmt.close();
 
 
         int semsPassed =Utilities.semesterDifference(studentID.substring(0,4)+"W" ,Utilities.yearTermFinder(connection));
@@ -137,11 +139,9 @@ class student extends Person{
                 System.out.println("Semester "+(i+1)+ ": "+ pointsSecured/credsReg);
             }
             System.out.println("CGPA: "+cumilativePoints/credsEarned);
+            return cumilativePoints/credsEarned;
         }
-    }
-    public void sgpaCalc(String studentid, int sempassed, Connection connection) throws SQLException {
-
-
+        return 0;
     }
 
     public void changeInfo(Connection connection, Scanner scanner) throws SQLException {
@@ -222,21 +222,41 @@ class student extends Person{
                     cCode = scanner.next();
                     if(cCode.equals("q")){break;}
 
-                    PreparedStatement pstmt = connection.prepareStatement("Select * from coursesoffered where courseid =? and periodOffered=?");
+                    PreparedStatement pstmt = connection.prepareStatement("Select * from coursestaken where courseid =? and studentid=?");
+                    pstmt.setString(1,cCode);
+                    pstmt.setString(2,this.studentID);
+                    ResultSet rs = pstmt.executeQuery();
+                    if(rs.next()){
+                        String grade= rs.getString("grade");
+                        String period = rs.getString("periodtaken");
+                        if(period.equals(Utilities.yearTermFinder(connection))){
+                            System.out.println("Already enrolled for this course in this semester!");
+                            continue;
+                        }
+                        else if(!(grade.equals("F")||grade.equals("E"))){
+                            System.out.println("Already enrolled for this course in previous semesters!");
+                            continue;
+                        }
+                    }
+
+                    pstmt = connection.prepareStatement("Select * from coursesoffered where courseid =? and periodOffered=?");
                     pstmt.setString(1,cCode);
                     pstmt.setString(2,Utilities.yearTermFinder(connection));
-                    ResultSet rs = pstmt.executeQuery();
+                    rs = pstmt.executeQuery();
                     if(!rs.next()){
                         System.out.println("Not valid for this semester! Try again.");
                         continue;
                     }
                     else{
-                        pstmt = connection.prepareStatement("Insert into coursesapproval (courseid,instructorid,studentid) values (?,?,?)");
+                        if(rs.getObject("mincgpa") != null && student.viewGrades(connection,this.studentID,true)< rs.getDouble("mincgpa")){System.out.println("CGPA is lacking, credit not possible.");continue;}
+                        pstmt = connection.prepareStatement("Insert into coursesapproval (courseid,instructorid,studentid) values (?,?,?) on conflict (courseid,instructorid,studentid) do nothing");
                         pstmt.setString(1,cCode);
                         pstmt.setString(2,rs.getString("instructorid"));
                         pstmt.setString(3,studentID);
-                        pstmt.execute();
-                        System.out.println("Request for credit has been sent.");
+                        int doesItExist = pstmt.executeUpdate();
+                        if(doesItExist>0){System.out.println("Request for credit has been sent.");}
+                        else{System.out.println("Request exists already.");continue;}
+
                     }
 
                     pstmt.close();
@@ -253,4 +273,99 @@ class student extends Person{
             else {System.out.println("Invalid Input: ");}
         }while(choice !=3);
     }
+    public void graduationCheck(Connection connection, Scanner scanner) throws SQLException {
+        double neededPC= 0.00, neededGR= 0.00, neededPE= 0.00, neededCP= 0.00;
+        double actualPC= 0.00, actualGR= 0.00, actualCP = 0.00,actualPE = 0.00;
+        PreparedStatement pstmt = connection.prepareStatement("select * from curriculuminfo where year=? and branch=?");
+        pstmt.setInt(1,Integer.parseInt(this.studentID.substring(0,4)));
+        pstmt.setString(2, this.studentID.substring(4,7));
+        ResultSet rs = pstmt.executeQuery();
+        if(rs.next()){
+            neededGR = rs.getDouble("gr");
+            neededPC = rs.getDouble("pc");
+            neededCP = rs.getDouble("cp");
+            neededPE = rs.getDouble("pe");
+        }
+
+        pstmt = connection.prepareStatement("select * from coursestaken where type=? and studentid=?");
+        pstmt.setString(1,"pc");
+        pstmt.setString(2, this.studentID);
+        rs = pstmt.executeQuery();
+        while(rs.next()){
+            if(rs.getObject("grade")!=null && !(rs.getString("grade").equals("F")||rs.getString("grade").equals("E"))){
+                PreparedStatement innner = connection.prepareStatement("select * from coursecatalog where courseid=?");
+                innner.setString(1, rs.getString("courseid"));
+                ResultSet innnnerRes = innner.executeQuery();
+                if(innnnerRes.next()){
+                    actualPC = actualPC + innnnerRes.getDouble("creds");
+                }
+            }
+        }
+        pstmt = connection.prepareStatement("select * from coursestaken where type=? and studentid=?");
+        pstmt.setString(1,"cp");
+        pstmt.setString(2, this.studentID);
+        rs = pstmt.executeQuery();
+        while(rs.next()){
+            if(rs.getObject("grade")!=null && !(rs.getString("grade").equals("F")||rs.getString("grade").equals("E"))){
+                PreparedStatement innner = connection.prepareStatement("select * from coursecatalog where courseid=?");
+                innner.setString(1, rs.getString("courseid"));
+                ResultSet innnnerRes = innner.executeQuery();
+                if(innnnerRes.next()){
+                    actualCP = actualCP + innnnerRes.getDouble("creds");
+                }
+            }
+        }
+        pstmt = connection.prepareStatement("select * from coursestaken where type=? and studentid=?");
+        pstmt.setString(1,"pe");
+        pstmt.setString(2, this.studentID);
+        rs = pstmt.executeQuery();
+        while(rs.next()){
+            if(rs.getObject("grade")!=null && !(rs.getString("grade").equals("F")||rs.getString("grade").equals("E"))){
+                PreparedStatement innner = connection.prepareStatement("select * from coursecatalog where courseid=?");
+                innner.setString(1, rs.getString("courseid"));
+                ResultSet innnnerRes = innner.executeQuery();
+                if(innnnerRes.next()){
+                    actualPE = actualPE + innnnerRes.getDouble("creds");
+                }
+            }
+        }
+        pstmt = connection.prepareStatement("select * from coursestaken where type NOT IN (?, ?, ?) and studentid=?");
+        pstmt.setString(1,"pe");
+        pstmt.setString(2,"pc");
+        pstmt.setString(3,"cp");
+        pstmt.setString(4, this.studentID);
+        rs = pstmt.executeQuery();
+        while(rs.next()){
+            if(rs.getObject("grade")!=null && !(rs.getString("grade").equals("F")||rs.getString("grade").equals("E"))){
+                PreparedStatement innner = connection.prepareStatement("select * from coursecatalog where courseid=?");
+                innner.setString(1, rs.getString("courseid"));
+                ResultSet innnnerRes = innner.executeQuery();
+                if(innnnerRes.next()){
+                    actualGR = actualGR + innnnerRes.getDouble("creds");
+                }
+            }
+        }
+
+        System.out.println("Needed PC: "+neededPC);
+        System.out.println("Needed PE: "+neededPE);
+        System.out.println("Needed CP: "+neededCP);
+        System.out.println("Needed GR: "+neededGR);
+
+        System.out.println("\nYour PC: "+actualPC);
+        System.out.println("Your PE: "+actualPE);
+        System.out.println("Your CP: "+actualCP);
+        System.out.println("Your GR: "+actualGR);
+
+        if((actualPC<neededPC)||(actualGR<neededGR)||(actualPE<neededPE)||(actualCP<neededCP)){
+            System.out.println("Not eligible for graduation");
+        }
+        else{
+            System.out.println("Eligible for graduation");
+        }
+
+
+
+
+    }
+
 }

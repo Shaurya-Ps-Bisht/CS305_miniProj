@@ -1,0 +1,19 @@
+StudentID: 2020csb1000
+Name: Kulasekhara Nayak
+Phone Number: contactno
+
+Semester 1
+Course ID: GE102 Grade: A
+Course ID: GE104 Grade: A
+Course ID: HS101 Grade: F
+Course ID: HS103 Grade: A
+Course ID: MA101 Grade: A
+Course ID: PH101 Grade: A
+Course ID: PH102 Grade: A
+Course ID: CP301 Grade: A
+Course ID: CS302 Grade: A
+Course ID: CS332 Grade: A
+ SGPA: 9.433962264150944
+
+
+CGPA: 10.0

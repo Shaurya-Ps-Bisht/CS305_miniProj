@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.example.StudentTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-03-09T18:18:14" hostname="DESKTOP-MEFN6FK" time="0.213">
+  <properties/>
+  <testcase name="changeInfo()" classname="org.example.StudentTest" time="0.039"/>
+  <testcase name="graduationTest()" classname="org.example.StudentTest" time="0.037"/>
+  <testcase name="enrollCheck()" classname="org.example.StudentTest" time="0.041"/>
+  <testcase name="Login()" classname="org.example.StudentTest" time="0.043"/>
+  <testcase name="viewGrades()" classname="org.example.StudentTest" time="0.048"/>
+  <system-out><![CDATA[Connected to the PostgreSQL server successfully.
+Select 1. To change contact number 2. To change password. 3. To go back dashboard
+Enter the new contact number: 
+ok
+Select 1. To change contact number 2. To change password. 3. To go back dashboard
+Choose your new password: 
+Select 1. To change contact number 2. To change password. 3. To go back dashboard
+Connected to the PostgreSQL server successfully.
+Needed PC: 41.0
+Needed PE: 7.0
+Needed CP: 9.0
+Needed GR: 89.5
+
+Your PC: 3.0
+Your PE: 3.0
+Your CP: 3.0
+Your GR: 16.0
+Not eligible for graduation
+Connected to the PostgreSQL server successfully.
+Select 1. To view the Offered Courses for this semester 2. To credit a course 3. To go back dashboard
++--------+------------+--------+
+| Course | Instructor | CGPA   |
+| ID     | ID         | cutoff |
++--------+------------+--------+
+| CS301  | CSE0002    | 0      |
++--------+------------+--------+
+| CS304  | CSE0001    | 10     |
++--------+------------+--------+
+| CS332  | CSE0001    | 0      |
++--------+------------+--------+
+| BM101  | CSE0001    | 0      |
++--------+------------+--------+
+| GE102  | CSE0001    | 0      |
++--------+------------+--------+
+Select 1. To view the Offered Courses for this semester 2. To credit a course 3. To go back dashboard
+Enter the course code or enter q to return to dashboard: 
+Request exists already.
+Enter the course code or enter q to return to dashboard: 
+Already enrolled for this course in previous semesters!
+Enter the course code or enter q to return to dashboard: 
+Already enrolled for this course in this semester!
+Enter the course code or enter q to return to dashboard: 
+Connected to the PostgreSQL server successfully.
+Login successful! Welcome Kulasekhara Nayak!
+Connected to the PostgreSQL server successfully.
++--------+----------+-------+------+
+| Course | Academic | Grade | Type |
+| ID     | Session  |       |      |
++--------+----------+-------+------+
+| GE102  | 2020W    | A     | gr   |
++--------+----------+-------+------+
+| GE104  | 2020W    | A     | gr   |
++--------+----------+-------+------+
+| HS101  | 2020W    | F     | hc   |
++--------+----------+-------+------+
+| HS103  | 2020W    | A     | hc   |
++--------+----------+-------+------+
+| MA101  | 2020W    | A     | sc   |
++--------+----------+-------+------+
+| PH101  | 2020W    | A     | sc   |
++--------+----------+-------+------+
+| PH102  | 2020W    | A     | sc   |
++--------+----------+-------+------+
+| MA102  | 2020S    |       | sc   |
++--------+----------+-------+------+
+| CY101  | 2020S    |       | sc   |
++--------+----------+-------+------+
+| GE103  | 2020S    |       | gr   |
++--------+----------+-------+------+
+| GE105  | 2020S    |       | gr   |
++--------+----------+-------+------+
+| GE101  | 2020S    |       | gr   |
++--------+----------+-------+------+
+| CS101  | 2020S    |       | pc   |
++--------+----------+-------+------+
+| CS301  | 2020S    |       | pc   |
++--------+----------+-------+------+
+| CP301  | 2020W    | A     | cp   |
++--------+----------+-------+------+
+| CS302  | 2020W    | A     | pc   |
++--------+----------+-------+------+
+| CS332  | 2020W    | A     | pe   |
++--------+----------+-------+------+
+Semester 1: 9.433962264150944
+CGPA: 10.0
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

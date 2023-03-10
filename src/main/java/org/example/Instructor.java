@@ -51,12 +51,12 @@ class Instructor extends Person{
     }
 
     public void offerCourse(Connection connection, Scanner scanner) throws SQLException {
-        int choice = -1;
+        String choice = "";
 
         do{
             System.out.println("Select 1. To view the course catalog 2. To offer a course 3. View your offered courses for this semester 4. Deregister offered course 5. To go back dashboard");
-            choice = scanner.nextInt();
-            if(choice ==1) {
+            choice = scanner.next();
+            if(choice.equals("1")) {
                 String query = "SELECT courseid, coursename, ltps, creds, csb, mcb, eeb, chb, mmb, ceb, meb FROM coursecatalog";
                 Statement stmt = connection.createStatement();
                 ResultSet rs = stmt.executeQuery(query);
@@ -87,7 +87,7 @@ class Instructor extends Person{
                 System.out.println(at.render());
 
             }
-            else if(choice ==2) {
+            else if(choice.equals("2")) {
                 String cCode;
                 while(1==1){
                     System.out.println("Enter the course code or enter q to return to dashboard: ");        //to add course code and department check !!!!
@@ -127,7 +127,7 @@ class Instructor extends Person{
                 pstmt.close();
                 System.out.println("Offered successfully");
             }
-            else if(choice==3){
+            else if(choice.equals("3")){
                 String query = "SELECT * from coursesoffered where periodoffered = ? and instructorid=?";
                 PreparedStatement pstmt = connection.prepareStatement(query);
                 pstmt.setString(1,Utilities.yearTermFinder(connection));
@@ -151,7 +151,7 @@ class Instructor extends Person{
                 pstmt.close();
             }
 
-            else if(choice==4){
+            else if(choice.equals("4")){
                 System.out.println("Enter the course code: ");
                 String removalCourse = scanner.next();
                 PreparedStatement pstmt = connection.prepareStatement("Delete from coursesoffered where courseid=? and instructorid=? and periodoffered=?");
@@ -165,20 +165,20 @@ class Instructor extends Person{
                 pstmt.close();
             }
 
-            else if(choice == 5){
+            else if(choice.equals("5")){
                 break;
             }
 
             else {System.out.println("Invalid Input: ");}
-        }while(choice !=5);
+        }while(!choice.equals("5"));
     }
     public void changeinfo(Connection connection,Scanner scanner) throws SQLException {
-        int choice = -1;
+        String choice = "";
 
         do{
             System.out.println("Select 1. To change contact number 2. To change password. 3. To go back dashboard");
-            choice = scanner.nextInt();
-            if(choice ==1) {
+            choice = scanner.next();
+            if(choice.equals("1")) {
                 String newPassword;
                 System.out.println("Enter the new contact number: ");
                 newPassword = scanner.next();
@@ -191,7 +191,7 @@ class Instructor extends Person{
                 pstmt.close();
 
             }
-            else if(choice ==2) {
+            else if(choice.equals("2")) {
                 String newPassword;
                 System.out.println("Choose your new password: ");
                 newPassword = scanner.next();
@@ -202,11 +202,11 @@ class Instructor extends Person{
                 pstmt.executeUpdate();
                 pstmt.close();
             }
-            else if(choice == 3){
+            else if(choice.equals("3")){
                 break;
             }
             else {System.out.println("Invalid Input: ");}
-        }while(choice !=3);
+        }while(!choice.equals("3"));
 
     }
 
@@ -276,7 +276,7 @@ class Instructor extends Person{
                     pstmt.close();
                     break;
 
-                case "3":
+                case "4":
                     break;
             }
         }
@@ -285,7 +285,7 @@ class Instructor extends Person{
     public void viewGrades(Connection connection,Scanner scanner) throws SQLException {
         System.out.println("Enter the ID of the student whose grades you want to view:");
         String studentid = scanner.next();
-        student.viewGrades(connection,scanner,studentid);
+        student.viewGrades(connection,studentid,false);
     }
 
     public void uploadGrades(Scanner scanner, Connection connection) throws IOException, CsvValidationException, SQLException {
@@ -296,7 +296,9 @@ class Instructor extends Person{
         }
         String[] nextLine;
         CSVReader reader = new CSVReader(new FileReader("./src/main/java/org/example/dataFiles/gradeInfo/"+ fileName));
+        int i= 0;
         while ((nextLine = reader.readNext()) != null) {
+            if(i==0){i++; continue;}
 
             String courseid = nextLine[0];
             String studentid = nextLine[1];

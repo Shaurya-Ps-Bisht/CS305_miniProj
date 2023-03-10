@@ -1,5 +1,661 @@
 2Connected to the PostgreSQL server successfully.
-ŸSelect 1. To view the course catalog 2. To offer a course 3. View your offered courses for this semester 4. Deregister offered course 5. To go back dashboard
-;Enter the course code or enter q to return to dashboard: 
-Offered successfully
-ŸSelect 1. To view the course catalog 2. To offer a course 3. View your offered courses for this semester 4. Deregister offered course 5. To go back dashboard
+2Connected to the PostgreSQL server successfully.
+7Enter the name of the input file for course catalog: 
+/Succesfully Updated catalog with courseCat.csv
+
+2Connected to the PostgreSQL server successfully.
+FEnter the name of the input file for curriculum info or q to leave: 
+137.5 48.0 9.0
+41.0
+2Connected to the PostgreSQL server successfully.
+dWelcome Academic Office! Enter the password to login or press q to go back to select role screen: 
+dWelcome Academic Office! Enter the password to login or press q to go back to select role screen: 
+]Invalid password. Enter the password to login or press q to go back to select role screen: 
+2Connected to the PostgreSQL server successfully.
+9Enter the name of the input file to register students: 
+-Succesfully added entries from 2020batch.csv
+
+2Connected to the PostgreSQL server successfully.
+<Enter the name of the input file to register instructors: 
+-Succesfully added entries from instList.csv
+2Connected to the PostgreSQL server successfully.
+<Enter the ID of the student whose grades you want to view:
+&+--------+----------+-------+------+
+&| Course | Academic | Grade | Type |
+&| ID     | Session  |       |      |
+&+--------+----------+-------+------+
+&| GE102  | 2020W    | A     | gr   |
+&+--------+----------+-------+------+
+&| GE104  | 2020W    | A     | gr   |
+&+--------+----------+-------+------+
+&| HS101  | 2020W    | F     | hc   |
+&+--------+----------+-------+------+
+&| HS103  | 2020W    | A     | hc   |
+&+--------+----------+-------+------+
+&| MA101  | 2020W    | A     | sc   |
+&+--------+----------+-------+------+
+&| PH101  | 2020W    | A     | sc   |
+&+--------+----------+-------+------+
+&| PH102  | 2020W    | A     | sc   |
+&+--------+----------+-------+------+
+&| MA102  | 2020S    |       | sc   |
+&+--------+----------+-------+------+
+&| CY101  | 2020S    |       | sc   |
+&+--------+----------+-------+------+
+&| GE103  | 2020S    |       | gr   |
+&+--------+----------+-------+------+
+&| GE105  | 2020S    |       | gr   |
+&+--------+----------+-------+------+
+&| GE101  | 2020S    |       | gr   |
+&+--------+----------+-------+------+
+&| CS101  | 2020S    |       | pc   |
+&+--------+----------+-------+------+
+&| CS301  | 2020S    |       | pc   |
+&+--------+----------+-------+------+
+&| CP301  | 2020W    | A     | cp   |
+&+--------+----------+-------+------+
+&| CS302  | 2020W    | A     | pc   |
+&+--------+----------+-------+------+
+&| CS332  | 2020W    | A     | pe   |
+&+--------+----------+-------+------+
+Semester 1: 9.433962264150944
+CGPA: 10.0
+
+	2Connected to the PostgreSQL server successfully.
+
+	2Connected to the PostgreSQL server successfully.
+
+2Connected to the PostgreSQL server successfully.
+2Connected to the PostgreSQL server successfully.
+SSelect 1. To change contact number 2. To change password. 3. To go back dashboard
+ Enter the new contact number: 
+ok
+SSelect 1. To change contact number 2. To change password. 3. To go back dashboard
+Choose your new password: 
+SSelect 1. To change contact number 2. To change password. 3. To go back dashboard
+2Connected to the PostgreSQL server successfully.
+ŸSelect 1. To view the course catalog 2. To offer a course 3. View your offered courses for this semester 4. Deregister offered course 5. To go back dashboard
+;Enter the course code or enter q to return to dashboard: 
+2Course does not exist in the catalog! Try again.
+;Enter the course code or enter q to return to dashboard: 
+Offered successfully
+ŸSelect 1. To view the course catalog 2. To offer a course 3. View your offered courses for this semester 4. Deregister offered course 5. To go back dashboard
+ŸSelect 1. To view the course catalog 2. To offer a course 3. View your offered courses for this semester 4. Deregister offered course 5. To go back dashboard
+;Enter the course code or enter q to return to dashboard: 
+$Already offered course! Try again.
+;Enter the course code or enter q to return to dashboard: 
+ŸSelect 1. To view the course catalog 2. To offer a course 3. View your offered courses for this semester 4. Deregister offered course 5. To go back dashboard
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| Course | Course Name   | LTPs          | Credits | CSB | MCB | EEB | CHB | MMB | CEB | MEB |
+`| ID     |               |               |         |     |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| CS101  | DISCRETE      | 3-1-0-5       | 3       | pc  | pc  |     |     |     |     |     |
+`|        | MATHEMATICAL  |               |         |     |     |     |     |     |     |     |
+`|        | STRUCTURES    |               |         |     |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| CS304  | Computer      | 3-1-2-6       | 4       | pc  |     |     |     |     |     |     |
+`|        | Networks      |               |         |     |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| CS305  | Software      | 3-0-2-7       | 4       | pc  |     |     |     |     |     |     |
+`|        | Engineering   |               |         |     |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| CS302  | Analysis  and | 3-1-0-5       | 3       | pc  |     |     |     |     |     |     |
+`|        | Design     of |               |         |     |     |     |     |     |     |     |
+`|        | Algorithms    |               |         |     |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| CS303  | Operating     | 3-1-2-6       | 4       | pc  |     |     |     |     |     |     |
+`|        | Systems       |               |         |     |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| CS204  | Computer      | 3-1-2-6       | 4       | pc  |     |     |     |     |     |     |
+`|        | Architecture  |               |         |     |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| CS202  | Programming   | 3-1-2-6       | 4       | pc  |     |     |     |     |     |     |
+`|        | Paradigms and |               |         |     |     |     |     |     |     |     |
+`|        | Pragmatics    |               |         |     |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| CS203  | Digital Logic | 3-1-3-6       | 4       | pc  |     |     |     |     |     |     |
+`|        | Design        |               |         |     |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| CS201  | Data          | 3-1-2-6       | 4       | pc  |     |     |     |     |     |     |
+`|        | Structures    |               |         |     |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| CS306  | Theory     of | 3-1-0-5       | 3       | pc  |     |     |     |     |     |     |
+`|        | Computation   |               |         |     |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| MA101  | Calculus      | 3-1-0-5       | 3       | sc  |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| HS103  | Professional  | 2-2/3-2-13/3  | 3       | hc  |     |     |     |     |     |     |
+`|        | English       |               |         |     |     |     |     |     |     |     |
+`|        | Communication |               |         |     |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| GE104  | Introduction  | 2-2/3-2-13/3  | 3       | gr  |     |     |     |     |     |     |
+`|        | to Electrical |               |         |     |     |     |     |     |     |     |
+`|        | Engineering   |               |         |     |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| GE102  | Workshop      | 0-0-4-2       | 2       | gr  |     |     |     |     |     |     |
+`|        | Practice      |               |         |     |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| HS101  | History    of | 3/2-1/2-0-5/2 | 1       | hc  |     |     |     |     |     |     |
+`|        | Technology    |               |         |     |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| PH101  | Physics   for | 3-1-0-5       | 3       | sc  |     |     |     |     |     |     |
+`|        | Engineers     |               |         |     |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| PH102  | Physics   for | 0-0-4-2       | 2       | sc  |     |     |     |     |     |     |
+`|        | Engineers Lab |               |         |     |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| MA102  | Linear        | 3-1-0-5       | 3       | sc  |     |     |     |     |     |     |
+`|        | Algebra       |               |         |     |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| CY101  | Chemistry for | 3-1-2-6       | 4       | sc  |     |     |     |     |     |     |
+`|        | Engineers     |               |         |     |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| GE103  | Introduction  | 3-1-3-13/2    | 4       | gr  |     |     |     |     |     |     |
+`|        | to   Computer |               |         |     |     |     |     |     |     |     |
+`|        | Programming & |               |         |     |     |     |     |     |     |     |
+`|        | Data          |               |         |     |     |     |     |     |     |     |
+`|        | Structure     |               |         |     |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| GE105  | Engineering   | 0-0-3-3/2     | 1       | gr  |     |     |     |     |     |     |
+`|        | Drawing       |               |         |     |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| GE101  | Technology    | 0-0-2-1       | 1       | gr  |     |     |     |     |     |     |
+`|        | Museum Lab    |               |         |     |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| MA201  | Differential  | 3-1-0-5       | 3       | sc  |     |     |     |     |     |     |
+`|        | Equations     |               |         |     |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| EE201  | Signals   and | 3-1-0-5       | 3       | gr  |     |     |     |     |     |     |
+`|        | Systems       |               |         |     |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| HS201  | Economics     | 3-1-0-5       | 3       | hc  |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| GE107  | Tinkering Lab | 0-0-3-3/2     | 1       | gr  |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| MA202  | Probability   | 3-1-0-5       | 3       | sc  |     |     |     |     |     |     |
+`|        | and           |               |         |     |     |     |     |     |     |     |
+`|        | Statistics    |               |         |     |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| HS202  | Human         | 1-1/3-4-11/3  | 3       | hc  |     |     |     |     |     |     |
+`|        | Geography and |               |         |     |     |     |     |     |     |     |
+`|        | Societal      |               |         |     |     |     |     |     |     |     |
+`|        | Needs         |               |         |     |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| GE108  | Basic         | 2-2/3-2-13/3  | 3       | gr  |     |     |     |     |     |     |
+`|        | Electronics   |               |         |     |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| GE109  | Introduction  | 0-0-2-1       | 1       | gr  |     |     |     |     |     |     |
+`|        | to            |               |         |     |     |     |     |     |     |     |
+`|        | Engineering   |               |         |     |     |     |     |     |     |     |
+`|        | Products      |               |         |     |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| BM101  | Biology   for | 3-1-0-5       | 3       | sc  |     |     |     |     |     |     |
+`|        | Engineers     |               |         |     |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| HS301  | Industrial    | 3-1-0-5       | 3       | hc  |     |     |     |     |     |     |
+`|        | Management    |               |         |     |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| HS104  | Professional  | 1-1/3-1-13/6  | 1       | hc  |     |     |     |     |     |     |
+`|        | Ethics        |               |         |     |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| CP301  | Development   | 0-0-6-3       | 3       | cp  |     |     |     |     |     |     |
+`|        | Engineering   |               |         |     |     |     |     |     |     |     |
+`|        | Project       |               |         |     |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| CP302  | Capstone      | 0-0-6-3       | 3       | cp  |     |     |     |     |     |     |
+`|        | Project I     |               |         |     |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| CP303  | Capstone      | 0-0-6-3       | 3       | cp  |     |     |     |     |     |     |
+`|        | Project II    |               |         |     |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| GE111  | Introduction  | 3-1-0-5       | 3       | gr  |     |     |     |     |     |     |
+`|        | to            |               |         |     |     |     |     |     |     |     |
+`|        | Environmental |               |         |     |     |     |     |     |     |     |
+`|        | Science     & |               |         |     |     |     |     |     |     |     |
+`|        | Engineering   |               |         |     |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| CS301  | Databases     | 3-1-2-6       | 4       | pc  |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+`| CS332  | radnom        | 3-1-0-5       | 3       | pe  |     |     |     |     |     |     |
+`+--------+---------------+---------------+---------+-----+-----+-----+-----+-----+-----+-----+
+ŸSelect 1. To view the course catalog 2. To offer a course 3. View your offered courses for this semester 4. Deregister offered course 5. To go back dashboard
+Invalid Input: 
+ŸSelect 1. To view the course catalog 2. To offer a course 3. View your offered courses for this semester 4. Deregister offered course 5. To go back dashboard
+ŸSelect 1. To view the course catalog 2. To offer a course 3. View your offered courses for this semester 4. Deregister offered course 5. To go back dashboard
+"+--------+------------+--------+
+"| Course | Instructor | CGPA   |
+"| ID     | ID         | cutoff |
+"+--------+------------+--------+
+"| CS304  | CSE0001    | 10     |
+"+--------+------------+--------+
+"| CS332  | CSE0001    | 0      |
+"+--------+------------+--------+
+"| CS306  | CSE0001    | 0      |
+"+--------+------------+--------+
+"| BM101  | CSE0001    | 0      |
+"+--------+------------+--------+
+"| GE102  | CSE0001    | 0      |
+"+--------+------------+--------+
+ŸSelect 1. To view the course catalog 2. To offer a course 3. View your offered courses for this semester 4. Deregister offered course 5. To go back dashboard
+ŸSelect 1. To view the course catalog 2. To offer a course 3. View your offered courses for this semester 4. Deregister offered course 5. To go back dashboard
+Enter the course code: 
+Deregistered successfully
+ŸSelect 1. To view the course catalog 2. To offer a course 3. View your offered courses for this semester 4. Deregister offered course 5. To go back dashboard
+ŸSelect 1. To view the course catalog 2. To offer a course 3. View your offered courses for this semester 4. Deregister offered course 5. To go back dashboard
+Enter the course code: 
+QCould not deregister this course. Check for typo or existence in this semester.
+ŸSelect 1. To view the course catalog 2. To offer a course 3. View your offered courses for this semester 4. Deregister offered course 5. To go back dashboard
+2Connected to the PostgreSQL server successfully.
+(Login successful! Welcome instructor1!
+2Connected to the PostgreSQL server successfully.
+bSelect 1. To view requests 2. To approve all pending 3. Approve invidiually 4. Back to Dashboard
++--------+-------------+
+| Course | Student ID  |
+| ID     |             |
++--------+-------------+
+| BM101  | 2020csb1000 |
++--------+-------------+
+| CS304  | 2020csb1000 |
++--------+-------------+
+bSelect 1. To view requests 2. To approve all pending 3. Approve invidiually 4. Back to Dashboard
+bSelect 1. To view requests 2. To approve all pending 3. Approve invidiually 4. Back to Dashboard
+2Connected to the PostgreSQL server successfully.
+DEnter the file containing grades for this semester or q to leave: 
+2Connected to the PostgreSQL server successfully.
+<Enter the ID of the student whose grades you want to view:
+&+--------+----------+-------+------+
+&| Course | Academic | Grade | Type |
+&| ID     | Session  |       |      |
+&+--------+----------+-------+------+
+&| GE102  | 2020W    | A     | gr   |
+&+--------+----------+-------+------+
+&| GE104  | 2020W    | A     | gr   |
+&+--------+----------+-------+------+
+&| HS101  | 2020W    | F     | hc   |
+&+--------+----------+-------+------+
+&| HS103  | 2020W    | A     | hc   |
+&+--------+----------+-------+------+
+&| MA101  | 2020W    | A     | sc   |
+&+--------+----------+-------+------+
+&| PH101  | 2020W    | A     | sc   |
+&+--------+----------+-------+------+
+&| PH102  | 2020W    | A     | sc   |
+&+--------+----------+-------+------+
+&| MA102  | 2020S    |       | sc   |
+&+--------+----------+-------+------+
+&| CY101  | 2020S    |       | sc   |
+&+--------+----------+-------+------+
+&| GE103  | 2020S    |       | gr   |
+&+--------+----------+-------+------+
+&| GE105  | 2020S    |       | gr   |
+&+--------+----------+-------+------+
+&| GE101  | 2020S    |       | gr   |
+&+--------+----------+-------+------+
+&| CS101  | 2020S    |       | pc   |
+&+--------+----------+-------+------+
+&| CS301  | 2020S    |       | pc   |
+&+--------+----------+-------+------+
+&| CP301  | 2020W    | A     | cp   |
+&+--------+----------+-------+------+
+&| CS302  | 2020W    | A     | pc   |
+&+--------+----------+-------+------+
+&| CS332  | 2020W    | A     | pe   |
+&+--------+----------+-------+------+
+Semester 1: 9.433962264150944
+CGPA: 10.0
+2Connected to the PostgreSQL server successfully.
+“=================================================================================================================================================
+“Enter 1. Student Login|| 2. Instructor Login || 3. Academic Office Login || 4. See current event and move to the next event || 5. to say goodbye 
+poooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+YEAR:2020 TERM:S EVENT:semEnd
+G1 for YES and forward event ||  OTHER for NO and go back to dashboard
+poooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+ECourse approval pending requests were cleared for previous semester
+“=================================================================================================================================================
+“Enter 1. Student Login|| 2. Instructor Login || 3. Academic Office Login || 4. See current event and move to the next event || 5. to say goodbye 
+2Connected to the PostgreSQL server successfully.
+“=================================================================================================================================================
+“Enter 1. Student Login|| 2. Instructor Login || 3. Academic Office Login || 4. See current event and move to the next event || 5. to say goodbye 
+poooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+YEAR:2020 TERM:W EVENT:semEnd
+G1 for YES and forward event ||  OTHER for NO and go back to dashboard
+poooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+ECourse approval pending requests were cleared for previous semester
+“=================================================================================================================================================
+“Enter 1. Student Login|| 2. Instructor Login || 3. Academic Office Login || 4. See current event and move to the next event || 5. to say goodbye 
+2Connected to the PostgreSQL server successfully.
+“=================================================================================================================================================
+“Enter 1. Student Login|| 2. Instructor Login || 3. Academic Office Login || 4. See current event and move to the next event || 5. to say goodbye 
+VWelcome Student! Enter your student ID or press q to go back to select role screen: 
+dYour Password: Invalid email or password! Enter your id again or enter q to go back to role screen
+=Your Password: Login successful! Welcome Kulasekhara Nayak!
+Y=======================================================================================
+m1. To see courses and grades. 2. Update personal info. 3. Enroll for a course 4. Graduation Check 5. Logout
+&+--------+----------+-------+------+
+&| Course | Academic | Grade | Type |
+&| ID     | Session  |       |      |
+&+--------+----------+-------+------+
+&| GE102  | 2020W    | A     | gr   |
+&+--------+----------+-------+------+
+&| GE104  | 2020W    | A     | gr   |
+&+--------+----------+-------+------+
+&| HS101  | 2020W    | F     | hc   |
+&+--------+----------+-------+------+
+&| HS103  | 2020W    | A     | hc   |
+&+--------+----------+-------+------+
+&| MA101  | 2020W    | A     | sc   |
+&+--------+----------+-------+------+
+&| PH101  | 2020W    | A     | sc   |
+&+--------+----------+-------+------+
+&| PH102  | 2020W    | A     | sc   |
+&+--------+----------+-------+------+
+&| MA102  | 2020S    |       | sc   |
+&+--------+----------+-------+------+
+&| CY101  | 2020S    |       | sc   |
+&+--------+----------+-------+------+
+&| GE103  | 2020S    |       | gr   |
+&+--------+----------+-------+------+
+&| GE105  | 2020S    |       | gr   |
+&+--------+----------+-------+------+
+&| GE101  | 2020S    |       | gr   |
+&+--------+----------+-------+------+
+&| CS101  | 2020S    |       | pc   |
+&+--------+----------+-------+------+
+&| CS301  | 2020S    |       | pc   |
+&+--------+----------+-------+------+
+&| CP301  | 2020W    | A     | cp   |
+&+--------+----------+-------+------+
+&| CS302  | 2020W    | A     | pc   |
+&+--------+----------+-------+------+
+&| CS332  | 2020W    | A     | pe   |
+&+--------+----------+-------+------+
+Semester 1: 9.433962264150944
+CGPA: 10.0
+Y=======================================================================================
+m1. To see courses and grades. 2. Update personal info. 3. Enroll for a course 4. Graduation Check 5. Logout
+SSelect 1. To change contact number 2. To change password. 3. To go back dashboard
+Y=======================================================================================
+m1. To see courses and grades. 2. Update personal info. 3. Enroll for a course 4. Graduation Check 5. Logout
+gSelect 1. To view the Offered Courses for this semester 2. To credit a course 3. To go back dashboard
+Y=======================================================================================
+m1. To see courses and grades. 2. Update personal info. 3. Enroll for a course 4. Graduation Check 5. Logout
+Needed PC: 41.0
+Needed PE: 7.0
+Needed CP: 9.0
+Needed GR: 89.5
+
+Your PC: 3.0
+Your PE: 3.0
+Your CP: 3.0
+Your GR: 16.0
+Not eligible for graduation
+“=================================================================================================================================================
+“Enter 1. Student Login|| 2. Instructor Login || 3. Academic Office Login || 4. See current event and move to the next event || 5. to say goodbye 
+2Connected to the PostgreSQL server successfully.
+“=================================================================================================================================================
+“Enter 1. Student Login|| 2. Instructor Login || 3. Academic Office Login || 4. See current event and move to the next event || 5. to say goodbye 
+poooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+4YEAR:2020 TERM:S EVENT:currInfoUpload_floatCourses
+G1 for YES and forward event ||  OTHER for NO and go back to dashboard
+poooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+Courses auto-filled
+“=================================================================================================================================================
+“Enter 1. Student Login|| 2. Instructor Login || 3. Academic Office Login || 4. See current event and move to the next event || 5. to say goodbye 
+2Connected to the PostgreSQL server successfully.
+“=================================================================================================================================================
+“Enter 1. Student Login|| 2. Instructor Login || 3. Academic Office Login || 4. See current event and move to the next event || 5. to say goodbye 
+poooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+YEAR:2020 TERM:S EVENT:semEnd
+G1 for YES and forward event ||  OTHER for NO and go back to dashboard
+poooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+ECourse approval pending requests were cleared for previous semester
+“=================================================================================================================================================
+“Enter 1. Student Login|| 2. Instructor Login || 3. Academic Office Login || 4. See current event and move to the next event || 5. to say goodbye 
+2Connected to the PostgreSQL server successfully.
+mEnter File name for output CSV file along with .csv: Enter the batch of registering students: DOING FOR csb
+OEnter start of student ID range: Enter end of student ID range: DOING FOR mcb
+NEnter start of student ID range: Enter end of student ID range: DOING FOR ee
+aEnter start of student ID range: Enter end of student ID range: CSV file generated successfully
+2Connected to the PostgreSQL server successfully.
+“=================================================================================================================================================
+“Enter 1. Student Login|| 2. Instructor Login || 3. Academic Office Login || 4. See current event and move to the next event || 5. to say goodbye 
+VWelcome Student! Enter your student ID or press q to go back to select role screen: 
+“=================================================================================================================================================
+“Enter 1. Student Login|| 2. Instructor Login || 3. Academic Office Login || 4. See current event and move to the next event || 5. to say goodbye 
+VWelcome Student! Enter your student ID or press q to go back to select role screen: 
+dYour Password: Invalid email or password! Enter your id again or enter q to go back to role screen
+“=================================================================================================================================================
+“Enter 1. Student Login|| 2. Instructor Login || 3. Academic Office Login || 4. See current event and move to the next event || 5. to say goodbye 
+“=================================================================================================================================================
+“Enter 1. Student Login|| 2. Instructor Login || 3. Academic Office Login || 4. See current event and move to the next event || 5. to say goodbye 
+\Welcome Instructor! Enter your Instructor ID or press q to go back to select role screen: 
+“=================================================================================================================================================
+“Enter 1. Student Login|| 2. Instructor Login || 3. Academic Office Login || 4. See current event and move to the next event || 5. to say goodbye 
+\Welcome Instructor! Enter your Instructor ID or press q to go back to select role screen: 
+dYour Password: Invalid email or password! Enter your id again or enter q to go back to role screen
+“=================================================================================================================================================
+“Enter 1. Student Login|| 2. Instructor Login || 3. Academic Office Login || 4. See current event and move to the next event || 5. to say goodbye 
+2Connected to the PostgreSQL server successfully.
+“=================================================================================================================================================
+“Enter 1. Student Login|| 2. Instructor Login || 3. Academic Office Login || 4. See current event and move to the next event || 5. to say goodbye 
+poooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+.YEAR:2020 TERM:S EVENT:autoEnroll_chooseElec
+G1 for YES and forward event ||  OTHER for NO and go back to dashboard
+poooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+“=================================================================================================================================================
+“Enter 1. Student Login|| 2. Instructor Login || 3. Academic Office Login || 4. See current event and move to the next event || 5. to say goodbye 
+2Connected to the PostgreSQL server successfully.
+“=================================================================================================================================================
+“Enter 1. Student Login|| 2. Instructor Login || 3. Academic Office Login || 4. See current event and move to the next event || 5. to say goodbye 
+\Welcome Instructor! Enter your Instructor ID or press q to go back to select role screen: 
+dYour Password: Invalid email or password! Enter your id again or enter q to go back to role screen
+7Your Password: Login successful! Welcome instructor1!
+Ž============================================================================================================================================
+Ž1. To see grades of a student. 2. Update personal info. 3. Offer a course 4. Upload grades for a course 5. Approve credit requests 6. Logout
+<Enter the ID of the student whose grades you want to view:
+&+--------+----------+-------+------+
+&| Course | Academic | Grade | Type |
+&| ID     | Session  |       |      |
+&+--------+----------+-------+------+
+&| GE102  | 2020W    | A     | gr   |
+&+--------+----------+-------+------+
+&| GE104  | 2020W    | A     | gr   |
+&+--------+----------+-------+------+
+&| HS101  | 2020W    | F     | hc   |
+&+--------+----------+-------+------+
+&| HS103  | 2020W    | A     | hc   |
+&+--------+----------+-------+------+
+&| MA101  | 2020W    | A     | sc   |
+&+--------+----------+-------+------+
+&| PH101  | 2020W    | A     | sc   |
+&+--------+----------+-------+------+
+&| PH102  | 2020W    | A     | sc   |
+&+--------+----------+-------+------+
+&| MA102  | 2020S    |       | sc   |
+&+--------+----------+-------+------+
+&| CY101  | 2020S    |       | sc   |
+&+--------+----------+-------+------+
+&| GE103  | 2020S    |       | gr   |
+&+--------+----------+-------+------+
+&| GE105  | 2020S    |       | gr   |
+&+--------+----------+-------+------+
+&| GE101  | 2020S    |       | gr   |
+&+--------+----------+-------+------+
+&| CS101  | 2020S    |       | pc   |
+&+--------+----------+-------+------+
+&| CS301  | 2020S    |       | pc   |
+&+--------+----------+-------+------+
+&| CP301  | 2020W    | A     | cp   |
+&+--------+----------+-------+------+
+&| CS302  | 2020W    | A     | pc   |
+&+--------+----------+-------+------+
+&| CS332  | 2020W    | A     | pe   |
+&+--------+----------+-------+------+
+Semester 1: 9.433962264150944
+CGPA: 10.0
+Ž============================================================================================================================================
+Ž1. To see grades of a student. 2. Update personal info. 3. Offer a course 4. Upload grades for a course 5. Approve credit requests 6. Logout
+SSelect 1. To change contact number 2. To change password. 3. To go back dashboard
+Ž============================================================================================================================================
+Ž1. To see grades of a student. 2. Update personal info. 3. Offer a course 4. Upload grades for a course 5. Approve credit requests 6. Logout
+NCourse floating period is over, can not float courses until next semester :O
+Ž============================================================================================================================================
+Ž1. To see grades of a student. 2. Update personal info. 3. Offer a course 4. Upload grades for a course 5. Approve credit requests 6. Logout
+NCourse floating period is over, can not float courses until next semester :O
+DEnter the file containing grades for this semester or q to leave: 
+Ž============================================================================================================================================
+Ž1. To see grades of a student. 2. Update personal info. 3. Offer a course 4. Upload grades for a course 5. Approve credit requests 6. Logout
+bSelect 1. To view requests 2. To approve all pending 3. Approve invidiually 4. Back to Dashboard
+Ž============================================================================================================================================
+Ž1. To see grades of a student. 2. Update personal info. 3. Offer a course 4. Upload grades for a course 5. Approve credit requests 6. Logout
+“=================================================================================================================================================
+“Enter 1. Student Login|| 2. Instructor Login || 3. Academic Office Login || 4. See current event and move to the next event || 5. to say goodbye 
+2Connected to the PostgreSQL server successfully.
+2Connected to the PostgreSQL server successfully.
+“=================================================================================================================================================
+“Enter 1. Student Login|| 2. Instructor Login || 3. Academic Office Login || 4. See current event and move to the next event || 5. to say goodbye 
+dWelcome Academic Office! Enter the password to login or press q to go back to select role screen: 
+£wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+Ÿ1. To register new students. 2. Register instructors 3. Update course catalog 4. View grades of a student 5. Generate Transcript 6. To go back to role select
+NRegistration period is over, can not register students for year 2020 anymore
+£wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+Ÿ1. To register new students. 2. Register instructors 3. Update course catalog 4. View grades of a student 5. Generate Transcript 6. To go back to role select
+QRegistration period is over, can not register instructors for year 2020 anymore
+£wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+Ÿ1. To register new students. 2. Register instructors 3. Update course catalog 4. View grades of a student 5. Generate Transcript 6. To go back to role select
+MCatalog update period is over, can not update course catalog at the moment.
+£wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+Ÿ1. To register new students. 2. Register instructors 3. Update course catalog 4. View grades of a student 5. Generate Transcript 6. To go back to role select
+<Enter the ID of the student whose grades you want to view:
+&+--------+----------+-------+------+
+&| Course | Academic | Grade | Type |
+&| ID     | Session  |       |      |
+&+--------+----------+-------+------+
+&| GE102  | 2020W    | A     | gr   |
+&+--------+----------+-------+------+
+&| GE104  | 2020W    | A     | gr   |
+&+--------+----------+-------+------+
+&| HS101  | 2020W    | F     | hc   |
+&+--------+----------+-------+------+
+&| HS103  | 2020W    | A     | hc   |
+&+--------+----------+-------+------+
+&| MA101  | 2020W    | A     | sc   |
+&+--------+----------+-------+------+
+&| PH101  | 2020W    | A     | sc   |
+&+--------+----------+-------+------+
+&| PH102  | 2020W    | A     | sc   |
+&+--------+----------+-------+------+
+&| MA102  | 2020S    |       | sc   |
+&+--------+----------+-------+------+
+&| CY101  | 2020S    |       | sc   |
+&+--------+----------+-------+------+
+&| GE103  | 2020S    |       | gr   |
+&+--------+----------+-------+------+
+&| GE105  | 2020S    |       | gr   |
+&+--------+----------+-------+------+
+&| GE101  | 2020S    |       | gr   |
+&+--------+----------+-------+------+
+&| CS101  | 2020S    |       | pc   |
+&+--------+----------+-------+------+
+&| CS301  | 2020S    |       | pc   |
+&+--------+----------+-------+------+
+&| CP301  | 2020W    | A     | cp   |
+&+--------+----------+-------+------+
+&| CS302  | 2020W    | A     | pc   |
+&+--------+----------+-------+------+
+&| CS332  | 2020W    | A     | pe   |
+&+--------+----------+-------+------+
+Semester 1: 9.433962264150944
+CGPA: 10.0
+£wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+Ÿ1. To register new students. 2. Register instructors 3. Update course catalog 4. View grades of a student 5. Generate Transcript 6. To go back to role select
+Enter the student ID: 
+£wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+Ÿ1. To register new students. 2. Register instructors 3. Update course catalog 4. View grades of a student 5. Generate Transcript 6. To go back to role select
+“=================================================================================================================================================
+“Enter 1. Student Login|| 2. Instructor Login || 3. Academic Office Login || 4. See current event and move to the next event || 5. to say goodbye 
+ 2Connected to the PostgreSQL server successfully.
+ SSelect 1. To change contact number 2. To change password. 3. To go back dashboard
+  Enter the new contact number: 
+ ok
+ SSelect 1. To change contact number 2. To change password. 3. To go back dashboard
+ Choose your new password: 
+ SSelect 1. To change contact number 2. To change password. 3. To go back dashboard
+ !2Connected to the PostgreSQL server successfully.
+ !Needed PC: 41.0
+ !Needed PE: 7.0
+ !Needed CP: 9.0
+ !Needed GR: 89.5
+ !
+ !Your PC: 3.0
+ !Your PE: 3.0
+ !Your CP: 3.0
+ !Your GR: 16.0
+ !Not eligible for graduation
+ "2Connected to the PostgreSQL server successfully.
+ "gSelect 1. To view the Offered Courses for this semester 2. To credit a course 3. To go back dashboard
+ ""+--------+------------+--------+
+ ""| Course | Instructor | CGPA   |
+ ""| ID     | ID         | cutoff |
+ ""+--------+------------+--------+
+ ""| CS301  | CSE0002    | 0      |
+ ""+--------+------------+--------+
+ ""| CS304  | CSE0001    | 10     |
+ ""+--------+------------+--------+
+ ""| CS332  | CSE0001    | 0      |
+ ""+--------+------------+--------+
+ ""| BM101  | CSE0001    | 0      |
+ ""+--------+------------+--------+
+ ""| GE102  | CSE0001    | 0      |
+ ""+--------+------------+--------+
+ "gSelect 1. To view the Offered Courses for this semester 2. To credit a course 3. To go back dashboard
+ ";Enter the course code or enter q to return to dashboard: 
+ "Request exists already.
+ ";Enter the course code or enter q to return to dashboard: 
+ "9Already enrolled for this course in previous semesters!
+ ";Enter the course code or enter q to return to dashboard: 
+ "4Already enrolled for this course in this semester!
+ ";Enter the course code or enter q to return to dashboard: 
+ #2Connected to the PostgreSQL server successfully.
+ #.Login successful! Welcome Kulasekhara Nayak!
+ $2Connected to the PostgreSQL server successfully.
+ $&+--------+----------+-------+------+
+ $&| Course | Academic | Grade | Type |
+ $&| ID     | Session  |       |      |
+ $&+--------+----------+-------+------+
+ $&| GE102  | 2020W    | A     | gr   |
+ $&+--------+----------+-------+------+
+ $&| GE104  | 2020W    | A     | gr   |
+ $&+--------+----------+-------+------+
+ $&| HS101  | 2020W    | F     | hc   |
+ $&+--------+----------+-------+------+
+ $&| HS103  | 2020W    | A     | hc   |
+ $&+--------+----------+-------+------+
+ $&| MA101  | 2020W    | A     | sc   |
+ $&+--------+----------+-------+------+
+ $&| PH101  | 2020W    | A     | sc   |
+ $&+--------+----------+-------+------+
+ $&| PH102  | 2020W    | A     | sc   |
+ $&+--------+----------+-------+------+
+ $&| MA102  | 2020S    |       | sc   |
+ $&+--------+----------+-------+------+
+ $&| CY101  | 2020S    |       | sc   |
+ $&+--------+----------+-------+------+
+ $&| GE103  | 2020S    |       | gr   |
+ $&+--------+----------+-------+------+
+ $&| GE105  | 2020S    |       | gr   |
+ $&+--------+----------+-------+------+
+ $&| GE101  | 2020S    |       | gr   |
+ $&+--------+----------+-------+------+
+ $&| CS101  | 2020S    |       | pc   |
+ $&+--------+----------+-------+------+
+ $&| CS301  | 2020S    |       | pc   |
+ $&+--------+----------+-------+------+
+ $&| CP301  | 2020W    | A     | cp   |
+ $&+--------+----------+-------+------+
+ $&| CS302  | 2020W    | A     | pc   |
+ $&+--------+----------+-------+------+
+ $&| CS332  | 2020W    | A     | pe   |
+ $&+--------+----------+-------+------+
+ $Semester 1: 9.433962264150944
+ $CGPA: 10.0

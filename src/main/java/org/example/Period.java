@@ -71,7 +71,7 @@ public class Period {
                     pstmt.setString(5, "W");
                     pstmt.setString(6, subPeriods[5]);
                 }
-                PreparedStatement pstmt2 = connection.prepareStatement("DELETE FROM exampletable");//Course approval pending requests were cleared for previous semester
+                PreparedStatement pstmt2 = connection.prepareStatement("DELETE FROM coursesapproval");//Course approval pending requests were cleared for previous semester
                 int rowsDeleted = pstmt2.executeUpdate();
                 if (rowsDeleted > 0) {
                     System.out.println("Course approval pending requests were cleared for previous semester");
@@ -122,7 +122,7 @@ public class Period {
                  ResultSet type = pstmt2.executeQuery();
                  if(type.next()){courseType = type.getString(yearBranch.substring(4,7));}
 
-                 PreparedStatement pstmt3 = connection.prepareStatement("Insert into coursestaken (courseid , studentid , periodtaken , grade ,type) values(?,?,?,?,?)");
+                 PreparedStatement pstmt3 = connection.prepareStatement("Insert into coursestaken (courseid , studentid , periodtaken , grade ,type) values(?,?,?,?,?) on conflict(courseid , studentid , periodtaken) do nothing ");
                  pstmt3.setString(1,course);
                  pstmt3.setString(2,studid);
                  pstmt3.setString(3,pte);

@@ -23,31 +23,35 @@ public class dbFunctions {
         return cnct;
     }
 
+    public static void createTables(Connection connection) throws SQLException {
+        String query = "";
+
+        try {
+            File file = new File("./src/main/java/org/example/dbconnect/random.sql");
+            Scanner scan = new Scanner(file);
+            while (scan.hasNextLine()) {
+                query = query.concat(scan.nextLine() + " ");
+            }
+            scan.close();
+        } catch (IOException e) {
+            System.out.print(e.getLocalizedMessage());
+        }
+        Statement stmt = connection.createStatement();
+        stmt.execute(query);
+        stmt.close();
+    }
+
     public static void main(String[] args) {
         dbFunctions db= new dbFunctions();
         Connection connection = null;
 
         try {
             connection = db.connect_to_db();
-            String query = "";
-
-            try {
-                File file = new File("./src/main/java/org/example/dbconnect/random.sql");
-                Scanner scan = new Scanner(file);
-                while (scan.hasNextLine()) {
-                    query = query.concat(scan.nextLine() + " ");
-                }
-                scan.close();
-            } catch (IOException e) {
-                System.out.print(e.getLocalizedMessage());
-            }
-            Statement stmt = connection.createStatement();
-            stmt.execute(query);
-            stmt.close();
+            dbFunctions.createTables(connection);
 
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
         } finally {
             try {
                 assert connection != null;

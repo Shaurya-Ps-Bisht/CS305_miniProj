@@ -14,8 +14,7 @@ public class academicOffice {
 //    }
 
 
-    public static String acadLogin(){
-        Scanner scanner = new Scanner(System.in);
+    public static String acadLogin(Scanner scanner){
         System.out.println("Welcome Academic Office! Enter the password to login or press q to go back to select role screen: ");
 
         do {
@@ -64,8 +63,7 @@ public class academicOffice {
         }
         if(success==0){System.out.println("Succesfully added entries from "+ fileName+"\n");}
     }
-    public static void addInstructors(Connection connection){
-        Scanner scanner = new Scanner(System.in);
+    public static void addInstructors(Connection connection, Scanner scanner){
         int success = 0;
         System.out.println("Enter the name of the input file to register instructors: ");
         String fileName = scanner.next();
@@ -97,8 +95,7 @@ public class academicOffice {
         }
         if(success==0){System.out.println("Succesfully added entries from "+ fileName);}
     }
-    public static void changeCatalog(Connection connection){
-        Scanner scanner = new Scanner(System.in);
+    public static void changeCatalog(Connection connection, Scanner scanner){
         int success=0;
         System.out.println("Enter the name of the input file for course catalog: ");
         String fileName = scanner.next();
@@ -253,12 +250,90 @@ public class academicOffice {
 //    WHERE SUBSTRING(student_id, 1, 4) = '2020' AND
 //    SUBSTRING(student_id, 5, 3) IN ('csb', 'ee');
 
-    public static void generateTranscript(){
+    public static void generateTranscript(Connection connection, Scanner scanner, String studentID) throws IOException, SQLException {
+        Map<String, Double> gradeToPoint = new HashMap<>();
+        gradeToPoint.put("A", 10.0);
+        gradeToPoint.put("A-", 9.0);
+        gradeToPoint.put("B", 8.0);
+        gradeToPoint.put("B-", 7.0);
+        gradeToPoint.put("C", 6.0);
+        gradeToPoint.put("C-", 5.0);
+        gradeToPoint.put("D", 4.0);
+        gradeToPoint.put("E", 2.0);
+        gradeToPoint.put("F", 0.0);
+
+        FileWriter writer = new FileWriter("./src/main/java/org/example/dataFiles/transcripts/"+studentID+"_transcript.txt");
+        PreparedStatement pstmt = connection.prepareStatement("SELECT studentname FROM students WHERE studentid = ?");
+        pstmt.setString(1, studentID);
+        ResultSet rs = pstmt.executeQuery();
+        if(rs.next()){
+            writer.write("StudentID: "+studentID+"\n");
+            writer.write("Name: "+ rs.getString("studentname")+"\n");
+            writer.write("Phone Number: "+"contactno"+"\n");
+        }
+        writer.write("\n");
+
+        int semsPassed =Utilities.semesterDifference(studentID.substring(0,4)+"W" ,Utilities.yearTermFinder(connection));
+        double credsEarned=0;
+        double cumilativePoints=0;
+
+        if(semsPassed>0){
+            for(int i =0; i<semsPassed; i++){
+                writer.write("Semester " + (i+1)+"\n");
+
+
+                double credsReg=0;
+                double pointsSecured=0;
+
+                String baseYear  = studentID.substring(0,4);
+                int intBaseYear = Integer.parseInt(baseYear);
+                int intCurrentYear = intBaseYear+ (semsPassed/2);
+                String currentYearTerm ="";
+
+                if(i%2==1){
+                    currentYearTerm = intCurrentYear+ "S";
+                }
+                else{
+                    currentYearTerm = intCurrentYear+ "W";
+                }
+
+                PreparedStatement pstmt3 = connection.prepareStatement("select * from coursestaken where studentid=? and periodtaken=?");
+                pstmt3.setString(1,studentID);
+                pstmt3.setString(2,currentYearTerm);
+                ResultSet rs3 = pstmt3.executeQuery();
+
+
+                while(rs3.next()){
+                    String courseID = rs3.getString("courseid");
+                    String grade = rs3.getString("grade");
+                    writer.write("Course ID: "+ courseID + " Grade: "+ grade+"\n");
+                    double creds;
+                    PreparedStatement getCred = connection.prepareStatement("select * from coursecatalog where courseid=?");
+                    getCred.setString(1,courseID);
+                    ResultSet credRes = getCred.executeQuery();
+                    if(credRes.next()){
+                        creds = credRes.getDouble("creds");
+                        credsReg = credsReg + creds;
+                        pointsSecured = pointsSecured + (creds*gradeToPoint.getOrDefault(grade, 0.0));
+                        if(gradeToPoint.getOrDefault(grade, 0.0)>2.0){
+                            credsEarned = credsEarned+ creds;
+                            cumilativePoints = cumilativePoints + (creds*gradeToPoint.getOrDefault(grade, 0.0));
+                        }
+                    }
+                }
+                writer.write(" SGPA: "+ pointsSecured/credsReg+"\n");
+            }
+            writer.write("\n\nCGPA: "+cumilativePoints/credsEarned+"\n");
+            writer.close();
+            rs.close();
+            pstmt.close();
+        }
+
 
     }
-    public void viewGrades(Connection connection,Scanner scanner) throws SQLException {
+    public static void viewGrades(Connection connection,Scanner scanner) throws SQLException {
         System.out.println("Enter the ID of the student whose grades you want to view:");
         String studentid = scanner.next();
-        student.viewGrades(connection,scanner, studentid);
+        student.viewGrades(connection, studentid,false);
     }
 }

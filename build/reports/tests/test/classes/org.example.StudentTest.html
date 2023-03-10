@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - StudentTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>StudentTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/org.example.html">org.example</a> &gt; StudentTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">5</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.208s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">Login()</td>
+<td class="success">0.043s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">changeInfo()</td>
+<td class="success">0.039s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">enrollCheck()</td>
+<td class="success">0.041s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">graduationTest()</td>
+<td class="success">0.037s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">viewGrades()</td>
+<td class="success">0.048s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>Connected to the PostgreSQL server successfully.
+Select 1. To change contact number 2. To change password. 3. To go back dashboard
+Enter the new contact number: 
+ok
+Select 1. To change contact number 2. To change password. 3. To go back dashboard
+Choose your new password: 
+Select 1. To change contact number 2. To change password. 3. To go back dashboard
+Connected to the PostgreSQL server successfully.
+Needed PC: 41.0
+Needed PE: 7.0
+Needed CP: 9.0
+Needed GR: 89.5
+
+Your PC: 3.0
+Your PE: 3.0
+Your CP: 3.0
+Your GR: 16.0
+Not eligible for graduation
+Connected to the PostgreSQL server successfully.
+Select 1. To view the Offered Courses for this semester 2. To credit a course 3. To go back dashboard
++--------+------------+--------+
+| Course | Instructor | CGPA   |
+| ID     | ID         | cutoff |
++--------+------------+--------+
+| CS301  | CSE0002    | 0      |
++--------+------------+--------+
+| CS304  | CSE0001    | 10     |
++--------+------------+--------+
+| CS332  | CSE0001    | 0      |
++--------+------------+--------+
+| BM101  | CSE0001    | 0      |
++--------+------------+--------+
+| GE102  | CSE0001    | 0      |
++--------+------------+--------+
+Select 1. To view the Offered Courses for this semester 2. To credit a course 3. To go back dashboard
+Enter the course code or enter q to return to dashboard: 
+Request exists already.
+Enter the course code or enter q to return to dashboard: 
+Already enrolled for this course in previous semesters!
+Enter the course code or enter q to return to dashboard: 
+Already enrolled for this course in this semester!
+Enter the course code or enter q to return to dashboard: 
+Connected to the PostgreSQL server successfully.
+Login successful! Welcome Kulasekhara Nayak!
+Connected to the PostgreSQL server successfully.
++--------+----------+-------+------+
+| Course | Academic | Grade | Type |
+| ID     | Session  |       |      |
++--------+----------+-------+------+
+| GE102  | 2020W    | A     | gr   |
++--------+----------+-------+------+
+| GE104  | 2020W    | A     | gr   |
++--------+----------+-------+------+
+| HS101  | 2020W    | F     | hc   |
++--------+----------+-------+------+
+| HS103  | 2020W    | A     | hc   |
++--------+----------+-------+------+
+| MA101  | 2020W    | A     | sc   |
++--------+----------+-------+------+
+| PH101  | 2020W    | A     | sc   |
++--------+----------+-------+------+
+| PH102  | 2020W    | A     | sc   |
++--------+----------+-------+------+
+| MA102  | 2020S    |       | sc   |
++--------+----------+-------+------+
+| CY101  | 2020S    |       | sc   |
++--------+----------+-------+------+
+| GE103  | 2020S    |       | gr   |
++--------+----------+-------+------+
+| GE105  | 2020S    |       | gr   |
++--------+----------+-------+------+
+| GE101  | 2020S    |       | gr   |
++--------+----------+-------+------+
+| CS101  | 2020S    |       | pc   |
++--------+----------+-------+------+
+| CS301  | 2020S    |       | pc   |
++--------+----------+-------+------+
+| CP301  | 2020W    | A     | cp   |
++--------+----------+-------+------+
+| CS302  | 2020W    | A     | pc   |
++--------+----------+-------+------+
+| CS332  | 2020W    | A     | pe   |
++--------+----------+-------+------+
+Semester 1: 9.433962264150944
+CGPA: 10.0
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 7.5.1</a> at 09-Mar-2023, 11:48:14 pm</p>
+</div>
+</div>
+</body>
+</html>
